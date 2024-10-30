@@ -1,24 +1,58 @@
-# Logs
-logs
+# 忽略所有 .log 文件
 *.log
+
+# 忽略 node_modules 目录
+/node_modules
+
+# 忽略构建输出目录
+/dist
+/build
+
+# 忽略环境变量文件
+.env.local
+.env.*.local
+
+# 忽略 IDE 或编辑器生成的文件
+/.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# 忽略 Visual Studio Code 的缓存
+.vscode-server
+
+# 忽略 npm 缓存文件
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# 忽略 pnpm store v3 文件
+.pnpm-store
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# 忽略测试覆盖率报告
+coverage
+
+# 忽略 jest 配置缓存
+.cache
+
+# 忽略 ESLint 缓存
+.eslintcache
+
+# 忽略 TypeScript 编译输出
+**/*.js
+**/*.d.ts
+!src/**/*.d.ts
+!types/**/*.d.ts
+
+# 忽略 Babel 缓存
+.babelrc.js
+.babel-cache
+
+# 忽略其他工具的配置或缓存
+.cache
+*.lock
+*.swp
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db

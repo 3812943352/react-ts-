@@ -1,35 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/*
+ * @Author: wb
+ * @Date: 2024-10-28 14:23:24
+ * @LastEditors: wb
+ * @LastEditTime: 2024-10-29 09:49:45
+ * @FilePath: \demo\src\App.tsx
+ * @Description: 请填写简介
+ */
+// import { useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  //   const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  return <div className="App">顶级组件</div>;
 }
 
-export default App
+export default App;
