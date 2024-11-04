@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wb
- * @LastEditTime: 2024-10-28 16:30:47
+ * @LastEditTime: 2024-10-31 10:02:33
  * @FilePath: \demo\tsconfig.json
  * @Description: 请填写简介
  */
@@ -19,7 +19,14 @@
     "compilerOptions": {
         "module": "es6",
         "target": "ES2021",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
         // 其他选项...
     }
 }

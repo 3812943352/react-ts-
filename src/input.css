@@ -1,0 +1,22 @@
+/*
+ * @Author: wb
+ * @Date: 2024-10-30 10:04:50
+ * @LastEditors: wb
+ * @LastEditTime: 2024-10-30 17:23:48
+ * @FilePath: \demo\src\input.css
+ * @Description: 请填写简介
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: rgba(255, 255, 255, 1);
+}
+
+img {
+  -webkit-user-drag: none;
+}
+body {
+  background-color: var(--color-bg);
+}

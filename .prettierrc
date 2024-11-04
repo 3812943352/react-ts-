@@ -18,5 +18,5 @@
   "endOfLine": "lf",
   "embeddedLanguageFormatting": "auto",
   "singleAttributePerLine": false,
-  "plugins": []
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
