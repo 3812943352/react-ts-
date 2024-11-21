@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Websocket Demo</title>
+  </head>
+  <body>
+    <div id="output"></div>
+    <input type="text" id="input" />
+    <button onclick="sendMessage()">Send</button>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script>
+      const sock = new SockJS("http://127.0.0.1:9083/data");
+
+    </script>
+  </body>
+</html>

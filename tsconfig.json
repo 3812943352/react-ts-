@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wb
- * @LastEditTime: 2024-10-31 10:02:33
+ * @LastEditTime: 2024-11-05 09:38:55
  * @FilePath: \demo\tsconfig.json
  * @Description: 请填写简介
  */
@@ -22,6 +22,10 @@
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
         "baseUrl": "./",
+        "types": [
+            "node",
+            "three"
+        ],
         "paths": {
             "@/*": [
                 "src/*"

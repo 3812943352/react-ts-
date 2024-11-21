@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wb
- * @LastEditTime: 2024-10-31 09:54:38
+ * @LastEditTime: 2024-11-04 10:47:50
  * @FilePath: \demo\vite.config.ts
  * @Description: 请填写简介
  */
@@ -20,7 +20,20 @@ export default defineConfig({
       overrideConfigFile: "./.eslintrc.js", // 指定配置文件的路径
     }),
   ],
+  //   esbuild: {
+  //     drop: ["console", "debugger"],
+  //   },
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === "CIRCULAR_DEPENDENCY") return;
+        warn(warning);
+      },
+    },
+  },
   optimizeDeps: {
+    include: ["sockjs-client"],
+
     esbuildOptions: {
       loader: {
         ".json": "json",

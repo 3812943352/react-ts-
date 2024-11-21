@@ -12,18 +12,21 @@ import "@/input.css";
 // import Comp2 from "@/commponents/Comp2/index";
 // import { Button } from "antd";
 // import { UpOutlined } from "@ant-design/icons";
-import { useRoutes, Link } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import router from "./router";
 const App: React.FC = () => {
   //   //   const [count, setCount] = useState(0)
-  console.log(import.meta.env.VITE_APP_ENV);
   const outlet = useRoutes(router);
+
   return (
     <div className="App select-none bg-white">
-      {/* <button className="w-full rounded bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600">
+      {/* <button
+
+        className="w-full rounded bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600"
+      >
         点击
-      </button>
-      <Button type="primary">按钮</Button>
+      </button> */}
+      {/* <Button type="primary">按钮</Button>
       <Comp1 />
       <Comp2 />
       <UpOutlined style={{ fontSize: "20px", color: "red" }} /> */}

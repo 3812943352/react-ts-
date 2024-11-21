@@ -1,13 +1,11 @@
-/*
- * @Author: wb
- * @Date: 2024-11-04 09:16:08
- * @LastEditors: wb
- * @LastEditTime: 2024-11-04 09:16:22
- * @FilePath: \demo\src\views\Page1\index.tsx
- * @Description: 请填写简介
- */
+// import React, { useEffect, useState } from "react";
+
 const View: React.FC = () => {
-  return <div className="bg-emerald-400">Page1</div>;
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Page1</h1>
+    </div>
+  );
 };
 
 export default View;
