@@ -2,19 +2,26 @@
  * @Author: wb
  * @Date: 2024-11-20 21:50:45
  * @LastEditors: wb
- * @LastEditTime: 2024-11-20 21:50:50
+ * @LastEditTime: 2024-11-21 10:02:05
  * @FilePath: \demo\src\types\user.ts
  * @Description: 请填写简介
  */
 // src/types/user.ts
-export interface loginDataType {
-  username: string;
-  password: string;
+interface UserEntity {
+  ID?: number;
+  phone: string;
+  pwd?: string;
+  role?: number;
+  auth?: number;
+  created?: number;
+  lastLogin?: number;
 }
-
-export interface userInfoType {
-  id: number;
-  username: string;
-  email: string;
-  // 其他用户信息字段
+export interface registerDataType {
+  data: {
+    captcha: string;
+  };
+  UserEntity: UserEntity;
+}
+export interface loginDataType {
+  data: { phone: number; smsCode: string };
 }

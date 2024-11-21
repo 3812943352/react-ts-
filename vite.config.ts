@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wb
- * @LastEditTime: 2024-11-04 10:47:50
+ * @LastEditTime: 2024-11-21 09:34:31
  * @FilePath: \demo\vite.config.ts
  * @Description: 请填写简介
  */
@@ -10,8 +10,18 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import viteEslint from "vite-plugin-eslint2";
 import path from "path";
+import { env } from "process";
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      "/api": {
+        target: import.meta.env.VITE_API_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""), // 路径重写 不要api的意思
+      },
+    },
+  },
   plugins: [
     react(),
     viteEslint({

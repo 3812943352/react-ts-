@@ -2,8 +2,8 @@
  * @Author: wb
  * @Date: 2024-11-20 19:58:34
  * @LastEditors: wb
- * @LastEditTime: 2024-11-20 21:40:09
- * @FilePath: \demo\src\utils\axios.tsx
+ * @LastEditTime: 2024-11-21 10:36:18
+ * @FilePath: \demo\src\utils\request.tsx
  * @Description: 请填写简介
  */
 import axios, {
@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { error } from "console";
+import { selectToken } from "@/store/user";
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -23,9 +24,11 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = useSelector(
-      (state: { token: string | null }) => state.token,
-    );
+    const token = useSelector(selectToken);
+
+    // useSelector(
+    //   (state: { token: string | null }) => state.token,
+    // );
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

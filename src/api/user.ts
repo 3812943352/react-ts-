@@ -2,18 +2,17 @@
  * @Author: wb
  * @Date: 2024-11-20 21:49:38
  * @LastEditors: wb
- * @LastEditTime: 2024-11-20 21:49:43
+ * @LastEditTime: 2024-11-21 10:07:14
  * @FilePath: \demo\src\api\user.ts
  * @Description: 请填写简介
  */
-import { loginDataType, userInfoType } from "@/types/user";
+import { loginDataType } from "@/types/user";
 import http from "@/utils/request";
 
 // api接口 - 此处用了统一保存接口url路径
 const api = {
   login: "/api/user/login", // 用户登录接口
   register: "/api/user/register", // 用户注册接口
-  userInfo: "/api/user/get_userinfo", // 用户信息
 };
 
 /**
@@ -31,13 +30,17 @@ export function postLoginAPI(data: loginDataType) {
  * @return 注册结果
  */
 export function postRegisterAPI(data: loginDataType) {
-  return http.post(api.register, data);
+  return http.post(api.register, data, {
+    headers: {
+      "captcha-key": "",
+    },
+  });
 }
 
 /**
  * @description: 获取用户信息
  * @return 用户信息
  */
-export function getUserInfoAPI() {
-  return http.get<userInfoType>(api.userInfo);
-}
+// export function getUserInfoAPI() {
+//   return http.get<userInfoType>(api.userInfo);
+// }

@@ -1,18 +1,20 @@
 /*
  * @Author: wb
- * @Date: 2024-11-20 20:01:07
+ * @Date: 2024-11-21 10:40:44
  * @LastEditors: wb
- * @LastEditTime: 2024-11-20 20:28:23
+ * @LastEditTime: 2024-11-21 10:40:44
  * @FilePath: \demo\src\store\user.tsx
  * @Description: 请填写简介
  */
-import { configureStore } from "@reduxjs/toolkit";
-import tokenReducer from "./user/reducer";
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from './user/selector';
 
-const store = configureStore({
-  reducer: {
-    token: tokenReducer,
-  },
-});
+export const selectToken = createSelector(
+  (state: RootState) => state.token,
+  (token) => token
+);
 
-export default store;
+export const selectCacheKey = createSelector(
+  (state: RootState) => state.cacheKey,
+  (cacheKey) => cacheKey
+);

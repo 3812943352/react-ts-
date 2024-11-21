@@ -73,13 +73,13 @@ const post = <T>(
  * @param {AxiosRequestConfig} config 请求配置
  * @return {Promise<CustomSuccessData<T>>} 返回的接口数据
  */
-const patch = <T>(
+const update = <T>(
   url: string,
   data?: string | object,
   config?: AxiosRequestConfig
 ): Promise<CustomSuccessData<T>> => {
   config = {
-    method: 'patch',
+    method: 'update',
     url,
     ...config,
   };
@@ -116,7 +116,7 @@ const remove = <T>(
 const ax = {
   get,
   post,
-  patch,
+  update,
   remove,
 };
 
