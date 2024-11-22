@@ -2,16 +2,20 @@
  * @Author: wb
  * @Date: 2024-11-20 10:22:50
  * @LastEditors: wb
- * @LastEditTime: 2024-11-20 19:31:54
- * @FilePath: \demo\src\views\login\index.tsx
+ * @LastEditTime: 2024-11-21 17:23:23
+ * @FilePath: src/views/login/index.tsx
  * @Description: 请填写简介
  */
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import fs from "./shaders/fs.glsl?raw";
 import vs from "./shaders/vs.glsl?raw";
 import useOnceClick from "@/commponents/clickonce";
 import AudioTexture from "./commponents/audioTexture";
+import "@/input.css";
+import LoginForm from "@/views/login/commponents/loginForm.tsx";
+import AnimatedText from "@/views/login/commponents/AnimatedText.tsx";
+
 const View: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scene = new THREE.Scene();
@@ -86,6 +90,7 @@ const View: React.FC = () => {
 
     renderer.render(scene, camera);
   }
+
   //   controls.enableDamping = true;
 
   function throttle<T extends (...args: any[]) => void>(
@@ -102,6 +107,7 @@ const View: React.FC = () => {
       }
     } as T;
   }
+
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.appendChild(renderer.domElement);
@@ -129,8 +135,26 @@ const View: React.FC = () => {
       />
       <div
         onClick={play}
-        className="absolute left-0 top-0 z-10 h-full w-full items-center justify-center bg-zinc-300/50 backdrop-blur-sm"
-      ></div>
+        className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-white/90 backdrop-blur-sm"
+      >
+        <div className="flex w-full flex-row flex-wrap">
+          <div className="hero relative mx-auto my-0 flex max-w-4xl flex-1 flex-shrink-0 px-0">
+            <div>
+              <AnimatedText />
+              <p className="mt-6 px-12 font-mono leading-8">
+                如果没有账号
+                <br />
+                <p className="cursor-pointer text-blue-700">
+                  点击这里注册
+                </p>
+              </p>
+            </div>
+            <div className="ml-auto">
+              <LoginForm />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

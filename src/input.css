@@ -2,8 +2,8 @@
  * @Author: wb
  * @Date: 2024-10-30 10:04:50
  * @LastEditors: wb
- * @LastEditTime: 2024-10-30 17:23:48
- * @FilePath: \demo\src\input.css
+ * @LastEditTime: 2024-11-21 17:57:25
+ * @FilePath: src/input.css
  * @Description: 请填写简介
  */
 @tailwind base;
@@ -11,12 +11,63 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: rgba(255, 255, 255, 1);
+    --color-bg: rgb(255 255 255 / 100%);
 }
 
 img {
-  -webkit-user-drag: none;
+    -webkit-user-drag: none;
 }
+
 body {
-  background-color: var(--color-bg);
+    background-color: var(--color-bg);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 0;
+    width: 380px;
+    height: 150px;
+    background: linear-gradient(to right, #4460f1, #c471ed, #f64f59);
+    z-index: -1;
+    filter: blur(70px);
+}
+
+.hero {
+    font-family: "等线 Light";
+    flex: 1 0 66.666%;
+    position: relative;
+    display: flex;
+    gap: 50px;
+    padding: 70px 0;
+}
+
+form input.submit:hover {
+    box-shadow: #4460f1 0 10px 30px -10px;
+}
+
+form input.submit {
+    font-weight: 700;
+    color: #fff;
+    background-color: #4460f1;
+    box-shadow: #4460f1 0 20px 30px -10px;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+}
+
+form input {
+    font: inherit;
+    font-size: 14px;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    padding: 0 20px;
+    line-height: 2.5rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.ant-form-item-control-input-content {
+    display: flex;
 }

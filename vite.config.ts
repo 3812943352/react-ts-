@@ -2,8 +2,8 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wb
- * @LastEditTime: 2024-11-21 09:34:31
- * @FilePath: \demo\vite.config.ts
+ * @LastEditTime: 2024-11-21 11:25:46
+ * @FilePath: vite.config.ts
  * @Description: 请填写简介
  */
 import { defineConfig } from "vite";
@@ -16,7 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: import.meta.env.VITE_API_URL,
+        target: env.VITE_API_URL,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""), // 路径重写 不要api的意思
       },
@@ -27,7 +27,7 @@ export default defineConfig({
     viteEslint({
       cache: false,
       cacheLocation: "./node_modules/.eslintcache",
-      overrideConfigFile: "./.eslintrc.js", // 指定配置文件的路径
+      overrideConfigFile: "./.eslintrc.mjs", // 指定配置文件的路径
     }),
   ],
   //   esbuild: {

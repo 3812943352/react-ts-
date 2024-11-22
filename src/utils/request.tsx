@@ -2,20 +2,16 @@
  * @Author: wb
  * @Date: 2024-11-20 19:58:34
  * @LastEditors: wb
- * @LastEditTime: 2024-11-21 10:36:18
- * @FilePath: \demo\src\utils\request.tsx
+ * @LastEditTime: 2024-11-21 11:30:41
+ * @FilePath: src/utils/request.tsx
  * @Description: 请填写简介
  */
-import axios, {
-  AxiosError,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
-import { error } from "console";
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import { useSelector } from "react-redux";
 import { selectToken } from "@/store/user";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { error } from "console";
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

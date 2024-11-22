@@ -2,8 +2,8 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wb
- * @LastEditTime: 2024-11-02 15:34:33
- * @FilePath: \demo\src\App.tsx
+ * @LastEditTime: 2024-11-21 11:26:28
+ * @FilePath: src/App.tsx
  * @Description: 请填写简介
  */
 // import { useState } from 'react'
@@ -14,6 +14,7 @@ import "@/input.css";
 // import { UpOutlined } from "@ant-design/icons";
 import { useRoutes } from "react-router-dom";
 import router from "./router";
+
 const App: React.FC = () => {
   //   //   const [count, setCount] = useState(0)
   const outlet = useRoutes(router);
