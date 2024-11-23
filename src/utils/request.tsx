@@ -7,26 +7,23 @@
  * @Description: 请填写简介
  */
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { useSelector } from "react-redux";
-import { selectToken } from "@/store/user";
+import { store } from "@/store/user/selector";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { error } from "console";
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10000,
 });
 
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = useSelector(selectToken);
+    const token = store.getState().token;
 
     // useSelector(
     //   (state: { token: string | null }) => state.token,
     // );
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers["token"] = token;
     }
     toast.info("获取配置...", {
       position: "top-right",
@@ -64,6 +61,7 @@ service.interceptors.response.use((response: AxiosResponse) => {
         autoClose: 3000,
         closeOnClick: false,
       });
+      return data;
     } else {
       toast.dismiss();
       for (let i = 0; i < data.messages.length; i++) {
@@ -73,29 +71,8 @@ service.interceptors.response.use((response: AxiosResponse) => {
           closeOnClick: false,
         });
       }
-      return Promise.reject(error);
+      return data;
     }
   }
-  (error: AxiosError) => {
-    const { response } = error;
-    if (JSON.stringify(error).includes("Network Error")) {
-      toast.error("网络连接异常", {
-        position: "top-right",
-        autoClose: 3000,
-        closeOnClick: false,
-      });
-    }
-    if (response) {
-      if (response.status !== 202) {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 3000,
-          closeOnClick: false,
-        });
-      }
-    }
-
-    return Promise.reject(error);
-  };
 });
 export default service;

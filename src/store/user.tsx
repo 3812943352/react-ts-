@@ -6,15 +6,15 @@
  * @FilePath: \demo\src\store\user.tsx
  * @Description: 请填写简介
  */
-import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from './user/selector';
+import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "./user/selector";
 
 export const selectToken = createSelector(
   (state: RootState) => state.token,
-  (token) => token
+  (token) => token,
 );
 
 export const selectCacheKey = createSelector(
   (state: RootState) => state.cacheKey,
-  (cacheKey) => cacheKey
+  (cacheKey) => cacheKey,
 );

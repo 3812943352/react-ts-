@@ -6,18 +6,14 @@
  * @FilePath: \demo\src\store\user\reducer.tsx
  * @Description: 请填写简介
  */
-import {
-  SET_TOKEN,
-  RESET_TOKEN,
-  SET_CATCH,
-  RESET_CATCH,
-} from "../../utils/actionTypes";
+import { RESET_TOKEN, SET_TOKEN } from "../../utils/actionTypes";
 
 interface TokenState {
   token: string | null;
 }
+
 interface catchKeyState {
-  catchKey: string | null;
+  catchKey: string | null | undefined;
 }
 
 const initialState: TokenState = {
@@ -41,26 +37,6 @@ const tokenReducer = (
       return {
         ...state,
         token: null,
-      };
-    default:
-      return state;
-  }
-};
-
-const catchReducer = (
-  state = catchKeyState,
-  action: { type: string; payload?: string },
-): catchKeyState => {
-  switch (action.type) {
-    case SET_CATCH:
-      return {
-        ...state,
-        catchKey: action.payload ?? null,
-      };
-    case RESET_CATCH:
-      return {
-        ...state,
-        catchKey: null,
       };
     default:
       return state;

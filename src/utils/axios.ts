@@ -6,8 +6,8 @@
  * @FilePath: \demo\src\utils\axios.tsx
  * @Description: 请填写简介
  */
-import request from './request';
-import { AxiosRequestConfig } from 'axios';
+import request from "./request";
+import { AxiosRequestConfig } from "axios";
 
 /**
  * 网络请求响应格式，T 是具体的接口返回类型数据
@@ -30,10 +30,10 @@ interface CustomSuccessData<T> {
 const get = <T>(
   url: string,
   params?: string | object,
-  config?: AxiosRequestConfig
+  config?: AxiosRequestConfig,
 ): Promise<CustomSuccessData<T>> => {
   config = {
-    method: 'get', // `method` 是创建请求时使用的方法
+    method: "get", // `method` 是创建请求时使用的方法
     url, // `url` 是用于请求的服务器 URL
     ...config,
   };
@@ -53,10 +53,10 @@ const get = <T>(
 const post = <T>(
   url: string,
   data?: string | object,
-  config?: AxiosRequestConfig
+  config?: AxiosRequestConfig,
 ): Promise<CustomSuccessData<T>> => {
   config = {
-    method: 'post',
+    method: "post",
     url,
     ...config,
   };
@@ -76,10 +76,10 @@ const post = <T>(
 const update = <T>(
   url: string,
   data?: string | object,
-  config?: AxiosRequestConfig
+  config?: AxiosRequestConfig,
 ): Promise<CustomSuccessData<T>> => {
   config = {
-    method: 'update',
+    method: "update",
     url,
     ...config,
   };
@@ -99,10 +99,10 @@ const update = <T>(
 const remove = <T>(
   url: string,
   params?: string | object,
-  config?: AxiosRequestConfig
+  config?: AxiosRequestConfig,
 ): Promise<CustomSuccessData<T>> => {
   config = {
-    method: 'delete',
+    method: "delete",
     url,
     ...config,
   };
@@ -113,11 +113,11 @@ const remove = <T>(
 };
 
 // 包裹请求方法的容器,使用 http 统一调用
-const ax = {
+const http = {
   get,
   post,
   update,
   remove,
 };
 
-export default ax;
+export default http;

@@ -7,7 +7,7 @@
 # 忽略构建输出目录
 /dist
 /build
-/envDir
+/envs
 # 忽略环境变量文件
 .env.local
 .env.*.local

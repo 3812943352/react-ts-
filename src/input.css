@@ -12,6 +12,7 @@
 
 :root {
     --color-bg: rgb(255 255 255 / 100%);
+    overflow: hidden;
 }
 
 img {
@@ -21,6 +22,7 @@ img {
 body {
     background-color: var(--color-bg);
 }
+
 
 .hero::before {
     content: "";
@@ -43,11 +45,11 @@ body {
     padding: 70px 0;
 }
 
-form input.submit:hover {
+.submit:hover {
     box-shadow: #4460f1 0 10px 30px -10px;
 }
 
-form input.submit {
+.submit {
     font-weight: 700;
     color: #fff;
     background-color: #4460f1;
@@ -56,7 +58,7 @@ form input.submit {
     transition: box-shadow 0.3s;
 }
 
-form input {
+.submit {
     font: inherit;
     font-size: 14px;
     width: 100%;

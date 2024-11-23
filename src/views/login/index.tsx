@@ -6,19 +6,38 @@
  * @FilePath: src/views/login/index.tsx
  * @Description: 请填写简介
  */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import fs from "./shaders/fs.glsl?raw";
 import vs from "./shaders/vs.glsl?raw";
 import useOnceClick from "@/commponents/clickonce";
 import AudioTexture from "./commponents/audioTexture";
-import "@/input.css";
 import LoginForm from "@/views/login/commponents/loginForm.tsx";
 import AnimatedText from "@/views/login/commponents/AnimatedText.tsx";
+import { gsap } from "gsap";
 
 const View: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const loginRef = useRef(null);
+  const tl = gsap.timeline();
+  const move = () => {
+    tl.to(loginRef.current, {
+      x: 0,
+      y: 1000,
+      duration: 5,
+      ease: "power1.inOut",
+    });
+  };
+  const loginOrRegister = () => {
+    setIsLoggedIn(false);
+  };
+  const registerOrLogin = () => {
+    setIsLoggedIn(true);
+  };
   const containerRef = useRef<HTMLDivElement>(null);
+
   const scene = new THREE.Scene();
+
   const camera = new THREE.PerspectiveCamera(
     80,
     window.innerWidth / window.innerHeight,
@@ -116,7 +135,6 @@ const View: React.FC = () => {
         iMouse.x = e.pageX;
         iMouse.y = innerHeight - e.pageY;
       }, 17); // 16ms 大约等于每秒 60 次调用，适合大多数情况
-      console.info(iMouse.x, iMouse.y);
       document.addEventListener("mousemove", handleMove);
 
       return () => {
@@ -141,16 +159,33 @@ const View: React.FC = () => {
           <div className="hero relative mx-auto my-0 flex max-w-4xl flex-1 flex-shrink-0 px-0">
             <div>
               <AnimatedText />
-              <p className="mt-6 px-12 font-mono leading-8">
-                如果没有账号
-                <br />
-                <p className="cursor-pointer text-blue-700">
-                  点击这里注册
+              {isLoggedIn ? (
+                <p className="mt-6 px-12 font-mono leading-8">
+                  如果没有账号
+                  <br />
+                  <p
+                    onClick={move}
+                    className="cursor-pointer text-blue-700"
+                  >
+                    点击这里注册
+                  </p>
                 </p>
-              </p>
+              ) : (
+                <p className="mt-6 px-12 font-mono leading-8">
+                  已有账号
+                  <br />
+                  <p
+                    onClick={registerOrLogin}
+                    className="cursor-pointer text-blue-700"
+                  >
+                    返回登录
+                  </p>
+                </p>
+              )}
             </div>
             <div className="ml-auto">
-              <LoginForm />
+              <LoginForm ref={loginRef} />
+              {/*{isLoggedIn ? <LoginForm /> : <RegisterForm />}*/}
             </div>
           </div>
         </div>

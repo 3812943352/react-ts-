@@ -7,7 +7,8 @@
  * @Description: 请填写简介
  */
 import * as dataType from "@/types/user";
-import http from "@/utils/request";
+import { sendSmsDataType } from "@/types/user";
+import ax from "@/utils/request";
 import { captchaPath, smsPath, userPath } from "@/api/reqPath/user.tsx";
 
 /**
@@ -16,7 +17,9 @@ import { captchaPath, smsPath, userPath } from "@/api/reqPath/user.tsx";
  * @return 返回请求登录接口的结果
  */
 export function postLoginAPI(data: dataType.loginDataType) {
-  return http.post<{ token: string }>(userPath.login, data);
+  return ax.post(userPath.login, null, {
+    params: data.data,
+  });
 }
 
 /**
@@ -25,7 +28,7 @@ export function postLoginAPI(data: dataType.loginDataType) {
  * @return 注册结果
  */
 export function postRegisterAPI(data: dataType.registerDataType) {
-  return http.post(userPath.register, data);
+  return ax.post(userPath.register, data);
 }
 
 /**
@@ -33,7 +36,7 @@ export function postRegisterAPI(data: dataType.registerDataType) {
  * @param {getUserByIdDataType} data
  */
 export function getUserById(data: dataType.getUserByIdDataType) {
-  return http.post(userPath.getUserById, data);
+  return ax.post(userPath.getUserById, data);
 }
 
 /**
@@ -43,7 +46,7 @@ export function getUserById(data: dataType.getUserByIdDataType) {
 export function getUserByPhone(
   data: dataType.getUserByPhoneDataType,
 ) {
-  return http.post(userPath.getUserByPhone, data);
+  return ax.post(userPath.getUserByPhone, data);
 }
 
 /**
@@ -51,7 +54,7 @@ export function getUserByPhone(
  * @param {getAllUserDataType} data
  */
 export function getAllUser(data: dataType.getAllUserDataType) {
-  return http.post(userPath.getAllUser, data);
+  return ax.post(userPath.getAllUser, data);
 }
 
 /**
@@ -59,7 +62,7 @@ export function getAllUser(data: dataType.getAllUserDataType) {
  * @param {delUserByIdDataType}data
  */
 export function delUserById(data: dataType.delUserByIdDataType) {
-  return http.post(userPath.delUserById, data);
+  return ax.post(userPath.delUserById, data);
 }
 
 /**
@@ -67,13 +70,17 @@ export function delUserById(data: dataType.delUserByIdDataType) {
  * @return 返回验证码
  */
 export function getCaptcha() {
-  return http.get(captchaPath.getCaptcha);
+  return ax.get(captchaPath.getCaptcha, { responseType: "blob" });
 }
 
 /**
  * @description: 发送短信
  * @param {sendSmsDataType}data
+ *
  */
-export function sendSms(data: dataType.sendSmsDataType) {
-  return http.post(smsPath.sendSms, data);
+export function sendSms(data: sendSmsDataType) {
+  return ax.post(smsPath.sendSms, null, {
+    params: data.data,
+    headers: data.headers,
+  });
 }

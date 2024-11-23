@@ -7,6 +7,14 @@
  * @Description: 请填写简介
  */
 
+interface catchKeyState {
+  catchKey: string | null | undefined;
+}
+
+interface TokenState {
+  token: string | null;
+}
+
 // src/types/user.ts
 export interface UserEntity {
   ID: number | null;
@@ -16,6 +24,8 @@ export interface UserEntity {
   auth: number | null;
   created: number | null;
   lastLogin: number | null;
+  captcha: string | null;
+  smsCode: string | null;
 }
 
 export interface registerDataType {
@@ -84,7 +94,8 @@ export interface sendSmsDataType {
     pwd: string;
     captcha: string;
   };
+
   headers: {
-    captchaKey: string;
+    "captcha-key": catchKeyState;
   };
 }

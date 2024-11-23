@@ -1,7 +1,7 @@
-import { SET_CATCH, RESET_CATCH } from "../../utils/actionTypes";
+import { RESET_CATCH, SET_CATCH } from "../../utils/actionTypes";
 
 interface catchKeyState {
-  catchKey: string | null;
+  catchKey: string | null | undefined;
 }
 
 const catchKeyState: catchKeyState = {

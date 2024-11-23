@@ -14,28 +14,16 @@ import "@/input.css";
 // import { UpOutlined } from "@ant-design/icons";
 import { useRoutes } from "react-router-dom";
 import router from "./router";
+import { ToastContainer } from "react-toastify";
+import React from "react";
 
 const App: React.FC = () => {
-  //   //   const [count, setCount] = useState(0)
   const outlet = useRoutes(router);
 
   return (
     <div className="App select-none bg-white">
-      {/* <button
-
-        className="w-full rounded bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600"
-      >
-        点击
-      </button> */}
-      {/* <Button type="primary">按钮</Button>
-      <Comp1 />
-      <Comp2 />
-      <UpOutlined style={{ fontSize: "20px", color: "red" }} /> */}
-      {/* <Link to="/home">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/user">User</Link> */}
-      {/* <Outlet></Outlet> */}
       {outlet}
+      <ToastContainer />
     </div>
   );
 };
