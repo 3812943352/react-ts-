@@ -1,40 +1,17 @@
 /*
  * @Author: wb
  * @Date: 2024-10-31 14:59:59
- * @LastEditors: wb
- * @LastEditTime: 2024-11-20 10:24:10
- * @FilePath: \demo\src\router\index.tsx
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-29 11:05:49
+ * @FilePath: src/router/index.tsx
  * @Description: 请填写简介
  */
-// import App from "../App";
 import Home from "../views/Home";
 import Login from "../views/login";
-// import About from "../views/About";
-// import User from "../views/User";
 import React, { lazy } from "react";
-import {
-  //   BrowserRouter,
-  //   Route,
-  //   Routes,
-  Navigate,
-} from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import CustomLoading from "@/commponents/loading";
 
-// import path from "path";
-//旧写法
-// const baseRouter: React.FC = () => (
-//   <BrowserRouter>
-//     <Routes>
-//       <Route path="/" element={<App />}>
-//         <Route path="/" element={<Navigate to="/home" />} />
-//         <Route path="/home" element={<Home />} />
-//         <Route path="/about" element={<About />} />
-//       </Route>
-//     </Routes>
-//   </BrowserRouter>
-// );
-// export default baseRouter;
-// const About = lazy(() => import("../views/About/index"));
-// const User = lazy(() => import("../views/User/index"));
 const Page1 = lazy(() => import("../views/Page1/index"));
 const Page2 = lazy(() => import("../views/Page2/index"));
 const Page3 = lazy(() => import("../views/Page3/index"));
@@ -45,12 +22,17 @@ const Page7 = lazy(() => import("../views/Page7/index"));
 const Page8 = lazy(() => import("../views/Page8/index"));
 const Page9 = lazy(() => import("../views/Page9/index"));
 const Page10 = lazy(() => import("../views/Page10/index"));
+const Page11 = lazy(() => import("../views/Page11/index"));
+const Page12 = lazy(() => import("../views/Page12/index"));
+
+const Ban = lazy(() => import("../views/ban/index"));
 
 interface IRoute {
   path: string;
   element: React.ReactNode;
   children?: IRoute[];
 }
+
 function setRoute(
   path: string,
   element: React.ReactNode,
@@ -62,14 +44,17 @@ function setRoute(
     children,
   } as IRoute;
 }
+
 const withLoadingComponent = (comP: JSX.Element) => (
-  <React.Suspense fallback={<div>loading...</div>}>
+  <React.Suspense fallback={<CustomLoading spinning={false} />}>
     {comP}
   </React.Suspense>
 );
 const routes: IRoute[] = [
   setRoute("/", <Navigate to={"/login"} />),
   setRoute("/login", withLoadingComponent(<Login />)),
+  // setRoute("/", <PrivateRoute element={<Home />} />, [
+  setRoute("/ban", withLoadingComponent(<Ban />)),
   setRoute("/", <Home />, [
     setRoute("/page1", withLoadingComponent(<Page1 />)),
     setRoute("/page2", withLoadingComponent(<Page2 />)),
@@ -81,6 +66,8 @@ const routes: IRoute[] = [
     setRoute("/data/page8", withLoadingComponent(<Page8 />)),
     setRoute("/user/page9", withLoadingComponent(<Page9 />)),
     setRoute("/user/page10", withLoadingComponent(<Page10 />)),
+    setRoute("/supervision/page11", withLoadingComponent(<Page11 />)),
+    setRoute("/supervision/page12", withLoadingComponent(<Page12 />)),
 
     setRoute("*", <div>404</div>),
   ]),

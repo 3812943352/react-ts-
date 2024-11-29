@@ -29,6 +29,8 @@ import { store } from "@/store/user/selector.tsx";
 import { setCatch, setToken } from "@/store/user/actions.tsx";
 import { useDispatch } from "react-redux";
 import { postLoginAPI, sendSms } from "@/api/user.ts";
+import { useNavigate } from "react-router-dom";
+import eventBus from "@/utils/events.ts";
 
 interface LoginFormProps {}
 
@@ -41,6 +43,8 @@ const LoginForm = forwardRef(
     const [isDisabled, setIsDisabled] = useState(false);
     const [hasShownWarning, setHasShownWarning] = useState(false);
     const [isFirstThreeValid, setIsFirstThreeValid] = useState(false);
+    const navigate = useNavigate();
+
     const [form] = Form.useForm();
     // const phoneValue = form.getFieldValue("phone");
     // const pwdValue = form.getFieldValue("pwd");
@@ -56,7 +60,6 @@ const LoginForm = forwardRef(
           const pwdValue = values.pwd;
           const captchaValue = values.captcha;
           const captchaKey = store.getState().cacheKey;
-          console.log(captchaKey?.catchKey);
           const data: sendSmsDataType = {
             data: {
               phone: phoneValue,
@@ -68,6 +71,9 @@ const LoginForm = forwardRef(
           sendSms(data).then((r) => {
             if (r.code !== 200) {
               getCap();
+            } else if (r.code === 200) {
+              setIsFirstThreeValid(false);
+              countdown(60);
             }
           });
         })
@@ -75,6 +81,20 @@ const LoginForm = forwardRef(
           console.log("Validation failed:", error);
         });
     };
+
+    function countdown(count: number) {
+      const originText = smsRef.current!.textContent;
+      const interval = setInterval(() => {
+        if (count === 0) {
+          smsRef.current!.textContent = originText;
+          clearInterval(interval);
+          setIsFirstThreeValid(true);
+        } else {
+          smsRef.current!.textContent = `| ${count}秒后重发`;
+          count--;
+        }
+      }, 1000);
+    }
 
     const login = () => {
       form
@@ -90,8 +110,8 @@ const LoginForm = forwardRef(
           };
           postLoginAPI(data).then((r) => {
             if (r.code === 200) {
-              dispatch(setToken(r.data.token));
-              console.log(store.getState().token);
+              dispatch(setToken(r.data));
+              navigate("/page1");
             }
           });
         })
@@ -105,7 +125,9 @@ const LoginForm = forwardRef(
       allFields: any[],
     ) => {
       const firstThreeFields = ["phone", "pwd", "captcha"];
-
+      const isSmsChanged = changedFields.some(
+        (field) => field.name[0] === "smsCode",
+      );
       const hasValue = firstThreeFields.every((field) => {
         const value = allFields.find(
           (f) => f.name[0] === field,
@@ -118,14 +140,19 @@ const LoginForm = forwardRef(
           0;
         return !fieldError;
       });
-      if (isValid && hasValue) {
-        setIsDisabled(true);
-        setIsFirstThreeValid(true);
-      } else {
-        setIsDisabled(false);
-        setIsFirstThreeValid(false);
+      if (!isSmsChanged) {
+        if (isValid && hasValue) {
+          setIsDisabled(true);
+          setIsFirstThreeValid(true);
+        } else {
+          setIsDisabled(false);
+          setIsFirstThreeValid(false);
+        }
       }
     };
+    useEffect(() => {
+      eventBus.on("Rgetcap", getCap);
+    }, []);
     const getCap = () => {
       if (isFetching) {
         if (!hasShownWarning) {
@@ -251,7 +278,7 @@ const LoginForm = forwardRef(
                   padding: "2px",
                   marginLeft: "10px",
                 }}
-                className="ml-auto rounded-lg"
+                className="ml-auto rounded-lg border-blue-500 p-4 hover:border"
               />
             </div>
           </Form.Item>

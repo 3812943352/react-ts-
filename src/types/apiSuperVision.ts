@@ -1,22 +1,28 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-21 13:02:22
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-29 10:58:05
+ * @FilePath: src/types/apiSuperVision.ts
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
 // apiEntity.ts
 export interface ApiEntity {
   ID: number | null; // api接口ID
   apiTitle: string | null; // api标题
   apiDes: string | null; // api描述
   openMethod: string | null; // 开放方式
-  source: string | null; // api源单位
   api: string | null; // 接口地址
   apiController: string | null; // api控制器
   apiMethod: string | null; // api方法
   apiFormat: string | null; // api数据格式
   apiDemo: string | null; // 请求示例
   apiTable: string | null; // api表名
-  department: number | null; // 所属部门
-  area: number | null; // 所属区域
   times: number | null; // 调用次数
   visits: number | null; // 访问次数
-  created: number | null; // 创建时间
-  updated: number | null; // 更新时间
+  headers: {
+    token: string | null;
+  };
 }
 
 // gatewayEntity.ts
@@ -49,9 +55,62 @@ export interface IpEntity {
 }
 
 export interface ApiPageDataType {
-  pageNum: number;
-  pageSize: number;
+  data: {
+    pageNum: number;
+    pageSize: number;
+  };
   headers: {
-    token: string;
+    token: string | null;
+  };
+}
+
+export interface banDataType {
+  data: {
+    ip: string;
+    reason: string;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+
+export interface unBanDataType {
+  data: {
+    ip: string;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+
+export interface blurDataType {
+  data: {
+    pageNum: number;
+    pageSize: number;
+    word: string;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+
+export interface delDataType {
+  data: {
+    id: number;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+
+export interface getDateDataType {
+  data: {
+    start: number;
+    end: number;
+    pageNum: number;
+    pageSize: number;
+  };
+  headers: {
+    token: string | null;
   };
 }

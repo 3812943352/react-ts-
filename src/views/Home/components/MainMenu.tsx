@@ -1,26 +1,25 @@
 /*
  * @Author: wb
  * @Date: 2024-11-04 15:20:38
- * @LastEditors: wb
- * @LastEditTime: 2024-11-20 10:10:36
- * @FilePath: \demo\src\views\Home\components\MainMenu.tsx
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-29 11:06:26
+ * @FilePath: src/views/Home/components/MainMenu.tsx
  * @Description: 请填写简介
  */
 
-import { Menu } from "antd";
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import type { MenuProps } from "antd";
+import { Menu } from "antd";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  DatabaseOutlined,
   BankOutlined,
-  StockOutlined
+  DatabaseOutlined,
+  DesktopOutlined,
+  PieChartOutlined,
+  StockOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
+
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
@@ -36,6 +35,7 @@ function getItem(
     label,
   } as MenuItem;
 }
+
 const items: MenuItem[] = [
   getItem("基础数据", "/page1", <PieChartOutlined />),
   getItem("趋势数据", "/page2", <StockOutlined />),
@@ -45,6 +45,8 @@ const items: MenuItem[] = [
   ]),
   getItem("Api访问监测", "sub2", <DesktopOutlined />, [
     getItem("请求列表", "/req/page5"),
+    getItem("封禁列表", "/supervision/page11"),
+    getItem("Api管理", "/supervision/page12"),
     getItem("监测分析", "/supervision/page6"),
   ]),
   getItem("数据管理", "sub3", <DatabaseOutlined />, [
@@ -78,7 +80,6 @@ const Comp: React.FC = () => {
     localStorage.setItem("openKeys", JSON.stringify(openKeys));
   }, [openKeys]);
   const selectKeys = () => {
-    console.info(items);
     const pagex = /^\/page\d$/;
     if (pagex.test(Routelocation.pathname)) {
       localStorage.setItem("openKeys", JSON.stringify([]));

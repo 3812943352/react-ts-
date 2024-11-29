@@ -11,11 +11,12 @@ import * as THREE from "three";
 class AudioTexture {
   tAudioData!: THREE.DataTexture;
   analyser!: THREE.AudioAnalyser;
+
   constructor(file: string) {
     this.init(file);
   }
+
   init(file: string) {
-    console.log(file);
     const fftSize = 128;
     const listener = new THREE.AudioListener();
     const audio = new THREE.Audio(listener);
@@ -43,6 +44,7 @@ class AudioTexture {
       THREE.RedFormat,
     );
   }
+
   update() {
     if (this.analyser) {
       this.analyser.getFrequencyData();

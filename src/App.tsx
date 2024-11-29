@@ -1,8 +1,8 @@
 /*
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 11:26:28
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-28 09:44:25
  * @FilePath: src/App.tsx
  * @Description: 请填写简介
  */
@@ -12,17 +12,32 @@ import "@/input.css";
 // import Comp2 from "@/commponents/Comp2/index";
 // import { Button } from "antd";
 // import { UpOutlined } from "@ant-design/icons";
-import { useRoutes } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 import router from "./router";
 import { ToastContainer } from "react-toastify";
-import React from "react";
+import React, { useEffect } from "react";
+import eventBus from "@/utils/events.ts";
+import CustomLoading from "@/commponents/loading";
 
 const App: React.FC = () => {
   const outlet = useRoutes(router);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handleNavigateToLogin = () => {
+      navigate("/login");
+    };
+
+    eventBus.on("toLogin", handleNavigateToLogin);
+
+    return () => {
+      eventBus.off("toLogin", handleNavigateToLogin);
+    };
+  }, [navigate]);
 
   return (
     <div className="App select-none bg-white">
       {outlet}
+      <CustomLoading spinning={false} />
       <ToastContainer />
     </div>
   );

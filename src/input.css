@@ -1,8 +1,8 @@
 /*
  * @Author: wb
  * @Date: 2024-10-30 10:04:50
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 17:57:25
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-27 09:40:45
  * @FilePath: src/input.css
  * @Description: 请填写简介
  */
@@ -65,11 +65,19 @@ body {
     border: 0;
     outline: 0;
     padding: 0 20px;
-    line-height: 2.5rem;
+    line-height: 2.2rem;
     border-radius: 10px;
     box-sizing: border-box;
 }
 
 .ant-form-item-control-input-content {
     display: flex;
+}
+
+.ant-table-wrapper .ant-table-filter-trigger {
+    margin-inline: unset;
+}
+
+.ant-layout {
+    height: 100vh;
 }

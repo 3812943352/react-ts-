@@ -1,13 +1,13 @@
 /*
  * @Author: wb
  * @Date: 2024-10-31 15:01:55
- * @LastEditors: wb
- * @LastEditTime: 2024-11-04 15:27:48
- * @FilePath: \demo\src\views\Home\index.tsx
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-29 09:06:22
+ * @FilePath: src/views/Home/index.tsx
  * @Description: 请填写简介
  */
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import MainMenu from "./components/MainMenu";
 import { Breadcrumb, Layout, theme } from "antd";
 
@@ -18,6 +18,7 @@ const View: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const { pathname } = useLocation();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -36,20 +37,14 @@ const View: React.FC = () => {
             className="px-4"
             items={[
               {
-                title: "Users",
-              },
-              {
-                title: ":id",
-                href: "",
+                title: pathname,
               },
             ]}
-            params={{ id: 1 }}
           />
         </Header>
         <Content style={{ margin: "16px 16px" }}>
           <div
             style={{
-              padding: 24,
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
@@ -59,7 +54,8 @@ const View: React.FC = () => {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          阳光数据开放平台 2006 - {new Date().getFullYear()} Created
+          by 阳光数安<sup>®</sup>
         </Footer>
       </Layout>
     </Layout>

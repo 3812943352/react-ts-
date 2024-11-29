@@ -6,14 +6,9 @@
  * @FilePath: \demo\src\store\user\actions.tsx
  * @Description: 请填写简介
  */
-import {
-  SET_TOKEN,
-  RESET_TOKEN,
-  SET_CATCH,
-  RESET_CATCH,
-} from "../../utils/actionTypes";
+import { RESET_CATCH, RESET_TOKEN, SET_CATCH, SET_TOKEN } from "../../utils/actionTypes";
 
-export const setToken = (token: string) => ({
+export const setToken = (token: string | null) => ({
   type: SET_TOKEN,
   payload: token,
 });
@@ -22,7 +17,7 @@ export const resetToken = () => ({
   type: RESET_TOKEN,
 });
 
-export const setCatch = (catchKey: string) => ({
+export const setCatch = (catchKey: string | null) => ({
   type: SET_CATCH,
   payload: catchKey,
 });

@@ -28,7 +28,10 @@ export function postLoginAPI(data: dataType.loginDataType) {
  * @return 注册结果
  */
 export function postRegisterAPI(data: dataType.registerDataType) {
-  return ax.post(userPath.register, data);
+  return ax.post(userPath.register, data.UserEntity, {
+    headers: data.headers,
+    params: data.data,
+  });
 }
 
 /**

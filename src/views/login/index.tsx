@@ -15,25 +15,46 @@ import AudioTexture from "./commponents/audioTexture";
 import LoginForm from "@/views/login/commponents/loginForm.tsx";
 import AnimatedText from "@/views/login/commponents/AnimatedText.tsx";
 import { gsap } from "gsap";
+import RegisterForm from "@/views/login/commponents/registerForm.tsx";
+import { setToken } from "@/store/user/actions.tsx";
+import { useDispatch } from "react-redux";
+import eventBus from "@/utils/events.ts";
 
 const View: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const loginRef = useRef(null);
+  const has = useRef(null);
+  const has1 = useRef(null);
   const tl = gsap.timeline();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setToken(null));
+  }, []);
   const move = () => {
-    tl.to(loginRef.current, {
-      x: 0,
-      y: 1000,
-      duration: 5,
-      ease: "power1.inOut",
-    });
+    if (isLoggedIn) {
+      eventBus.emit("Lgetcap");
+
+      tl.to(loginRef.current, {
+        x: 0,
+        y: 1000,
+        duration: 1,
+        ease: "power1.inOut",
+      });
+    } else {
+      eventBus.emit("Rgetcap");
+
+      tl.to(loginRef.current, {
+        x: 0,
+        y: 0,
+        duration: 1,
+        ease: "power1.inOut",
+      });
+    }
+
+    setIsLoggedIn(!isLoggedIn);
   };
-  const loginOrRegister = () => {
-    setIsLoggedIn(false);
-  };
-  const registerOrLogin = () => {
-    setIsLoggedIn(true);
-  };
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scene = new THREE.Scene();
@@ -130,6 +151,7 @@ const View: React.FC = () => {
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.appendChild(renderer.domElement);
+
       animate();
       const handleMove = throttle((e: any) => {
         iMouse.x = e.pageX;
@@ -159,33 +181,27 @@ const View: React.FC = () => {
           <div className="hero relative mx-auto my-0 flex max-w-4xl flex-1 flex-shrink-0 px-0">
             <div>
               <AnimatedText />
-              {isLoggedIn ? (
-                <p className="mt-6 px-12 font-mono leading-8">
-                  如果没有账号
-                  <br />
-                  <p
-                    onClick={move}
-                    className="cursor-pointer text-blue-700"
-                  >
-                    点击这里注册
-                  </p>
-                </p>
-              ) : (
-                <p className="mt-6 px-12 font-mono leading-8">
-                  已有账号
-                  <br />
-                  <p
-                    onClick={registerOrLogin}
-                    className="cursor-pointer text-blue-700"
-                  >
-                    返回登录
-                  </p>
-                </p>
-              )}
+              <div
+                ref={has}
+                className="mt-6 px-12 font-mono leading-8"
+              >
+                {isLoggedIn ? "如果没有账号" : "已有账号"}
+
+                <br />
+                <div
+                  ref={has1}
+                  onClick={move}
+                  className="cursor-pointer text-blue-700"
+                >
+                  {isLoggedIn ? "点击这里注册" : "返回登录"}
+                </div>
+              </div>
             </div>
             <div className="ml-auto">
+              <RegisterForm />
+
               <LoginForm ref={loginRef} />
-              {/*{isLoggedIn ? <LoginForm /> : <RegisterForm />}*/}
+              {/*{isLoggedIn ? <LoginForm /> : }*/}
             </div>
           </div>
         </div>

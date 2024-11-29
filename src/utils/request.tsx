@@ -1,8 +1,8 @@
 /*
  * @Author: wb
  * @Date: 2024-11-20 19:58:34
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 11:30:41
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-28 09:49:45
  * @FilePath: src/utils/request.tsx
  * @Description: 请填写简介
  */
@@ -10,6 +10,7 @@ import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "ax
 import { store } from "@/store/user/selector";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import eventBus from "@/utils/events.ts";
 
 const service = axios.create({
   timeout: 10000,
@@ -17,17 +18,15 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = store.getState().token;
+    eventBus.emit("startLoading");
+    const token = store.getState().token?.token;
 
-    // useSelector(
-    //   (state: { token: string | null }) => state.token,
-    // );
-    if (token) {
+    if (token !== null) {
       config.headers["token"] = token;
     }
     toast.info("获取配置...", {
       position: "top-right",
-      autoClose: false,
+      autoClose: 3000,
       closeOnClick: false,
     });
     return config;
@@ -39,40 +38,67 @@ service.interceptors.request.use(
       autoClose: 3000,
       closeOnClick: false,
     });
+    eventBus.emit("stopLoading");
     return Promise.reject(error);
   },
 );
 
-service.interceptors.response.use((response: AxiosResponse) => {
-  const { status, data } = response;
-  if (status === 200 && data.code === 200) {
-    toast.dismiss();
-    toast.success(data.message, {
-      position: "top-right",
-      autoClose: 3000,
-      closeOnClick: false,
-    });
-    return data;
-  } else {
-    if (data.messages === null) {
+service.interceptors.response.use(
+  (response: AxiosResponse) => {
+    eventBus.emit("stopLoading");
+    const { status, data } = response;
+    if (status === 200 && data.code === 444) {
+      window.location.href = "/ban";
+    }
+    if (status === 401) {
+      toast.warn("当前状态已过期，请重新登录", {
+        position: "top-right",
+        autoClose: 3000,
+        closeOnClick: false,
+      });
+      setInterval(() => {
+        eventBus.emit("toLogin");
+      }, 3000);
+    }
+    if (status === 200 && data.code === 200) {
       toast.dismiss();
-      toast.error(data.message, {
+      toast.success(data.message, {
         position: "top-right",
         autoClose: 3000,
         closeOnClick: false,
       });
       return data;
-    } else {
-      toast.dismiss();
-      for (let i = 0; i < data.messages.length; i++) {
-        toast.error(data.messages[i], {
+    } else if (status === 200 && data.code !== 200) {
+      if (data.messages === null) {
+        // toast.dismiss();
+        toast.error(data.message, {
           position: "top-right",
           autoClose: 3000,
           closeOnClick: false,
         });
+        return data;
+      } else {
+        toast.dismiss();
+        for (let i = 0; i < data.messages.length; i++) {
+          toast.error(data.messages[i], {
+            position: "top-right",
+            autoClose: 3000,
+            closeOnClick: false,
+          });
+        }
+        return data;
       }
-      return data;
     }
-  }
-});
+  },
+  (error: AxiosError) => {
+    toast.dismiss();
+    toast.error(error.message, {
+      position: "top-right",
+      autoClose: 3000,
+      closeOnClick: false,
+    });
+    eventBus.emit("stopLoading");
+    return Promise.reject(error);
+  },
+);
 export default service;

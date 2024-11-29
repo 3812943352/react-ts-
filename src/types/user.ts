@@ -20,8 +20,8 @@ export interface UserEntity {
   ID: number | null;
   phone: string;
   pwd: string | null;
-  role: number | null;
-  auth: number | null;
+  role: number | 2;
+  auth: number | 2;
   created: number | null;
   lastLogin: number | null;
   captcha: string | null;

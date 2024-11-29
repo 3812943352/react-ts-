@@ -5,11 +5,17 @@
  * @FilePath: src/dev/previews.tsx
  * @Description:
  */
-import { Previews } from "@react-buddy/ide-toolbox";
+import { ComponentPreview, Previews } from "@react-buddy/ide-toolbox";
 import { PaletteTree } from "./palette";
 
 const ComponentPreviews = () => {
-  return <Previews palette={<PaletteTree />}></Previews>;
+  return (
+    <Previews palette={<PaletteTree />}>
+      <ComponentPreview path="/CustomModal">
+        <CustomModal />
+      </ComponentPreview>
+    </Previews>
+  );
 };
 
 export default ComponentPreviews;
