@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-29 11:05:34
+ * @LastEditTime: 2024-11-30 13:59:47
  * @FilePath: src/views/Page11/index.tsx
  * @Description: 请填写简介
  */
@@ -44,7 +44,9 @@ const View: React.FC = () => {
   const [serchDateValue, setSerchDateValue] = useState<
     [Dayjs, Dayjs] | null
   >(null);
+  const [editingKey, setEditingKey] = useState("");
 
+  const isEditing = (record: any) => record.id === editingKey;
   const columns: TableColumnsType<(typeof data)[0]> = [
     {
       title: "ID",
@@ -159,7 +161,6 @@ const View: React.FC = () => {
       headers: { token: store.getState().token?.token },
     };
     getBanAPI(req).then((r) => {
-      console.log(r);
       setData(r.data);
       setPagination({ ...pagination, total: r.data.total });
     });
@@ -176,7 +177,6 @@ const View: React.FC = () => {
         headers: { token: store.getState().token?.token },
       };
       banBlurAPI(req).then((r) => {
-        console.log(r);
         setData(r.data);
         setPagination({ ...pagination, total: r.data.total });
       });
@@ -244,9 +244,7 @@ const View: React.FC = () => {
         },
         headers: { token: store.getState().token?.token },
       };
-      unBanAPI(req).then((r) => {
-        console.log(r);
-      });
+      unBanAPI(req).then((r) => {});
     } else {
       const req = {
         data: {

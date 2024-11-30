@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-28 16:56:58
+ * @LastEditTime: 2024-11-30 08:39:39
  * @FilePath: src/views/Page5/index.tsx
  * @Description: 请填写简介
  */
@@ -497,9 +497,7 @@ const View: React.FC = () => {
         },
         headers: { token: store.getState().token?.token },
       };
-      banAPI(req).then((r) => {
-        console.log(r);
-      });
+      banAPI(req).then((r) => {});
     } else {
       const req = {
         data: {

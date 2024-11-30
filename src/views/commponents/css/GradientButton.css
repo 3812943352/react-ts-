@@ -1,0 +1,42 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-30 14:22:20
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-30 15:49:08
+ * @FilePath: src/views/commponents/css/GradientButton.css
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+/* GradientButton.css */
+.gradient-button.ant-btn-primary:not([disabled]):not(.ant-btn-dangerous) {
+    border-width: 0;
+    color: var(--text-color); /* 设置默认文字颜色 */
+    transition: color .3s ease-in-out;
+    margin-right: 8px;
+
+    > span {
+        position: relative;
+
+    }
+
+    &::before {
+        content: '';
+        background: linear-gradient(135deg, var(--gradient-start-color), var(--gradient-end-color));
+        position: absolute;
+        inset: 0;
+        opacity: 1;
+        transition: background 1s ease-in-out;
+        /* 添加过渡效果 */
+        border-radius: inherit;
+        z-index: 0; /* 确保渐变背景在文字后面 */
+    }
+
+    &:hover {
+        color: var(--hover-text-color); /* 设置悬停时的文字颜色 */
+    }
+
+    &:hover::before {
+
+
+        background: linear-gradient(135deg, var(--hover-gradient-start-color), var(--hover-gradient-end-color));
+    }
+}
