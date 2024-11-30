@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 18:23:47
+ * @LastEditTime: 2024-11-30 22:55:03
  * @FilePath: src/views/Page12/index.tsx
  * @Description: 请填写简介
  */
@@ -41,21 +41,33 @@ const View: React.FC = () => {
   const [form] = Form.useForm<T>();
 
   // 编辑相关状态
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (data && data.records) {
+  //     let newRecords = [...data.records];
+  //     if (!newRecords.some((row) => row.id === -1)) {
+  //       const newRowData = { id: -1, ...initialRow };
+  //       newRecords = [...newRecords, newRowData];
+  //       data.records.push(newRecords);
+  //     }
+  //   }
+  // }, []);
+  const handleAdd = () => {
     if (data && data.records) {
       let newRecords = [...data.records];
       if (!newRecords.some((row) => row.id === -1)) {
-        const newRowData = { id: -1, ...initialRow };
+        const newRowData = { id: "新增", ...initialRow };
         newRecords = [...newRecords, newRowData];
         const newData = {
           ...data,
           records: newRecords,
         };
+        setEditingKey("新增");
         setData(newData);
       }
     }
-  }, [data, setData, initialRow]);
+  };
   const isEditing = (record: any) => record.id === editingKey;
+  const isAdding = (record: any) => record.id === "新增";
   const save = async (record: any) => {
     const row = await form.validateFields();
     console.log(row);
@@ -68,6 +80,15 @@ const View: React.FC = () => {
     setEditingKey("");
   };
 
+  const addApi = (record: any) => {
+    form
+      .validateFields(["apiTitle", "apiDes", "openMethod"])
+      .then((values) => {
+        console.log(values);
+      });
+    // console.log(record);
+    // setEditingKey("");
+  };
   const edit = (record: any) => {
     // form.setFieldsValue({
     //   [dataIndex]: record[dataIndex],
@@ -308,6 +329,7 @@ const View: React.FC = () => {
       fixed: "right",
       render: (_: any, record: T) => {
         const editable = isEditing(record);
+        const add = isAdding(record);
         return editable ? (
           <span>
             <GradientButton
@@ -320,9 +342,11 @@ const View: React.FC = () => {
               hoverGradientEndColor="#005bea   " // 悬停时的结束颜色
               textColor="#000000" // 默认文字颜色
               hoverTextColor="#ffefd5" // 悬停时的文字颜色
-              onClick={() => save(record)}
+              onClick={
+                add ? () => addApi(record) : () => save(record)
+              }
             >
-              保存
+              {add ? "新增" : "保存"}
             </GradientButton>
             <GradientButton
               type="primary"
@@ -493,6 +517,20 @@ const View: React.FC = () => {
             onSearch={(value) => serchBlur(value)}
           />
         </Tooltip>
+        <GradientButton
+          type="primary"
+          size="middle"
+          icon={<EditOutlined />}
+          gradientStartColor="#ff6b6b"
+          gradientEndColor="#f9c851"
+          hoverGradientStartColor="#ff9900" // 悬停时的起始颜色
+          hoverGradientEndColor="#ff0066" // 悬停时的结束颜色
+          textColor="#000000" // 默认文字颜色
+          hoverTextColor="#ffefd5" // 悬停时的文字颜色
+          onClick={() => handleAdd()}
+        >
+          新增
+        </GradientButton>
       </Space>
       <CustomTable
         scroll={{ x: 2000, y: 600 }}
@@ -507,6 +545,8 @@ const View: React.FC = () => {
         isEditing={isEditing}
         editingKey={editingKey}
         form={form}
+        setData={setData}
+        data={data}
       />
 
       <CustomModal

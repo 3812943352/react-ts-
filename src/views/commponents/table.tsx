@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-25 17:11:44
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 18:21:11
+ * @LastEditTime: 2024-11-30 23:02:07
  * @FilePath: src/views/commponents/table.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -41,6 +41,8 @@ interface TableProps<T> {
   isEditing?: (record: T) => boolean; // 判断是否正在编辑
   editingKey?: React.Key | null; // 当前编辑的键
   form: any;
+  setData: (newData: any) => void;
+  data: any;
 }
 
 interface EditableCellProps
@@ -53,6 +55,9 @@ interface EditableCellProps
   col: any;
   editingKey: any;
   form: any;
+  dataSource: any;
+  data: any;
+  setData: (newData: any) => void;
 }
 
 const EditableCell: React.FC<
@@ -67,20 +72,42 @@ const EditableCell: React.FC<
   children,
   editingKey,
   form,
+  dataSource,
+  data,
+  setData,
   ...restProps
 }) => {
-  const editing =
-    (col.editable === true && record.id === editingKey) ||
-    (col.editable === true && record.id === -1);
+  const editing = col.editable === true && record.id === editingKey;
   useEffect(() => {
-    form.setFieldsValue({
-      [dataIndex]: record[dataIndex],
-    });
-  }, [editing, dataIndex, record, form]);
+    console.log(record.id);
+    if (
+      dataSource.some((row: any) => row.id === "新增") &&
+      record.id !== "新增" &&
+      editingKey !== "新增"
+    ) {
+      const filteredDataSource = dataSource.filter(
+        (row: any) => row.id !== "新增",
+      );
+      const newData = {
+        ...data,
+        records: filteredDataSource,
+      };
+      setData(newData);
+    }
+    if (editing) {
+      if (record.id === "新增") {
+        form.setFieldsValue({
+          [dataIndex]: null,
+        });
+      } else {
+        form.setFieldsValue({
+          [dataIndex]: record[dataIndex],
+        });
+      }
+    }
+  }, [editing, editingKey]);
   const isCascader = col.cascader === true && col.options;
-  console.log({
-    [dataIndex]: record[dataIndex],
-  });
+
   const inputNode = (
     <Input status={"warning"} placeholder={record[dataIndex]} />
   );
@@ -102,7 +129,7 @@ const EditableCell: React.FC<
           style={{ margin: 0 }}
           rules={[
             {
-              required: false,
+              required: true,
               message: `请输入${title}！`,
             },
           ]}
@@ -129,6 +156,8 @@ const CustomTable = <T extends object>({
   isEditing,
   editingKey,
   form,
+  data,
+  setData,
 }: TableProps<T>) => {
   // 搜索相关状态和逻辑
   const [searchText, setSearchText] = useState("");
@@ -145,6 +174,9 @@ const CustomTable = <T extends object>({
     title: string,
     col: any,
     form: any,
+    dataSource: any,
+    data: any,
+    setData: (newData: any) => void,
   ): TableColumnType<T> => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -225,6 +257,9 @@ const CustomTable = <T extends object>({
         dataIndex,
         form,
         editingKey,
+        dataSource,
+        data,
+        setData,
         onDoubleClick: (event) => {
           const text = event.target.innerText;
           onDoubleClick(text);
@@ -250,11 +285,15 @@ const CustomTable = <T extends object>({
   // 将每列与搜索属性合并
   const columnsWithSearch = columns.map((col) => ({
     ...col,
+
     ...getColumnSearchProps(
       col.dataIndex as DataIndex<T>,
       col.title as string,
       col,
       form,
+      dataSource,
+      data,
+      setData,
     ),
   }));
 
@@ -362,6 +401,8 @@ const CustomTable = <T extends object>({
         editingKey={editingKey}
         rowKey={(record) => record.id.toString()}
         form={form}
+        data={data}
+        setData={setData}
       />
     </Form>
   );

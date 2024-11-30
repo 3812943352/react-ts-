@@ -1,3 +1,11 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-23 09:22:59
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-11-30 22:57:15
+ * @FilePath: src/rules/user.ts
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
 export const userRules = {
   phone: [
     { required: true, message: "请输入手机号", trigger: "blur" },
