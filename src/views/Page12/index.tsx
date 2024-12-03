@@ -2,26 +2,39 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 22:55:03
+ * @LastEditTime: 2024-12-03 11:19:27
  * @FilePath: src/views/Page12/index.tsx
  * @Description: 请填写简介
  */
 import CustomTable from "@/views/commponents/table.tsx";
-import { Card, Form, Space, Tooltip } from "antd";
+import { Card, Form, Popconfirm, Space, Tooltip } from "antd";
 import Search from "antd/es/input/Search";
 import React, { ReactNode, useEffect, useState } from "react";
-import { banBlurAPI, delApi, getAllApi, unBanAPI } from "@/api/apiSuperVision.ts";
+import {
+  addApiApi,
+  banBlurAPI,
+  blurApi,
+  deleteApi,
+  getAllApi,
+  unBanAPI,
+  updateApi,
+} from "@/api/apiSuperVision.ts";
 import { store } from "@/store/user/selector.tsx";
 import CustomModal from "@/views/commponents/modal.tsx";
 import { toast } from "react-toastify";
 import GradientButton from "@/views/commponents/colorButton.tsx";
-import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { openMethodOptions } from "@/views/Page12/options/openMethod.ts";
-import { ApiSuperVisionOptions } from "@/views/Page12/options/api.ts";
+import { ControllerOptions } from "@/views/Page12/options/api.ts";
 import { apiMethodOptions } from "@/views/Page12/options/apiMethod.ts";
 import { apiTableOptions } from "@/views/Page12/options/apiTable.ts";
 import { apiControllerOptions } from "@/views/Page12/options/apiController.ts";
 import { initialRow } from "@/views/Page12/initialRow.ts";
+import { ApiEntity } from "@/types/apiSuperVision.ts";
 
 const View: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
@@ -40,54 +53,122 @@ const View: React.FC = () => {
   const [editingKey, setEditingKey] = useState("");
   const [form] = Form.useForm<T>();
 
-  // 编辑相关状态
-  // useEffect(() => {
-  //   if (data && data.records) {
-  //     let newRecords = [...data.records];
-  //     if (!newRecords.some((row) => row.id === -1)) {
-  //       const newRowData = { id: -1, ...initialRow };
-  //       newRecords = [...newRecords, newRowData];
-  //       data.records.push(newRecords);
-  //     }
-  //   }
-  // }, []);
   const handleAdd = () => {
-    if (data && data.records) {
-      let newRecords = [...data.records];
+    const { pageSize, total } = pagination;
+    const totalPages = Math.ceil(total / pageSize);
+    const newPagination = {
+      ...pagination,
+      pageNum: totalPages,
+    };
+    const req = {
+      data: {
+        pageNum: newPagination.pageNum,
+        pageSize: newPagination.pageSize,
+      },
+      headers: { token: store.getState().token?.token },
+    };
+    getAllApi(req).then((r) => {
+      let newRecords = [...r.data.records];
       if (!newRecords.some((row) => row.id === -1)) {
         const newRowData = { id: "新增", ...initialRow };
-        newRecords = [...newRecords, newRowData];
-        const newData = {
-          ...data,
-          records: newRecords,
-        };
-        setEditingKey("新增");
-        setData(newData);
+
+        if (
+          Math.ceil(newPagination.total / newPagination.pageSize) ===
+          Math.floor(newPagination.total / newPagination.pageSize)
+        ) {
+          newRecords = [newRowData];
+          const newData = {
+            ...data,
+            records: newRecords,
+          };
+          setEditingKey("新增");
+          setData(newData);
+          setPagination({
+            ...newPagination,
+            pageNum: newPagination.pageNum + 1,
+            total: r.data.total + 1,
+          });
+        } else {
+          newRecords = [...newRecords, newRowData];
+          const newData = {
+            ...data,
+            records: newRecords,
+          };
+          setEditingKey("新增");
+          setData(newData);
+          setPagination({ ...newPagination, total: r.data.total });
+        }
       }
-    }
+    });
   };
   const isEditing = (record: any) => record.id === editingKey;
   const isAdding = (record: any) => record.id === "新增";
   const save = async (record: any) => {
     const row = await form.validateFields();
-    console.log(row);
-    const updatedData = data.records.map((item: any) =>
-      item.id === record.id ? { ...item, ...row } : item,
-    );
-    console.log("更新数据" + JSON.stringify(updatedData));
-    data.records = updatedData;
-    setData(data);
-    setEditingKey("");
-  };
 
+    for (let key in row) {
+      if (Array.isArray(row[key]) && row[key].length > 0) {
+        row[key] = row[key][row[key].length - 1];
+      }
+    }
+    const req: ApiEntity = {
+      id: record.id,
+      ...row,
+      headers: { token: store.getState().token?.token },
+    };
+
+    updateApi(req).then((r) => {
+      if (r.code === 200) {
+        const newRecords = data.records.map((item: any) =>
+          item.id === record.id ? { ...item, ...row } : item,
+        );
+        const newData = {
+          ...data,
+          records: newRecords,
+        };
+        setData(newData);
+        setEditingKey("");
+      }
+    });
+  };
+  const delApi = async (record: any) => {
+    const row = await form.validateFields();
+
+    for (let key in row) {
+      if (Array.isArray(row[key]) && row[key].length > 0) {
+        row[key] = row[key][row[key].length - 1];
+      }
+    }
+    const req: ApiEntity = {
+      id: record.id,
+      ...row,
+      headers: { token: store.getState().token?.token },
+    };
+    deleteApi(req).then((r) => {
+      if (r.code === 200) {
+        getApi();
+        setEditingKey("");
+      }
+    });
+  };
   const addApi = (record: any) => {
-    form
-      .validateFields(["apiTitle", "apiDes", "openMethod"])
-      .then((values) => {
-        console.log(values);
+    form.validateFields().then((values) => {
+      for (let key in values) {
+        if (Array.isArray(values[key]) && values[key].length > 0) {
+          values[key] = values[key][values[key].length - 1];
+        }
+      }
+      const req: ApiEntity = {
+        ...values,
+        headers: { token: store.getState().token?.token },
+      };
+      addApiApi(req).then((r) => {
+        if (r.code === 200) {
+          getApi();
+          setEditingKey("");
+        }
       });
-    // console.log(record);
-    // setEditingKey("");
+    });
   };
   const edit = (record: any) => {
     // form.setFieldsValue({
@@ -102,7 +183,38 @@ const View: React.FC = () => {
     }
   }, [editingKey]);
   const cancel = () => {
-    setEditingKey("");
+    const newPagination = {
+      ...pagination,
+      total: pagination.total - 1,
+    };
+
+    if (
+      Math.ceil(newPagination.total / newPagination.pageSize) ===
+      Math.floor(newPagination.total / newPagination.pageSize)
+    ) {
+      console.log(1);
+      setPagination({
+        ...pagination,
+        pageNum: pagination.pageNum - 1,
+        total: pagination.total - 1,
+      });
+      const req = {
+        data: {
+          pageNum: pagination.pageNum - 1,
+          pageSize: pagination.pageSize,
+        },
+        headers: { token: store.getState().token?.token },
+      };
+      getAllApi(req).then((r) => {
+        if (r.code === 200) {
+          console.log(r);
+          setData(r.data);
+          setEditingKey("");
+        }
+      });
+    } else {
+      setEditingKey("");
+    }
   };
   const columns = [
     {
@@ -178,7 +290,7 @@ const View: React.FC = () => {
       width: "5%",
       editable: true,
       cascader: true,
-      options: ApiSuperVisionOptions,
+      options: ControllerOptions,
       sorter: (a: any, b: any) => a.api.length - b.api.length,
       sortDirections: ["descend", "ascend"],
       ellipsis: {
@@ -270,8 +382,8 @@ const View: React.FC = () => {
     },
     {
       title: "请求示例",
-      dataIndex: "apiDes",
-      key: "apiDes",
+      dataIndex: "apiDemo",
+      key: "apiDemo",
       width: "5%",
       editable: true,
       sorter: (a: any, b: any) => a.apiDemo.length - b.apiDemo.length,
@@ -285,7 +397,6 @@ const View: React.FC = () => {
         </Tooltip>
       ),
     },
-
     {
       title: "调用次数",
       dataIndex: "times",
@@ -323,7 +434,7 @@ const View: React.FC = () => {
     {
       title: "操作",
       key: "action",
-      width: "6%",
+      width: "7%",
       editable: false,
       dataIndex: "action",
       fixed: "right",
@@ -334,7 +445,7 @@ const View: React.FC = () => {
           <span>
             <GradientButton
               type="primary"
-              size="small"
+              size="middle"
               icon={<CheckOutlined />}
               gradientStartColor="#00b4db "
               gradientEndColor="#7fffd4 "
@@ -350,7 +461,7 @@ const View: React.FC = () => {
             </GradientButton>
             <GradientButton
               type="primary"
-              size="small"
+              size="middle"
               icon={<CloseOutlined />}
               gradientStartColor="#F5F5F5  "
               gradientEndColor="#CCCCCC  "
@@ -379,6 +490,26 @@ const View: React.FC = () => {
             >
               编辑
             </GradientButton>
+            <Popconfirm
+              title="确定删除吗？"
+              onConfirm={() => delApi(record)}
+              okText="是"
+              cancelText="否"
+            >
+              <GradientButton
+                type="primary"
+                size="middle"
+                icon={<EditOutlined />}
+                gradientStartColor="#CCCCCC"
+                gradientEndColor="#F5F5F5"
+                hoverGradientStartColor="#00c6fb" // 悬停时的起始颜色
+                hoverGradientEndColor="#005bea" // 悬停时的结束颜色
+                textColor="#000000" // 默认文字颜色
+                hoverTextColor="#ffefd5" // 悬停时的文字颜色
+              >
+                删除
+              </GradientButton>
+            </Popconfirm>
           </>
         );
       },
@@ -386,20 +517,23 @@ const View: React.FC = () => {
   ];
 
   useEffect(() => {
+    getApi();
+  }, []);
+  const getApi = () => {
     const req = {
       data: {
-        pageNum: 1,
-        pageSize: 10,
+        pageNum: pagination.pageNum,
+        pageSize: pagination.pageSize,
       },
       headers: { token: store.getState().token?.token },
     };
 
     getAllApi(req).then((r) => {
+      // console.log(r.data);
       setData(r.data);
       setPagination({ ...pagination, total: r.data.total });
     });
-  }, []);
-
+  };
   const onChange = (pagination: any) => {
     if (isBlur) {
       const req = {
@@ -440,7 +574,7 @@ const View: React.FC = () => {
         },
         headers: { token: store.getState().token?.token },
       };
-      banBlurAPI(req).then((r) => {
+      blurApi(req).then((r) => {
         setData(r.data);
         setPagination({ ...pagination, total: r.data.total });
       });
@@ -507,7 +641,10 @@ const View: React.FC = () => {
   return (
     <Card hoverable={true} style={{ cursor: "default" }}>
       <Space style={{ marginBottom: 16 }}>
-        <Tooltip placement="topLeft" title="模糊查询ip，封禁原因">
+        <Tooltip
+          placement="topLeft"
+          title="模糊查询api名,描述，表名,接口地址,"
+        >
           <Search
             value={serchBlurValue}
             placeholder="查询"
@@ -521,12 +658,12 @@ const View: React.FC = () => {
           type="primary"
           size="middle"
           icon={<EditOutlined />}
-          gradientStartColor="#ff6b6b"
-          gradientEndColor="#f9c851"
-          hoverGradientStartColor="#ff9900" // 悬停时的起始颜色
-          hoverGradientEndColor="#ff0066" // 悬停时的结束颜色
-          textColor="#000000" // 默认文字颜色
-          hoverTextColor="#ffefd5" // 悬停时的文字颜色
+          gradientStartColor="#6a11cb"
+          gradientEndColor="#2575fc"
+          hoverGradientStartColor="#8ec5fc" // 悬停时的起始颜色
+          hoverGradientEndColor="#e0c3fc" // 悬停时的结束颜色
+          textColor="#ffefd5" // 默认文字颜色
+          hoverTextColor="#000000" // 悬停时的文字颜色
           onClick={() => handleAdd()}
         >
           新增

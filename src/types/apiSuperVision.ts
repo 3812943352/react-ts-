@@ -2,13 +2,13 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-21 13:02:22
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-29 10:58:05
+ * @LastEditTime: 2024-12-02 11:40:33
  * @FilePath: src/types/apiSuperVision.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 // apiEntity.ts
 export interface ApiEntity {
-  ID: number | null; // api接口ID
+  id: number | null; // api接口ID
   apiTitle: string | null; // api标题
   apiDes: string | null; // api描述
   openMethod: string | null; // 开放方式
@@ -18,8 +18,8 @@ export interface ApiEntity {
   apiFormat: string | null; // api数据格式
   apiDemo: string | null; // 请求示例
   apiTable: string | null; // api表名
-  times: number | null; // 调用次数
-  visits: number | null; // 访问次数
+  times?: number | null; // 调用次数
+  visits?: number | null; // 访问次数
   headers: {
     token: string | null;
   };

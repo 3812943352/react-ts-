@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-30 16:34:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 16:52:33
+ * @LastEditTime: 2024-12-02 17:30:10
  * @FilePath: src/views/Page12/options/api.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -12,161 +12,190 @@ interface Option {
   children?: Option[];
 }
 
-export const ApiSuperVisionOptions: Option[] = [
+const ApiSuperVisionOptions: Option[] = [
   {
-    label: "http://localhost:9998/ApiSuperVision/addApi",
-    value: "http://localhost:9998/ApiSuperVision/addApi",
+    label: "/ApiSuperVision/addApi",
+    value: "/ApiSuperVision/addApi",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/deleteApi",
-    value: "http://localhost:9998/ApiSuperVision/deleteApi",
+    label: "/ApiSuperVision/deleteApi",
+    value: "/ApiSuperVision/deleteApi",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/updateApi",
-    value: "http://localhost:9998/ApiSuperVision/updateApi",
+    label: "/ApiSuperVision/updateApi",
+    value: "/ApiSuperVision/updateApi",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/getAllApi",
-    value: "http://localhost:9998/ApiSuperVision/getAllApi",
+    label: "/ApiSuperVision/getAllApi",
+    value: "/ApiSuperVision/getAllApi",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/getApiBlur",
-    value: "http://localhost:9998/ApiSuperVision/getApiBlur",
+    label: "/ApiSuperVision/getApiBlur",
+    value: "/ApiSuperVision/getApiBlur",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/getPage",
-    value: "http://localhost:9998/ApiSuperVision/getPage",
+    label: "/ApiSuperVision/getPage",
+    value: "/ApiSuperVision/getPage",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/getBlur",
-    value: "http://localhost:9998/ApiSuperVision/getBlur",
+    label: "/ApiSuperVision/getBlur",
+    value: "/ApiSuperVision/getBlur",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/getDate",
-    value: "http://localhost:9998/ApiSuperVision/getDate",
+    label: "/ApiSuperVision/getDate",
+    value: "/ApiSuperVision/getDate",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/delRecord",
-    value: "http://localhost:9998/ApiSuperVision/delRecord",
+    label: "/ApiSuperVision/delRecord",
+    value: "/ApiSuperVision/delRecord",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/getBan",
-    value: "http://localhost:9998/ApiSuperVision/getBan",
+    label: "/ApiSuperVision/getBan",
+    value: "/ApiSuperVision/getBan",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/ban",
-    value: "http://localhost:9998/ApiSuperVision/ban",
+    label: "/ApiSuperVision/ban",
+    value: "/ApiSuperVision/ban",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/unBan",
-    value: "http://localhost:9998/ApiSuperVision/unBan",
+    label: "/ApiSuperVision/unBan",
+    value: "/ApiSuperVision/unBan",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/banBlur",
-    value: "http://localhost:9998/ApiSuperVision/banBlur",
+    label: "/ApiSuperVision/banBlur",
+    value: "/ApiSuperVision/banBlur",
   },
   {
-    label: "http://localhost:9998/ApiSuperVision/banDate",
-    value: "http://localhost:9998/ApiSuperVision/banDate",
-  },
-];
-export const userOptions: Option[] = [
-  {
-    label: "http://localhost:9998/user/captcha",
-    value: "http://localhost:9998/user/captcha",
+    label: "/ApiSuperVision/banDate",
+    value: "/ApiSuperVision/banDate",
   },
   {
-    label: "http://localhost:9998/user/sendSms",
-    value: "http://localhost:9998/user/sendSms",
-  },
-  {
-    label: "http://localhost:9998/user/login",
-    value: "http://localhost:9998/user/login",
-  },
-  {
-    label: "http://localhost:9998/user/register",
-    value: "http://localhost:9998/user/register",
-  },
-  {
-    label: "http://localhost:9998/user/getUserById",
-    value: "http://localhost:9998/user/getUserById",
-  },
-  {
-    label: "http://localhost:9998/user/getUserByPhone",
-    value: "http://localhost:9998/user/getUserByPhone",
-  },
-  {
-    label: "http://localhost:9998/user/getAllUser",
-    value: "http://localhost:9998/user/getAllUser",
-  },
-  {
-    label: "http://localhost:9998/user/delUserById",
-    value: "http://localhost:9998/user/delUserById",
-  },
-  {
-    label: "http://localhost:9998/user/updateUserById",
-    value: "http://localhost:9998/user/updateUserById",
+    label: "/ApiSupervision-service/v3/api-docs",
+    value: "/ApiSupervision-service/v3/api-docs",
   },
 ];
-export const dataOptions: Option[] = [
+const userOptions: Option[] = [
   {
-    label: "http://localhost:9998/data/addArea",
-    value: "http://localhost:9998/data/addArea",
+    label: "/user/captcha",
+    value: "/user/captcha",
   },
   {
-    label: "http://localhost:9998/data/deleteArea",
-    value: "http://localhost:9998/data/deleteArea",
+    label: "/user/sendSms",
+    value: "/user/sendSms",
   },
   {
-    label: "http://localhost:9998/data/getAreaById",
-    value: "http://localhost:9998/data/getAreaById",
+    label: "/user/login",
+    value: "/user/login",
   },
   {
-    label: "http://localhost:9998/data/getAllArea",
-    value: "http://localhost:9998/data/getAllArea",
+    label: "/user/register",
+    value: "/user/register",
   },
   {
-    label: "http://localhost:9998/data/updateArea",
-    value: "http://localhost:9998/data/updateArea",
+    label: "/user/getUserById",
+    value: "/user/getUserById",
   },
   {
-    label: "http://localhost:9998/data/upload",
-    value: "http://localhost:9998/data/upload",
+    label: "/user/getUserByPhone",
+    value: "/user/getUserByPhone",
   },
   {
-    label: "http://localhost:9998/data/download",
-    value: "http://localhost:9998/data/download",
+    label: "/user/getAllUser",
+    value: "/user/getAllUser",
   },
   {
-    label: "http://localhost:9998/data/getFile",
-    value: "http://localhost:9998/data/getFile",
+    label: "/user/delUserById",
+    value: "/user/delUserById",
   },
   {
-    label: "http://localhost:9998/data/update",
-    value: "http://localhost:9998/data/update",
+    label: "/user/updateUserById",
+    value: "/user/updateUserById",
   },
   {
-    label: "http://localhost:9998/data/delete",
-    value: "http://localhost:9998/data/delete",
+    label: "/user-service/v3/api-docs",
+    value: "/user-service/v3/api-docs",
+  },
+];
+const dataOptions: Option[] = [
+  {
+    label: "/data/addArea",
+    value: "/data/addArea",
   },
   {
-    label: "http://localhost:9998/data/addDepartment",
-    value: "http://localhost:9998/data/addDepartment",
+    label: "/data/deleteArea",
+    value: "/data/deleteArea",
   },
   {
-    label: "http://localhost:9998/data/deleteDepartment",
-    value: "http://localhost:9998/data/deleteDepartment",
+    label: "/data/getAreaById",
+    value: "/data/getAreaById",
   },
   {
-    label: "http://localhost:9998/data/getAllDepartment",
-    value: "http://localhost:9998/data/getAllDepartment",
+    label: "/data/getAllArea",
+    value: "/data/getAllArea",
   },
   {
-    label: "http://localhost:9998/data/getDepartmentById",
-    value: "http://localhost:9998/data/getDepartmentById",
+    label: "/data/updateArea",
+    value: "/data/updateArea",
   },
   {
-    label: "http://localhost:9998/data/updateDepartment",
-    value: "http://localhost:9998/data/updateDepartment",
+    label: "/data/upload",
+    value: "/data/upload",
+  },
+  {
+    label: "/data/download",
+    value: "/data/download",
+  },
+  {
+    label: "/data/getFile",
+    value: "/data/getFile",
+  },
+  {
+    label: "/data/update",
+    value: "/data/update",
+  },
+  {
+    label: "/data/delete",
+    value: "/data/delete",
+  },
+  {
+    label: "/data/addDepartment",
+    value: "/data/addDepartment",
+  },
+  {
+    label: "/data/deleteDepartment",
+    value: "/data/deleteDepartment",
+  },
+  {
+    label: "/data/getAllDepartment",
+    value: "/data/getAllDepartment",
+  },
+  {
+    label: "/data/getDepartmentById",
+    value: "/data/getDepartmentById",
+  },
+  {
+    label: "/data/updateDepartment",
+    value: "/data/updateDepartment",
+  },
+  {
+    label: "/data-service/v3/api-docs",
+    value: "/data-service/v3/api-docs",
+  },
+];
+export const ControllerOptions: Option[] = [
+  {
+    label: "data",
+    value: "data",
+    children: dataOptions,
+  },
+  {
+    label: "ApiSuperVision",
+    value: "ApiSuperVision",
+    children: ApiSuperVisionOptions,
+  },
+  {
+    label: "user",
+    value: "user",
+    children: userOptions,
   },
 ];

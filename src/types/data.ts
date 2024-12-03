@@ -1,15 +1,27 @@
 /**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-21 13:02:39
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-03 14:26:11
+ * @FilePath: src/types/data.ts
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+
+/**
  * @Author: wb
  * @Date: 2024-11-21 13:02:39
- * @LastEditTime: 2024-11-21 13:25:07
+ * @LastEditTime: 2024-12-03 14:26:11
  * @FilePath: src/types/data.ts
  * @Description:
  */
 export interface AreaEntity {
   id: number | null; // ID
   name: string | null; // 区域名称
-  created: number | null; // 创建时间
-  updated: number | null; // 更新时间
+  created?: number | null; // 创建时间
+  updated?: number | null; // 更新时间
+  headers: {
+    token: string | null;
+  };
 }
 
 export interface DataEntity {
@@ -28,11 +40,72 @@ export interface DataEntity {
   dataName: string; // 资源名称
   dataDes: string; // 资源描述
   name: string | null; // 文件名
+  headers: {
+    token: string | null;
+  };
 }
 
 export interface DepartmentEntity {
   id: number | null; // ID
   name: string | null; // 部门名称
-  created: number | null; // 创建时间
-  updated: number | null; // 更新时间
+  created?: number | null; // 创建时间
+  updated?: number | null; // 更新时间
+  headers: {
+    token: string | null;
+  };
+}
+export interface dataPageDataType {
+  data: {
+    pageNum: number;
+    pageSize: number;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+export interface uploadDataType {
+  data: {
+    file: File;
+  };
+  dataEntity: DataEntity;
+  headers: {
+    token: string | null;
+  };
+}
+export interface blurDataType {
+  data: {
+    pageNum: number;
+    pageSize: number;
+    word: string;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+export interface downloadDataType {
+  data: {
+    filename: string;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+
+export interface resetDataType {
+  data: {
+    id: number;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+
+export interface getFileDataType {
+  data: {
+    pageNum: number;
+    pageSize: number;
+  };
+  headers: {
+    token: string | null;
+  };
 }

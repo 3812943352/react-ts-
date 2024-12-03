@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-25 17:11:44
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 23:02:07
+ * @LastEditTime: 2024-12-03 12:00:58
  * @FilePath: src/views/commponents/table.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -79,7 +79,6 @@ const EditableCell: React.FC<
 }) => {
   const editing = col.editable === true && record.id === editingKey;
   useEffect(() => {
-    console.log(record.id);
     if (
       dataSource.some((row: any) => row.id === "新增") &&
       record.id !== "新增" &&
@@ -120,7 +119,6 @@ const EditableCell: React.FC<
   );
   const node = isCascader ? cascader : inputNode;
   // 当编辑状态改变时，初始化表单字段
-
   return (
     <td {...restProps}>
       {editing ? (

@@ -8,13 +8,17 @@ import {
   getDateDataType,
   unBanDataType,
 } from "@/types/apiSuperVision.ts";
-import { ApiPath, gatePath, ipPath } from "@/api/reqPath/apiSuperVision.tsx";
+import {
+  ApiPath,
+  gatePath,
+  ipPath,
+} from "@/api/reqPath/apiSuperVision.tsx";
 
 /**
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-26 11:49:46
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-29 16:05:44
+ * @LastEditTime: 2024-12-02 14:17:14
  * @FilePath: src/api/apiSuperVision.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -81,7 +85,7 @@ export function getDateAPI(data: getDateDataType) {
   });
 }
 
-export function addApi(data: ApiEntity) {
+export function addApiApi(data: ApiEntity) {
   return ax.post(ApiPath.addApi, data, {
     headers: data.headers,
   });
