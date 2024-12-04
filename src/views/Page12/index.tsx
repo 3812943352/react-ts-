@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-03 11:19:27
+ * @LastEditTime: 2024-12-04 09:35:08
  * @FilePath: src/views/Page12/index.tsx
  * @Description: 请填写简介
  */
@@ -35,6 +35,7 @@ import { apiTableOptions } from "@/views/Page12/options/apiTable.ts";
 import { apiControllerOptions } from "@/views/Page12/options/apiController.ts";
 import { initialRow } from "@/views/Page12/initialRow.ts";
 import { ApiEntity } from "@/types/apiSuperVision.ts";
+import { getFileAPI } from "@/api/data.ts";
 
 const View: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
@@ -187,31 +188,50 @@ const View: React.FC = () => {
       ...pagination,
       total: pagination.total - 1,
     };
-
     if (
       Math.ceil(newPagination.total / newPagination.pageSize) ===
       Math.floor(newPagination.total / newPagination.pageSize)
     ) {
-      console.log(1);
-      setPagination({
-        ...pagination,
-        pageNum: pagination.pageNum - 1,
-        total: pagination.total - 1,
-      });
-      const req = {
-        data: {
+      if (pagination.total <= pagination.pageSize) {
+        setPagination({
+          ...pagination,
+          pageNum: pagination.pageNum,
+          total: pagination.total,
+        });
+        const req = {
+          data: {
+            pageNum: pagination.pageNum,
+            pageSize: pagination.pageSize,
+          },
+          headers: { token: store.getState().token?.token },
+        };
+        getFileAPI(req).then((r) => {
+          if (r.code === 200) {
+            setData(r.data);
+            console.log(pagination);
+            setEditingKey("");
+          }
+        });
+      } else {
+        setPagination({
+          ...pagination,
           pageNum: pagination.pageNum - 1,
-          pageSize: pagination.pageSize,
-        },
-        headers: { token: store.getState().token?.token },
-      };
-      getAllApi(req).then((r) => {
-        if (r.code === 200) {
-          console.log(r);
-          setData(r.data);
-          setEditingKey("");
-        }
-      });
+          total: pagination.total - 1,
+        });
+        const req = {
+          data: {
+            pageNum: pagination.pageNum - 1,
+            pageSize: pagination.pageSize,
+          },
+          headers: { token: store.getState().token?.token },
+        };
+        getFileAPI(req).then((r) => {
+          if (r.code === 200) {
+            setData(r.data);
+            setEditingKey("");
+          }
+        });
+      }
     } else {
       setEditingKey("");
     }

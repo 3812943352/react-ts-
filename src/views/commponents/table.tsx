@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-25 17:11:44
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-03 12:00:58
+ * @LastEditTime: 2024-12-04 17:12:58
  * @FilePath: src/views/commponents/table.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -40,9 +40,10 @@ interface TableProps<T> {
   onCancel?: () => void; // 取消方法
   isEditing?: (record: T) => boolean; // 判断是否正在编辑
   editingKey?: React.Key | null; // 当前编辑的键
-  form: any;
-  setData: (newData: any) => void;
-  data: any;
+  form?: any;
+  setData?: (newData: any) => void;
+  data?: any;
+  isUploading?: boolean;
 }
 
 interface EditableCellProps
@@ -58,6 +59,7 @@ interface EditableCellProps
   dataSource: any;
   data: any;
   setData: (newData: any) => void;
+  isUploading: boolean;
 }
 
 const EditableCell: React.FC<
@@ -75,6 +77,7 @@ const EditableCell: React.FC<
   dataSource,
   data,
   setData,
+  isUploading,
   ...restProps
 }) => {
   const editing = col.editable === true && record.id === editingKey;
@@ -93,7 +96,7 @@ const EditableCell: React.FC<
       };
       setData(newData);
     }
-    if (editing) {
+    if (editing && !isUploading) {
       if (record.id === "新增") {
         form.setFieldsValue({
           [dataIndex]: null,
@@ -104,7 +107,7 @@ const EditableCell: React.FC<
         });
       }
     }
-  }, [editing, editingKey]);
+  }, [editing, record, dataIndex, form]);
   const isCascader = col.cascader === true && col.options;
 
   const inputNode = (
@@ -155,6 +158,7 @@ const CustomTable = <T extends object>({
   editingKey,
   form,
   data,
+  isUploading,
   setData,
 }: TableProps<T>) => {
   // 搜索相关状态和逻辑
@@ -258,6 +262,7 @@ const CustomTable = <T extends object>({
         dataSource,
         data,
         setData,
+        isUploading,
         onDoubleClick: (event) => {
           const text = event.target.innerText;
           onDoubleClick(text);
@@ -292,6 +297,7 @@ const CustomTable = <T extends object>({
       dataSource,
       data,
       setData,
+      isUploading,
     ),
   }));
 

@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-30 10:04:50
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-27 09:40:45
+ * @LastEditTime: 2024-12-04 10:17:15
  * @FilePath: src/input.css
  * @Description: 请填写简介
  */
@@ -80,4 +80,9 @@ body {
 
 .ant-layout {
     height: 100vh;
+}
+
+:where(.css-dev-only-do-not-override-apn68).ant-table-wrapper .ant-table-bordered .ant-table-tbody-virtual .ant-table-cell {
+    text-align: center;
+    border-inline-end: 1px solid #f0f0f0;
 }

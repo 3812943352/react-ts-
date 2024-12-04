@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-03 15:01:26
+ * @LastEditTime: 2024-12-04 11:18:50
  * @FilePath: src/views/Page3/index.tsx
  * @Description: 请填写简介
  */
@@ -26,6 +26,7 @@ import {
   blurAreaAPI,
   deleteDepartmentAPI,
   getAllDepartmentAPI,
+  getFileAPI,
   updateDepartmentAPI,
 } from "@/api/data.ts";
 import { DepartmentEntity } from "@/types/data.ts";
@@ -182,31 +183,50 @@ const View: React.FC = () => {
       ...pagination,
       total: pagination.total - 1,
     };
-
     if (
       Math.ceil(newPagination.total / newPagination.pageSize) ===
       Math.floor(newPagination.total / newPagination.pageSize)
     ) {
-      console.log(1);
-      setPagination({
-        ...pagination,
-        pageNum: pagination.pageNum - 1,
-        total: pagination.total - 1,
-      });
-      const req = {
-        data: {
+      if (pagination.total <= pagination.pageSize) {
+        setPagination({
+          ...pagination,
+          pageNum: pagination.pageNum,
+          total: pagination.total,
+        });
+        const req = {
+          data: {
+            pageNum: pagination.pageNum,
+            pageSize: pagination.pageSize,
+          },
+          headers: { token: store.getState().token?.token },
+        };
+        getFileAPI(req).then((r) => {
+          if (r.code === 200) {
+            setData(r.data);
+            console.log(pagination);
+            setEditingKey("");
+          }
+        });
+      } else {
+        setPagination({
+          ...pagination,
           pageNum: pagination.pageNum - 1,
-          pageSize: pagination.pageSize,
-        },
-        headers: { token: store.getState().token?.token },
-      };
-      getAllDepartmentAPI(req).then((r) => {
-        if (r.code === 200) {
-          console.log(r);
-          setData(r.data);
-          setEditingKey("");
-        }
-      });
+          total: pagination.total - 1,
+        });
+        const req = {
+          data: {
+            pageNum: pagination.pageNum - 1,
+            pageSize: pagination.pageSize,
+          },
+          headers: { token: store.getState().token?.token },
+        };
+        getFileAPI(req).then((r) => {
+          if (r.code === 200) {
+            setData(r.data);
+            setEditingKey("");
+          }
+        });
+      }
     } else {
       setEditingKey("");
     }
@@ -247,7 +267,7 @@ const View: React.FC = () => {
       ellipsis: {
         showTitle: false,
       },
-      render: (address: any) =>
+      render: (address: any = "") =>
         address === "" ? (
           ""
         ) : (
@@ -266,7 +286,7 @@ const View: React.FC = () => {
       ellipsis: {
         showTitle: false,
       },
-      render: (address: any) =>
+      render: (address: any = "") =>
         address === "" ? (
           ""
         ) : (

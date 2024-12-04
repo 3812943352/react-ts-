@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-03 10:33:49
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-03 17:12:19
+ * @LastEditTime: 2024-12-04 17:23:19
  * @FilePath: src/api/reqPath/data.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -32,4 +32,6 @@ export const dataPath = {
   readexcel: "/api/data/readexcel",
   getArea: "/api/data/getArea",
   getDepartment: "/api/data/getDepartment",
+  dataBlur: "/api/data/dataBlur",
+  dataDate: "/api/data/dataDate",
 };

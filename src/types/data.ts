@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-21 13:02:39
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-03 14:26:11
+ * @LastEditTime: 2024-12-04 17:04:59
  * @FilePath: src/types/data.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -10,7 +10,7 @@
 /**
  * @Author: wb
  * @Date: 2024-11-21 13:02:39
- * @LastEditTime: 2024-12-03 14:26:11
+ * @LastEditTime: 2024-12-04 17:04:59
  * @FilePath: src/types/data.ts
  * @Description:
  */
@@ -64,10 +64,8 @@ export interface dataPageDataType {
   };
 }
 export interface uploadDataType {
-  data: {
-    file: File;
-  };
-  dataEntity: DataEntity;
+  data: FormData;
+
   headers: {
     token: string | null;
   };
@@ -104,6 +102,16 @@ export interface getFileDataType {
   data: {
     pageNum: number;
     pageSize: number;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+export interface blurDataType {
+  data: {
+    pageNum: number;
+    pageSize: number;
+    word: string;
   };
   headers: {
     token: string | null;

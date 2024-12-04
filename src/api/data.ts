@@ -14,13 +14,16 @@ import {
   dataPath,
   departmentPath,
 } from "@/api/reqPath/data.tsx";
-import { delDataType } from "@/types/apiSuperVision.ts";
+import {
+  delDataType,
+  getDateDataType,
+} from "@/types/apiSuperVision.ts";
 
 /**
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-03 10:33:33
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-03 17:12:49
+ * @LastEditTime: 2024-12-04 17:23:20
  * @FilePath: src/api/data.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -88,14 +91,12 @@ export function getFileAPI(data: getFileDataType) {
   });
 }
 export function uploadAPI(data: uploadDataType) {
-  return ax.post(dataPath.upload, data.dataEntity, {
-    params: data.data,
+  return ax.post(dataPath.upload, data.data, {
     headers: data.headers,
   });
 }
 export function downloadAPI(data: downloadDataType) {
-  return ax.post(dataPath.download, null, {
-    params: data.data,
+  return ax.post(dataPath.download, data.data, {
     headers: data.headers,
   });
 }
@@ -106,7 +107,7 @@ export function reset(data: resetDataType) {
   });
 }
 export function updateAPI(data: uploadDataType) {
-  return ax.post(dataPath.update, data.dataEntity, {
+  return ax.post(dataPath.update, data.data, {
     params: data.data,
     headers: data.headers,
   });
@@ -119,6 +120,18 @@ export function getDepartmentAPI() {
 }
 export function deleteAPI(data: delDataType) {
   return ax.post(dataPath.delete, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+export function dataBlurAPI(data: blurDataType) {
+  return ax.post(dataPath.dataBlur, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+export function dataDateAPI(data: getDateDataType) {
+  return ax.post(dataPath.dataDate, null, {
     params: data.data,
     headers: data.headers,
   });

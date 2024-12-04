@@ -1,3 +1,11 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-04 15:40:58
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-04 09:36:06
+ * @FilePath: src/views/Page4/index.tsx
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
 import CustomTable from "@/views/commponents/table.tsx";
 import { Card, Form, Popconfirm, Space, Tooltip } from "antd";
 import Search from "antd/es/input/Search";
@@ -18,6 +26,7 @@ import {
   deleteAreaAPI,
   departmentBlurAPI,
   getAllAreaAPI,
+  getFileAPI,
   updateAreaAPI,
 } from "@/api/data.ts";
 import { AreaEntity, DepartmentEntity } from "@/types/data.ts";
@@ -174,31 +183,50 @@ const View: React.FC = () => {
       ...pagination,
       total: pagination.total - 1,
     };
-
     if (
       Math.ceil(newPagination.total / newPagination.pageSize) ===
       Math.floor(newPagination.total / newPagination.pageSize)
     ) {
-      console.log(1);
-      setPagination({
-        ...pagination,
-        pageNum: pagination.pageNum - 1,
-        total: pagination.total - 1,
-      });
-      const req = {
-        data: {
+      if (pagination.total <= pagination.pageSize) {
+        setPagination({
+          ...pagination,
+          pageNum: pagination.pageNum,
+          total: pagination.total,
+        });
+        const req = {
+          data: {
+            pageNum: pagination.pageNum,
+            pageSize: pagination.pageSize,
+          },
+          headers: { token: store.getState().token?.token },
+        };
+        getFileAPI(req).then((r) => {
+          if (r.code === 200) {
+            setData(r.data);
+            console.log(pagination);
+            setEditingKey("");
+          }
+        });
+      } else {
+        setPagination({
+          ...pagination,
           pageNum: pagination.pageNum - 1,
-          pageSize: pagination.pageSize,
-        },
-        headers: { token: store.getState().token?.token },
-      };
-      getAllAreaAPI(req).then((r) => {
-        if (r.code === 200) {
-          console.log(r);
-          setData(r.data);
-          setEditingKey("");
-        }
-      });
+          total: pagination.total - 1,
+        });
+        const req = {
+          data: {
+            pageNum: pagination.pageNum - 1,
+            pageSize: pagination.pageSize,
+          },
+          headers: { token: store.getState().token?.token },
+        };
+        getFileAPI(req).then((r) => {
+          if (r.code === 200) {
+            setData(r.data);
+            setEditingKey("");
+          }
+        });
+      }
     } else {
       setEditingKey("");
     }
