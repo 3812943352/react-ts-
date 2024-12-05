@@ -2,28 +2,28 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-04 17:23:20
+ * @LastEditTime: 2024-12-05 17:28:16
  * @FilePath: src/views/Page7/index.tsx
  * @Description: 请填写简介
  */
 import CustomTable from "@/views/commponents/table.tsx";
 import {
+  Button,
   Card,
+  Empty,
   Form,
   message,
+  Pagination,
   Popconfirm,
   Progress,
   Space,
+  Spin,
   Tooltip,
 } from "antd";
 
 import Search from "antd/es/input/Search";
 import React, { ReactNode, useEffect, useState } from "react";
-import {
-  addApiApi,
-  banBlurAPI,
-  unBanAPI,
-} from "@/api/apiSuperVision.ts";
+import { addApiApi, banBlurAPI } from "@/api/apiSuperVision.ts";
 import { store } from "@/store/user/selector.tsx";
 import CustomModal from "@/views/commponents/modal.tsx";
 import { toast } from "react-toastify";
@@ -47,6 +47,7 @@ import {
   getAreaAPI,
   getDepartmentAPI,
   getFileAPI,
+  readexcelAPI,
 } from "@/api/data.ts";
 import { formatDate } from "@/commponents/formatDate.ts";
 import FileUploader from "@/views/commponents/upload.tsx";
@@ -54,6 +55,8 @@ import axios from "axios";
 import TimePicke from "@/commponents/datePicker";
 import { Dayjs } from "dayjs";
 import { timeToUnix } from "@/commponents/timeToUnix.ts";
+import ExcelView from "@/views/commponents/excelView.tsx";
+import { excelDataType } from "@/types/data.ts";
 
 const View: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
@@ -88,6 +91,159 @@ const View: React.FC = () => {
   const [isDate, setIsDate] = useState(false);
   const [sTime, setSTime] = useState(0);
   const [eTime, setETime] = useState(0);
+  const [excelData, setExcelData] = useState([]);
+  const [sheett, setSheett] = useState(0);
+  const [excelPagination, setExcelPagination] = useState({
+    pageNum: 1,
+    pageSize: 10,
+    total: 0,
+  });
+  const [excelID, setExcelID] = useState(0);
+  const [sheetList, setSheetList] = useState([]);
+  const copy = async (record: any) => {
+    await navigator.clipboard.writeText(
+      import.meta.env.VITE_API_URL +
+        "/data/download?filename=" +
+        record.filename,
+    );
+    message.success("复制成功");
+  };
+  const download = (record: any) => {
+    console.log(record);
+
+    axios({
+      url: "/api/data/download",
+      method: "GET",
+      params: {
+        filename: record.filename,
+      },
+      headers: {
+        token: store.getState().token?.token, // 注意 token 的格式
+      },
+      responseType: "blob", // 设置响应类型为 blob
+    })
+      .then((response) => {
+        const url = window.URL.createObjectURL(
+          new Blob([response.data]),
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", record.name); // 设置下载文件名
+        document.body.appendChild(link);
+        link.click();
+        link.remove(); // 下载完成后移除 a 标签
+        window.URL.revokeObjectURL(url); // 释放对象 URL
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          toast.error("文件链接已失效，请刷新页面");
+        }
+      });
+  };
+  const handleSheetClick = (sheet: number) => {
+    setSheett(sheet);
+
+    setExcelData([]);
+    setContent(
+      <>
+        <Spin size="large" />
+      </>,
+    );
+    getExceldata(excelID, 1, excelPagination.pageSize, sheet);
+  };
+  const excelChange = (page: number) => {
+    setExcelPagination({
+      pageSize: excelPagination.pageSize,
+      total: excelPagination.total,
+      pageNum: page,
+    });
+    setExcelData([]);
+    setContent(
+      <>
+        <Spin size="large" />
+      </>,
+    );
+    getExceldata(excelID, page, excelPagination.pageSize, sheett);
+  };
+  const getExceldata = (id, pageNum, pageSize, sheet) => {
+    const req: excelDataType = {
+      data: {
+        ID: id,
+        sheet: sheet,
+        pageNum: pageNum,
+        pageSize: pageSize,
+      },
+      headers: { token: store.getState().token?.token },
+    };
+
+    readexcelAPI(req).then((r) => {
+      if (r.data.total === 0) {
+        setContent(
+          <>
+            <Empty />
+          </>,
+        );
+      } else {
+        setExcelPagination({
+          pageNum: excelPagination.pageNum,
+          pageSize: excelPagination.pageSize,
+          total: r.data.total,
+        });
+        setExcelData(r.data.data);
+        setSheetList(r.data.sheet);
+      }
+    });
+  };
+  const Preview = (record: any) => {
+    setExcelData([]);
+    setContent(
+      <>
+        <Spin size="large" />
+      </>,
+    );
+    setTitle("文件:" + record.name + "预览");
+    setExcelID(record.id);
+    getExceldata(
+      record.id,
+      excelPagination.pageNum,
+      excelPagination.pageSize,
+      sheett,
+    );
+    setModalOpen(true);
+  };
+  useEffect(() => {
+    if (modalOpen && excelData.length > 0) {
+      setContent(
+        <>
+          <ExcelView data={excelData} />
+          <div style={{ display: "flex", marginBottom: "20px" }}>
+            {sheetList.map((sheet, index) => (
+              <Button
+                key={index}
+                style={{ margin: "0 5px" }}
+                size={"small"}
+                color="default"
+                variant={index === sheett ? "solid" : "outlined"}
+                className="sheet-button"
+                onClick={() => handleSheetClick(sheet.sheetNo)}
+              >
+                {sheet.sheetName}
+              </Button>
+            ))}
+
+            <Pagination
+              style={{ marginLeft: "auto" }}
+              simple
+              defaultCurrent={1}
+              total={excelPagination.total}
+              onChange={excelChange}
+            />
+          </div>
+        </>,
+      );
+    }
+  }, [modalOpen, excelData, excelPagination]);
+
   const timeOnChange = (
     dates: [Dayjs, Dayjs],
     dateStrings: [string, string],
@@ -170,6 +326,8 @@ const View: React.FC = () => {
       );
       console.log(r);
       if (r.data.code === 200) {
+        getApi();
+        setEditingKey("");
         toast.success(r.data.message, {
           position: "top-right",
           autoClose: 3000,
@@ -276,6 +434,8 @@ const View: React.FC = () => {
       );
       console.log(r);
       if (r.data.code === 200) {
+        getApi();
+        setEditingKey("");
         toast.success(r.data.message, {
           position: "top-right",
           autoClose: 3000,
@@ -416,6 +576,19 @@ const View: React.FC = () => {
       fixed: "left",
       sorter: (a: any, b: any) => a.id.length - b.id.length,
       sortDirections: ["descend", "ascend"],
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_: any, record: any) => (
+        <Tooltip placement="topLeft" title={"点击预览" + record.name}>
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => Preview(record)}
+          >
+            {record.id}
+          </div>
+        </Tooltip>
+      ),
     },
     {
       title: "数据集名称",
@@ -636,7 +809,7 @@ const View: React.FC = () => {
               hoverGradientEndColor="#005bea   " // 悬停时的结束颜色
               textColor="#000000" // 默认文字颜色
               hoverTextColor="#ffefd5" // 悬停时的文字颜色
-              onClick={() => addApi(record)}
+              onClick={() => download(record)}
             >
               下载
             </GradientButton>
@@ -650,7 +823,9 @@ const View: React.FC = () => {
               hoverGradientEndColor="#E0E0E0  " // 悬停时的结束颜色
               textColor="#000000" // 默认文字颜色
               hoverTextColor="#696969" // 悬停时的文字颜色
-              onClick={cancel}
+              onClick={() => {
+                copy(record);
+              }}
             >
               复制链接
             </GradientButton>
@@ -835,50 +1010,6 @@ const View: React.FC = () => {
 
   const onOk = () => {
     setModalOpen(false);
-    if (isban) {
-      const req = {
-        data: {
-          ip: banIp,
-        },
-        headers: { token: store.getState().token?.token },
-      };
-      unBanAPI(req).then((r) => {});
-    } else {
-      const req = {
-        data: {
-          id: banId,
-        },
-        headers: { token: store.getState().token?.token },
-      };
-      delApi(req).then((r) => {
-        if (isBlur) {
-          const req = {
-            data: {
-              pageNum: pagination.pageNum,
-              pageSize: 10,
-              word: word,
-            },
-            headers: { token: store.getState().token?.token },
-          };
-          banBlurAPI(req).then((r) => {
-            setData(r.data);
-            setPagination({ ...pagination, total: r.data.total });
-          });
-        } else {
-          const req = {
-            data: {
-              pageNum: pagination.pageNum,
-              pageSize: pagination.pageSize,
-            },
-            headers: { token: store.getState().token?.token },
-          };
-          getFileAPI(req).then((r) => {
-            setData(r.data);
-            setPagination({ ...pagination, total: r.data.total });
-          });
-        }
-      });
-    }
   };
   const onCancel = () => {
     setModalOpen(false);
@@ -915,9 +1046,10 @@ const View: React.FC = () => {
         >
           新增
         </GradientButton>
+        单击ID栏预览对应文件，每次下载后链接重置，请刷新页面获取新链接
       </Space>
       <CustomTable
-        scroll={{ x: 2000, y: 600 }}
+        scroll={{ x: 2200, y: 600 }}
         onChange={onChange}
         virtual={true}
         columns={columns}
@@ -935,6 +1067,7 @@ const View: React.FC = () => {
       />
 
       <CustomModal
+        width={1200}
         title={title}
         content={content}
         modalOpen={modalOpen}

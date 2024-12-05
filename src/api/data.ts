@@ -5,6 +5,7 @@ import {
   dataPageDataType,
   DepartmentEntity,
   downloadDataType,
+  excelDataType,
   getFileDataType,
   resetDataType,
   uploadDataType,
@@ -23,7 +24,7 @@ import {
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-03 10:33:33
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-04 17:23:20
+ * @LastEditTime: 2024-12-05 16:21:29
  * @FilePath: src/api/data.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -96,10 +97,18 @@ export function uploadAPI(data: uploadDataType) {
   });
 }
 export function downloadAPI(data: downloadDataType) {
-  return ax.post(dataPath.download, data.data, {
+  return ax.get(dataPath.download, {
+    params: data.data,
     headers: data.headers,
   });
 }
+export function readexcelAPI(data: excelDataType) {
+  return ax.post(dataPath.readexcel, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+
 export function reset(data: resetDataType) {
   return ax.post(dataPath.reset, null, {
     params: data.data,

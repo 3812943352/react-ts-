@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-21 13:02:39
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-04 17:04:59
+ * @LastEditTime: 2024-12-05 14:20:39
  * @FilePath: src/types/data.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -10,7 +10,7 @@
 /**
  * @Author: wb
  * @Date: 2024-11-21 13:02:39
- * @LastEditTime: 2024-12-04 17:04:59
+ * @LastEditTime: 2024-12-05 14:20:39
  * @FilePath: src/types/data.ts
  * @Description:
  */
@@ -97,7 +97,17 @@ export interface resetDataType {
     token: string | null;
   };
 }
-
+export interface excelDataType {
+  data: {
+    ID: number;
+    pageNum: number;
+    pageSize: number;
+    sheet: number;
+  };
+  headers: {
+    token: string | null;
+  };
+}
 export interface getFileDataType {
   data: {
     pageNum: number;
