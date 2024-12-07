@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-21 13:02:22
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-02 11:40:33
+ * @LastEditTime: 2024-12-07 15:43:43
  * @FilePath: src/types/apiSuperVision.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -96,7 +96,7 @@ export interface blurDataType {
 
 export interface delDataType {
   data: {
-    id: number;
+    ID: number;
   };
   headers: {
     token: string | null;

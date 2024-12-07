@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-05 17:28:16
+ * @LastEditTime: 2024-12-07 15:45:29
  * @FilePath: src/views/Page7/index.tsx
  * @Description: 请填写简介
  */
@@ -465,18 +465,13 @@ const View: React.FC = () => {
     }
   };
   const delApi = async (record: any) => {
-    const row = await form.validateFields();
-
-    for (let key in row) {
-      if (Array.isArray(row[key]) && row[key].length > 0) {
-        row[key] = row[key][row[key].length - 1];
-      }
-    }
     const req: delDataType = {
-      id: record.id,
-      ...row,
+      data: {
+        ID: record.id,
+      },
       headers: { token: store.getState().token?.token },
     };
+    console.log(req);
     deleteAPI(req).then((r) => {
       if (r.code === 200) {
         getApi();
