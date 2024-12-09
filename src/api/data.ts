@@ -7,6 +7,7 @@ import {
   downloadDataType,
   excelDataType,
   getFileDataType,
+  onlyHeaderType,
   resetDataType,
   uploadDataType,
 } from "@/types/data.ts";
@@ -24,7 +25,7 @@ import {
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-03 10:33:33
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-05 16:21:29
+ * @LastEditTime: 2024-12-09 16:56:28
  * @FilePath: src/api/data.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -142,6 +143,11 @@ export function dataBlurAPI(data: blurDataType) {
 export function dataDateAPI(data: getDateDataType) {
   return ax.post(dataPath.dataDate, null, {
     params: data.data,
+    headers: data.headers,
+  });
+}
+export function DatasAPI(data: onlyHeaderType) {
+  return ax.post(dataPath.Datas, null, {
     headers: data.headers,
   });
 }

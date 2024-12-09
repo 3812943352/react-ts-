@@ -1,15 +1,20 @@
 /*
  * @Author: wb
  * @Date: 2024-11-20 21:49:38
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 12:51:19
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-09 16:57:12
  * @FilePath: src/api/user.ts
  * @Description: 请填写简介
  */
 import * as dataType from "@/types/user";
 import { sendSmsDataType } from "@/types/user";
 import ax from "@/utils/request";
-import { captchaPath, smsPath, userPath } from "@/api/reqPath/user.tsx";
+import {
+  captchaPath,
+  smsPath,
+  userPath,
+} from "@/api/reqPath/user.tsx";
+import { onlyHeaderType } from "@/types/data.ts";
 
 /**
  * @description: 用户登录
@@ -84,6 +89,11 @@ export function getCaptcha() {
 export function sendSms(data: sendSmsDataType) {
   return ax.post(smsPath.sendSms, null, {
     params: data.data,
+    headers: data.headers,
+  });
+}
+export function getDatabaseAPI(data: onlyHeaderType) {
+  return ax.post(userPath.getDatabase, null, {
     headers: data.headers,
   });
 }

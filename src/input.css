@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-30 10:04:50
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-07 11:49:53
+ * @LastEditTime: 2024-12-09 13:54:13
  * @FilePath: src/input.css
  * @Description: 请填写简介
  */
@@ -92,6 +92,7 @@ body {
     line-height: 1.5714285714285714;
     word-wrap: break-word;
     padding: 0;
+    height: 100%;
 }
 .antiCard::-webkit-scrollbar {
     width: 10px;

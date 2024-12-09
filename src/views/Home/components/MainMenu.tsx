@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 15:20:38
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-29 11:06:26
+ * @LastEditTime: 2024-12-09 11:51:47
  * @FilePath: src/views/Home/components/MainMenu.tsx
  * @Description: 请填写简介
  */
@@ -13,9 +13,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   BankOutlined,
+  ControlOutlined,
   DatabaseOutlined,
   DesktopOutlined,
-  PieChartOutlined,
   StockOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -37,7 +37,7 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("基础数据", "/page1", <PieChartOutlined />),
+  getItem("控制台", "/page1", <ControlOutlined />),
   getItem("趋势数据", "/page2", <StockOutlined />),
   getItem("部门区域", "sub1", <BankOutlined />, [
     getItem("市级部门管理", "/department/page3"),
