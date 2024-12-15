@@ -5,7 +5,9 @@ import {
   banDataType,
   blurDataType,
   delDataType,
+  getChartsType,
   getDateDataType,
+  getLinesType,
   unBanDataType,
 } from "@/types/apiSuperVision.ts";
 import {
@@ -18,7 +20,7 @@ import {
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-26 11:49:46
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-02 14:17:14
+ * @LastEditTime: 2024-12-12 10:06:52
  * @FilePath: src/api/apiSuperVision.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -113,6 +115,18 @@ export function getAllApi(data: ApiPageDataType) {
 export function blurApi(data: blurDataType) {
   return ax.post(ApiPath.apiBlur, null, {
     params: data.data,
+    headers: data.headers,
+  });
+}
+
+export function getChartsApi(data: getChartsType) {
+  return ax.post(ApiPath.getCharts, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+export function getLinesApi(data: getLinesType) {
+  return ax.post(ApiPath.getLines, null, {
     headers: data.headers,
   });
 }

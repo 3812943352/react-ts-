@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-04 15:40:58
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-04 09:36:06
+ * @LastEditTime: 2024-12-14 10:59:30
  * @FilePath: src/views/Page4/index.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -203,7 +203,6 @@ const View: React.FC = () => {
         getFileAPI(req).then((r) => {
           if (r.code === 200) {
             setData(r.data);
-            console.log(pagination);
             setEditingKey("");
           }
         });
@@ -392,7 +391,6 @@ const View: React.FC = () => {
     };
 
     getAllAreaAPI(req).then((r) => {
-      // console.log(r.data);
       setData(r.data);
       setPagination({ ...pagination, total: r.data.total });
     });

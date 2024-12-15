@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-26 11:36:51
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-29 16:05:33
+ * @LastEditTime: 2024-12-12 10:04:08
  * @FilePath: src/api/reqPath/apiSuperVision.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -28,4 +28,6 @@ export const ApiPath = {
   getAllApi: "/api/ApiSuperVision/getAllApi",
   getApiById: "/api/ApiSuperVision/getApiById",
   apiBlur: "/api/ApiSuperVision/getApiBlur",
+  getCharts: "/api/ApiSuperVision/getCharts",
+  getLines: "/api/ApiSuperVision/getLines",
 };

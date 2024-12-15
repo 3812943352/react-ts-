@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-21 13:02:22
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-07 15:43:43
+ * @LastEditTime: 2024-12-12 10:04:08
  * @FilePath: src/types/apiSuperVision.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -110,6 +110,20 @@ export interface getDateDataType {
     pageNum: number;
     pageSize: number;
   };
+  headers: {
+    token: string | null;
+  };
+}
+export interface getChartsType {
+  data: {
+    start: number;
+    end: number;
+  };
+  headers: {
+    token: string | null;
+  };
+}
+export interface getLinesType {
   headers: {
     token: string | null;
   };

@@ -2,12 +2,16 @@
  * @Author: wb
  * @Date: 2024-11-20 21:49:38
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-09 16:57:12
+ * @LastEditTime: 2024-12-14 10:45:33
  * @FilePath: src/api/user.ts
  * @Description: 请填写简介
  */
 import * as dataType from "@/types/user";
-import { sendSmsDataType } from "@/types/user";
+import {
+  getAllUserDataType,
+  getAuthDataType,
+  sendSmsDataType,
+} from "@/types/user";
 import ax from "@/utils/request";
 import {
   captchaPath,
@@ -15,6 +19,7 @@ import {
   userPath,
 } from "@/api/reqPath/user.tsx";
 import { onlyHeaderType } from "@/types/data.ts";
+import { blurDataType } from "@/types/apiSuperVision.ts";
 
 /**
  * @description: 用户登录
@@ -62,17 +67,31 @@ export function getUserByPhone(
  * @param {getAllUserDataType} data
  */
 export function getAllUser(data: dataType.getAllUserDataType) {
-  return ax.post(userPath.getAllUser, data);
+  return ax.post(userPath.getAllUser, null, {
+    params: data.data,
+    headers: data.headers,
+  });
 }
-
+export function updateUser(data: dataType.updateUserByIdDataType) {
+  return ax.post(userPath.updateUserById, data.data, {
+    headers: data.headers,
+  });
+}
 /**
  * @description: 根据用户ID删除用户
- * @param {delUserByIdDataType}data
+ * @param {delUserByDataType}data
  */
-export function delUserById(data: dataType.delUserByIdDataType) {
-  return ax.post(userPath.delUserById, data);
+export function delUser(data: dataType.delUserByDataType) {
+  return ax.post(userPath.delUserById, data.data, {
+    headers: data.headers,
+  });
 }
-
+export function userBlurApi(data: blurDataType) {
+  return ax.post(userPath.userBlur, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
 /**
  * @description: 获取验证码
  * @return 返回验证码
@@ -94,6 +113,27 @@ export function sendSms(data: sendSmsDataType) {
 }
 export function getDatabaseAPI(data: onlyHeaderType) {
   return ax.post(userPath.getDatabase, null, {
+    headers: data.headers,
+  });
+}
+export function getAuthAPI(data: getAllUserDataType) {
+  return ax.post(userPath.getAuth, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+export function addAuthAPI(data: getAuthDataType) {
+  return ax.post(userPath.addAuth, data.data, {
+    headers: data.headers,
+  });
+}
+export function delAuthAPI(data: getAuthDataType) {
+  return ax.post(userPath.delAuth, data.data, {
+    headers: data.headers,
+  });
+}
+export function updateAuthAPI(data: getAuthDataType) {
+  return ax.post(userPath.updateAuth, data.data, {
     headers: data.headers,
   });
 }

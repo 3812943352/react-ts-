@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-30 16:34:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-02 17:30:10
+ * @LastEditTime: 2024-12-12 16:28:28
  * @FilePath: src/views/Page12/options/api.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -70,6 +70,14 @@ const ApiSuperVisionOptions: Option[] = [
     value: "/ApiSuperVision/banDate",
   },
   {
+    label: "/ApiSuperVision/getCharts",
+    value: "/ApiSuperVision/getCharts",
+  },
+  {
+    label: "/ApiSuperVision/getLines",
+    value: "/ApiSuperVision/getLines",
+  },
+  {
     label: "/ApiSupervision-service/v3/api-docs",
     value: "/ApiSupervision-service/v3/api-docs",
   },
@@ -110,6 +118,14 @@ const userOptions: Option[] = [
   {
     label: "/user/updateUserById",
     value: "/user/updateUserById",
+  },
+  {
+    label: "/user/getDatabase",
+    value: "/user/getDatabase",
+  },
+  {
+    label: "/user/getAuth",
+    value: "/user/getAuth",
   },
   {
     label: "/user-service/v3/api-docs",
@@ -176,6 +192,10 @@ const dataOptions: Option[] = [
   {
     label: "/data/updateDepartment",
     value: "/data/updateDepartment",
+  },
+  {
+    label: "/data/Datas",
+    value: "/data/Datas",
   },
   {
     label: "/data-service/v3/api-docs",

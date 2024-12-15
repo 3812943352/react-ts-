@@ -37,7 +37,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   const handleChange: UploadProps["onChange"] = (info) => {
     // 文件选择后立即显示文件列表，但不执行上传
     if (info.file.status !== "uploading") {
-      console.log(info.file.name, "已准备好");
     }
   };
 

@@ -1,15 +1,15 @@
 /*
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 11:25:46
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-14 10:57:06
  * @FilePath: vite.config.ts
  * @Description: 请填写简介
  */
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import viteEslint from "vite-plugin-eslint2";
-import path from "path";
+import path from "path"; // import { env } from "process";
 // import { env } from "process";
 // https://vite.dev/config/
 const ENV_DIR = path.join(__dirname, "envs");
@@ -35,9 +35,9 @@ export default ({ mode }) =>
         overrideConfigFile: "./.eslintrc.mjs", // 指定配置文件的路径
       }),
     ],
-    //   esbuild: {
-    //     drop: ["console", "debugger"],
-    //   },
+    esbuild: {
+      drop: ["console", "debugger"],
+    },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

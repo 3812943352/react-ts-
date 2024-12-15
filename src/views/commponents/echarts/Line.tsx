@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-06 14:46:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-07 11:58:25
+ * @LastEditTime: 2024-12-14 11:00:33
  * @FilePath: src/views/commponents/echarts/Line.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -16,6 +16,15 @@ interface LineProps {
   yName: string;
 }
 const Line: React.FC<LineProps> = ({ data, title, xName, yName }) => {
+  if (!Array.isArray(data) || data.length === 0) {
+    return null; // 或者返回一个默认的空图表配置
+  }
+
+  // 准备类别数据（原本的X轴数据）
+  const categories = data.map((item) => item[0]);
+
+  // 准备数值数据（原本的Y轴数据）
+  const values = data.map((item) => item[1]);
   const axisTextStyle = {
     color: "#ffffff", // 文本颜色
     fontSize: 14, // 字体大小
@@ -59,8 +68,8 @@ const Line: React.FC<LineProps> = ({ data, title, xName, yName }) => {
     formatter: function (params: any) {
       const item = params[0];
       return `
-            ${xName}: ${item.value[0]}<br>
-            ${yName}: ${item.value[1]}<br>
+            ${xName}: ${item.axisValue}<br>
+            ${yName}: ${item.value}<br>
         `;
     },
 
@@ -73,7 +82,9 @@ const Line: React.FC<LineProps> = ({ data, title, xName, yName }) => {
     },
   };
   const xAxis = {
+    type: "category",
     name: xName,
+    data: categories,
     boundaryGap: true,
     axisLine: {
       show: true,
@@ -121,7 +132,7 @@ const Line: React.FC<LineProps> = ({ data, title, xName, yName }) => {
   const line = {
     type: "line",
     lineWidth: 1.2,
-    data: data,
+    data: values,
     // 线条节点的样式
     symbol: "",
     itemStyle: {
@@ -174,7 +185,7 @@ const Line: React.FC<LineProps> = ({ data, title, xName, yName }) => {
       show: true,
       trailLength: 0.4,
       symbol: "circle",
-      period: 8,
+      period: 16,
       symbolSize: 8,
     },
     lineStyle: {
@@ -199,7 +210,7 @@ const Line: React.FC<LineProps> = ({ data, title, xName, yName }) => {
     <>
       <EChartsReact
         option={option}
-        style={{ width: "40vw" }}
+        style={{ width: "100%" }}
       ></EChartsReact>
     </>
   );

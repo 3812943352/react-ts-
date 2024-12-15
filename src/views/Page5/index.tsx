@@ -2,15 +2,29 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 08:39:39
+ * @LastEditTime: 2024-12-14 10:59:32
  * @FilePath: src/views/Page5/index.tsx
  * @Description: 请填写简介
  */
 import CustomTable from "@/views/commponents/table.tsx";
-import { Button, Card, Input, InputNumber, Space, TableColumnsType, Tooltip } from "antd";
+import {
+  Button,
+  Card,
+  Input,
+  InputNumber,
+  Space,
+  TableColumnsType,
+  Tooltip,
+} from "antd";
 import Search from "antd/es/input/Search";
 import React, { ReactNode, useEffect, useState } from "react";
-import { banAPI, delApi, gatePageAPI, getBlurAPI, getDateAPI } from "@/api/apiSuperVision.ts";
+import {
+  banAPI,
+  delApi,
+  gatePageAPI,
+  getBlurAPI,
+  getDateAPI,
+} from "@/api/apiSuperVision.ts";
 import { store } from "@/store/user/selector.tsx";
 import CustomModal from "@/views/commponents/modal.tsx";
 import { toast } from "react-toastify";
@@ -153,8 +167,11 @@ const View: React.FC = () => {
         showTitle: false,
       },
       render: (address) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
+        <Tooltip
+          placement="topLeft"
+          title={address === null ? "无" : address}
+        >
+          {address === null ? "无" : address}
         </Tooltip>
       ),
     },
@@ -332,7 +349,6 @@ const View: React.FC = () => {
     },
   ];
   const ban = (record: any) => {
-    console.log(record);
     setIsBan(true);
     setModalOpen(true);
     setTitle("封禁IP");
@@ -369,7 +385,6 @@ const View: React.FC = () => {
     );
   };
   const del = (record: any) => {
-    console.log(record);
     setIsBan(false);
     setModalOpen(true);
     setTitle("删除记录");
@@ -557,8 +572,6 @@ const View: React.FC = () => {
     dates: [Dayjs, Dayjs],
     dateStrings: [string, string],
   ) => {
-    console.log(dateStrings);
-
     setSerchBlurValue("");
     setSerchDateValue(dates);
     setIsDate(true);
@@ -578,7 +591,6 @@ const View: React.FC = () => {
         },
         headers: { token: store.getState().token?.token },
       };
-      console.log(req);
       getDateAPI(req).then((r) => {
         setData(r.data);
         setPagination({ ...pagination, total: r.data.total });

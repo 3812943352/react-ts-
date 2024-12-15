@@ -1,3 +1,11 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-23 16:07:26
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-14 11:01:20
+ * @FilePath: src/views/login/commponents/registerForm.tsx
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
 import { Form, type FormProps, Input } from "antd";
 import { registerDataType, UserEntity } from "@/types/user.ts";
 import { userRules } from "@/rules/user.ts";
@@ -59,9 +67,7 @@ const registerForm: React.FC = () => {
           }
         });
       })
-      .catch((error) => {
-        console.log("验证失败:", error);
-      });
+      .catch((error) => {});
   };
   const onFinish: FormProps<UserEntity>["onFinish"] = (values) => {
     console.info("Success:", values);

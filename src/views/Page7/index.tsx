@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-07 15:45:29
+ * @LastEditTime: 2024-12-14 11:00:34
  * @FilePath: src/views/Page7/index.tsx
  * @Description: 请填写简介
  */
@@ -100,17 +100,36 @@ const View: React.FC = () => {
   });
   const [excelID, setExcelID] = useState(0);
   const [sheetList, setSheetList] = useState([]);
-  const copy = async (record: any) => {
-    await navigator.clipboard.writeText(
-      import.meta.env.VITE_API_URL +
-        "/data/download?filename=" +
-        record.filename,
-    );
-    message.success("复制成功");
+  const copy = (record: any) => {
+    const url = `${import.meta.env.VITE_API_URL}/data/download?filename=${encodeURIComponent(record.filename)}`;
+
+    // 创建一个隐藏的 <textarea> 元素
+    const textarea = document.createElement("textarea");
+    textarea.value = url;
+    textarea.style.position = "absolute";
+    textarea.style.left = "-9999px"; // 移出可见区域
+    document.body.appendChild(textarea);
+
+    // 选择并复制文本
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // 对于移动设备
+
+    try {
+      const successful = document.execCommand("copy");
+      if (successful) {
+        message.success("复制成功");
+      } else {
+        message.error("复制失败");
+      }
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+      message.error("复制失败");
+    } finally {
+      // 清理
+      document.body.removeChild(textarea);
+    }
   };
   const download = (record: any) => {
-    console.log(record);
-
     axios({
       url: "/api/data/download",
       method: "GET",
@@ -248,8 +267,6 @@ const View: React.FC = () => {
     dates: [Dayjs, Dayjs],
     dateStrings: [string, string],
   ) => {
-    console.log(dateStrings);
-
     setSerchBlurValue("");
     setSerchDateValue(dates);
     setIsDate(true);
@@ -268,7 +285,6 @@ const View: React.FC = () => {
         },
         headers: { token: store.getState().token?.token },
       };
-      console.log(req);
       dataDateAPI(req).then((r) => {
         setData(r.data);
         setPagination({ ...pagination, total: r.data.total });
@@ -294,7 +310,6 @@ const View: React.FC = () => {
       }
     }
     if (!file) {
-      console.log("请选择要上传的文件");
       return;
     }
     setUploading(true);
@@ -319,12 +334,10 @@ const View: React.FC = () => {
                 (progressEvent.loaded * 100) / progressEvent.total,
               );
               setUploadProgress(percentCompleted);
-              console.log(`上传进度: ${percentCompleted}%`);
             }
           },
         },
       );
-      console.log(r);
       if (r.data.code === 200) {
         getApi();
         setEditingKey("");
@@ -427,12 +440,10 @@ const View: React.FC = () => {
                 (progressEvent.loaded * 100) / progressEvent.total,
               );
               setUploadProgress(percentCompleted);
-              console.log(`上传进度: ${percentCompleted}%`);
             }
           },
         },
       );
-      console.log(r);
       if (r.data.code === 200) {
         getApi();
         setEditingKey("");
@@ -471,7 +482,6 @@ const View: React.FC = () => {
       },
       headers: { token: store.getState().token?.token },
     };
-    console.log(req);
     deleteAPI(req).then((r) => {
       if (r.code === 200) {
         getApi();
@@ -534,7 +544,6 @@ const View: React.FC = () => {
         getFileAPI(req).then((r) => {
           if (r.code === 200) {
             setData(r.data);
-            console.log(pagination);
             setEditingKey("");
           }
         });
@@ -634,16 +643,11 @@ const View: React.FC = () => {
       ellipsis: {
         showTitle: false,
       },
-      render: (address: any) =>
-        address === 0 ? (
-          <Tooltip placement="topLeft" title={"登录"}>
-            {"登录"}
-          </Tooltip>
-        ) : (
-          <Tooltip placement="topLeft" title={"无限制"}>
-            {"无限制"}
-          </Tooltip>
-        ),
+      render: (address: any) => (
+        <Tooltip placement="topLeft" title={address}>
+          {address}
+        </Tooltip>
+      ),
     },
     {
       title: "所属部门",

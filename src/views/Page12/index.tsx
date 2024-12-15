@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-04 09:35:08
+ * @LastEditTime: 2024-12-14 10:59:30
  * @FilePath: src/views/Page12/index.tsx
  * @Description: 请填写简介
  */
@@ -208,7 +208,6 @@ const View: React.FC = () => {
         getFileAPI(req).then((r) => {
           if (r.code === 200) {
             setData(r.data);
-            console.log(pagination);
             setEditingKey("");
           }
         });
@@ -549,7 +548,6 @@ const View: React.FC = () => {
     };
 
     getAllApi(req).then((r) => {
-      // console.log(r.data);
       setData(r.data);
       setPagination({ ...pagination, total: r.data.total });
     });

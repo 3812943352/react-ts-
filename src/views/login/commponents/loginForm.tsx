@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-21 15:29:52
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 22:54:37
+ * @LastEditTime: 2024-12-15 11:29:24
  * @FilePath: src/views/login/commponents/loginForm.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -34,11 +34,17 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userRules } from "@/rules/user.ts";
 import { store } from "@/store/user/selector.tsx";
-import { setCatch, setToken } from "@/store/user/actions.tsx";
+import {
+  setCatch,
+  setOuth,
+  setOuthList,
+  setToken,
+  setUser,
+} from "@/store/user/actions.tsx";
 import { useDispatch } from "react-redux";
 import { postLoginAPI, sendSms } from "@/api/user.ts";
-import { useNavigate } from "react-router-dom";
 import eventBus from "@/utils/events.ts";
+import { useNavigate } from "react-router-dom";
 
 interface LoginFormProps {}
 
@@ -51,14 +57,13 @@ const LoginForm = forwardRef(
     const [isDisabled, setIsDisabled] = useState(false);
     const [hasShownWarning, setHasShownWarning] = useState(false);
     const [isFirstThreeValid, setIsFirstThreeValid] = useState(false);
-    const navigate = useNavigate();
 
     const [form] = Form.useForm();
     // const phoneValue = form.getFieldValue("phone");
     // const pwdValue = form.getFieldValue("pwd");
     // const captchaVale = form.getFieldValue("captcha");
     // const smsCodeValue = form.getFieldValue("smsCode");
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const sendSmsCode = () => {
       form
@@ -85,9 +90,7 @@ const LoginForm = forwardRef(
             }
           });
         })
-        .catch((error) => {
-          console.log("Validation failed:", error);
-        });
+        .catch((error) => {});
     };
 
     function countdown(count: number) {
@@ -118,14 +121,21 @@ const LoginForm = forwardRef(
           };
           postLoginAPI(data).then((r) => {
             if (r.code === 200) {
-              dispatch(setToken(r.data));
-              navigate("/page1");
+              console.log(r);
+              dispatch(setToken(r.data.token));
+              dispatch(setCatch(null));
+              dispatch(setUser(phoneValue));
+              dispatch(setOuth(r.data.outh));
+              dispatch(setOuthList(r.data.authList));
+              if (r.data.outh === "用户") {
+                navigate("/data/page7");
+              } else {
+                navigate("/page1");
+              }
             }
           });
         })
-        .catch((error) => {
-          console.log("Validation failed:", error);
-        });
+        .catch((error) => {});
     };
 
     const handleFieldsChange = (
@@ -206,9 +216,7 @@ const LoginForm = forwardRef(
 
     const onFinishFailed: FormProps<UserEntity>["onFinishFailed"] = (
       errorInfo,
-    ) => {
-      console.log("Failed:", errorInfo);
-    };
+    ) => {};
 
     return (
       <div ref={ref}>

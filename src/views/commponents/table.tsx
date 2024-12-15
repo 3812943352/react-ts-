@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-25 17:11:44
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-04 17:12:58
+ * @LastEditTime: 2024-12-14 11:00:33
  * @FilePath: src/views/commponents/table.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -13,6 +13,7 @@ import {
   Cascader,
   Form,
   Input,
+  message,
   Space,
   Table,
   TableColumnsType,
@@ -351,22 +352,41 @@ const CustomTable = <T extends object>({
 
   // 双击复制文本
   const onDoubleClick = (text: string) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        toast.success("复制成功", {
-          position: "top-center",
-          autoClose: 1000,
-          closeOnClick: false,
-        });
-      })
-      .catch((err) => {
-        toast.error("复制失败" + err, {
-          position: "top-center",
-          autoClose: 1000,
-          closeOnClick: false,
-        });
+    // 确保代码在浏览器环境中运行
+    if (typeof document === "undefined") {
+      console.error("Document is not available in this environment");
+      toast.error("当前环境不支持复制", {
+        position: "top-center",
+        autoClose: 1000,
+        closeOnClick: false,
       });
+      return;
+    }
+
+    // 创建一个隐藏的 <textarea> 元素
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "absolute";
+    textArea.style.left = "-9999px"; // 移出可见区域
+    document.body.appendChild(textArea);
+
+    // 选择并复制文本
+    try {
+      textArea.select();
+      textArea.setSelectionRange(0, 99999); // 对于移动设备
+
+      const successful = document.execCommand("copy");
+      if (successful) {
+        message.success("复制成功");
+      } else {
+        message.error("复制失败");
+      }
+    } catch (err) {
+      console.error("复制失败", err);
+    } finally {
+      // 清理
+      document.body.removeChild(textArea);
+    }
   };
 
   return (

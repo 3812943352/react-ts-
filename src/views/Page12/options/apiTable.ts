@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-30 16:54:40
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-02 17:08:27
+ * @LastEditTime: 2024-12-12 16:29:04
  * @FilePath: src/views/Page12/options/apiTable.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -40,6 +40,10 @@ export const apiTableOptions: Option[] = [
   {
     label: "用户表",
     value: "用户表",
+  },
+  {
+    label: "权限表",
+    value: "权限表",
   },
   {
     label: "无",

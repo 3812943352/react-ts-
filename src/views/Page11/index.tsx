@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 13:59:47
+ * @LastEditTime: 2024-12-14 10:59:32
  * @FilePath: src/views/Page11/index.tsx
  * @Description: 请填写简介
  */
@@ -10,7 +10,13 @@ import CustomTable from "@/views/commponents/table.tsx";
 import { Button, Card, Space, TableColumnsType, Tooltip } from "antd";
 import Search from "antd/es/input/Search";
 import React, { ReactNode, useEffect, useState } from "react";
-import { banBlurAPI, banDateAPI, delApi, getBanAPI, unBanAPI } from "@/api/apiSuperVision.ts";
+import {
+  banBlurAPI,
+  banDateAPI,
+  delApi,
+  getBanAPI,
+  unBanAPI,
+} from "@/api/apiSuperVision.ts";
 import { store } from "@/store/user/selector.tsx";
 import CustomModal from "@/views/commponents/modal.tsx";
 import { toast } from "react-toastify";
@@ -139,7 +145,6 @@ const View: React.FC = () => {
     },
   ];
   const ban = (record: any) => {
-    console.log(record);
     setIsBan(true);
     setModalOpen(true);
     setTitle("解封IP");
@@ -304,8 +309,6 @@ const View: React.FC = () => {
     dates: [Dayjs, Dayjs],
     dateStrings: [string, string],
   ) => {
-    console.log(dateStrings);
-
     setSerchBlurValue("");
     setSerchDateValue(dates);
     setIsDate(true);
@@ -325,7 +328,6 @@ const View: React.FC = () => {
         },
         headers: { token: store.getState().token?.token },
       };
-      console.log(req);
       banDateAPI(req).then((r) => {
         setData(r.data);
         setPagination({ ...pagination, total: r.data.total });

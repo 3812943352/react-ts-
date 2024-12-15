@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-09 17:27:12
+ * @LastEditTime: 2024-12-10 08:40:44
  * @FilePath: src/views/Page1/index.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -41,7 +41,7 @@ const View: React.FC = () => {
   const testData1 = {
     data: creat,
     data1: active,
-    title: "每月销售量统计",
+    title: "近七日用户统计",
     xName: "日期",
     yName: "用户数",
     bg: "#fff",

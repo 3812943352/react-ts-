@@ -1,8 +1,8 @@
 /*
  * @Author: wb
  * @Date: 2024-11-20 21:50:45
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 16:27:53
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-14 10:45:32
  * @FilePath: src/types/user.ts
  * @Description: 请填写简介
  */
@@ -17,15 +17,15 @@ interface TokenState {
 
 // src/types/user.ts
 export interface UserEntity {
-  ID: number | null;
-  phone: string;
-  pwd: string | null;
-  role: number | 2;
-  auth: number | 2;
-  created: number | null;
-  lastLogin: number | null;
-  captcha: string | null;
-  smsCode: string | null;
+  ID?: number | null;
+  phone?: string;
+  pwd?: string | null;
+  role?: number | 1;
+  auth?: number | 1;
+  created?: number | null;
+  lastLogin?: number | null;
+  captcha?: string | null;
+  smsCode?: string | null;
 }
 
 export interface registerDataType {
@@ -70,17 +70,15 @@ export interface getAllUserDataType {
   };
 }
 
-export interface delUserByIdDataType {
-  data: {
-    ID: number;
-  };
+export interface delUserByDataType {
+  data: UserEntity;
   headers: {
     token: string;
   };
 }
 
 export interface updateUserByIdDataType {
-  UserEntity: UserEntity;
+  data: UserEntity;
   headers: {
     token: string;
   };
@@ -94,8 +92,31 @@ export interface sendSmsDataType {
     pwd: string;
     captcha: string;
   };
-
   headers: {
     "captcha-key": catchKeyState;
+  };
+}
+export interface AuthEntity {
+  ID?: number;
+  path?: string;
+  login?: number;
+  auth?: number;
+  des?: string;
+}
+
+export interface getAuthDataType {
+  data: AuthEntity;
+  headers: {
+    token: string;
+  };
+}
+export interface blurDataType {
+  data: {
+    pageNum: number;
+    pageSize: number;
+    word: string;
+  };
+  headers: {
+    token: string | null;
   };
 }
