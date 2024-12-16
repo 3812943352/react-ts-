@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-25 14:03:20
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-15 11:26:27
+ * @LastEditTime: 2024-12-16 10:05:36
  * @FilePath: src/router/PrivateRoute.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -57,7 +57,6 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   const location = useLocation();
   const token = store.getState().token?.token;
   const authList = store.getState().outhList?.outhList || [];
-  console.log(store.getState().outh?.outh);
 
   useEffect(() => {
     // Filter routes based on the current authList and update state

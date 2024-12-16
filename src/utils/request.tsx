@@ -2,11 +2,15 @@
  * @Author: wb
  * @Date: 2024-11-20 19:58:34
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-28 09:49:45
+ * @LastEditTime: 2024-12-16 17:48:32
  * @FilePath: src/utils/request.tsx
  * @Description: 请填写简介
  */
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { store } from "@/store/user/selector";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -47,8 +51,17 @@ service.interceptors.response.use(
   (response: AxiosResponse) => {
     eventBus.emit("stopLoading");
     const { status, data } = response;
+    if (status === 200 && data.code === 440) {
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+    }
     if (status === 200 && data.code === 444) {
       window.location.href = "/ban";
+    }
+    if (status === 200 && data.code === 443) {
+      console.log(data);
+      // window.location.href = "/auth";
     }
     if (status === 401) {
       toast.warn("当前状态已过期，请重新登录", {

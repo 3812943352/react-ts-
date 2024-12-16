@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-23 09:22:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-30 22:57:15
+ * @LastEditTime: 2024-12-16 14:44:32
  * @FilePath: src/rules/user.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -21,6 +21,14 @@ export const userRules = {
     {
       pattern: /^.{6,10}$/,
       message: "密码为长度在6-10位",
+      trigger: "blur",
+    },
+  ],
+  newPwd: [
+    { required: true, message: "请输入新密码", trigger: "blur" },
+    {
+      pattern: /^.{6,10}$/,
+      message: "新密码为长度在6-10位",
       trigger: "blur",
     },
   ],

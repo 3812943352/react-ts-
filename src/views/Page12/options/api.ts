@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-30 16:34:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-12 16:28:28
+ * @LastEditTime: 2024-12-16 15:31:13
  * @FilePath: src/views/Page12/options/api.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -126,6 +126,30 @@ const userOptions: Option[] = [
   {
     label: "/user/getAuth",
     value: "/user/getAuth",
+  },
+  {
+    label: "/user/addAuth",
+    value: "/user/addAuth",
+  },
+  {
+    label: "/user/delAuth",
+    value: "/user/delAuth",
+  },
+  {
+    label: "/user/updateAuth",
+    value: "/user/updateAuth",
+  },
+  {
+    label: "/user/resetSms",
+    value: "/user/resetSms",
+  },
+  {
+    label: "/user/delUser",
+    value: "/user/delUser",
+  },
+  {
+    label: "/user/reset",
+    value: "/user/reset",
   },
   {
     label: "/user-service/v3/api-docs",

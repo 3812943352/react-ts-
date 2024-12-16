@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-14 10:59:30
+ * @LastEditTime: 2024-12-16 15:17:49
  * @FilePath: src/views/Page12/index.tsx
  * @Description: 请填写简介
  */
@@ -36,6 +36,7 @@ import { apiControllerOptions } from "@/views/Page12/options/apiController.ts";
 import { initialRow } from "@/views/Page12/initialRow.ts";
 import { ApiEntity } from "@/types/apiSuperVision.ts";
 import { getFileAPI } from "@/api/data.ts";
+import { authOptions } from "@/views/Page12/options/authOption.ts";
 
 const View: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
@@ -292,6 +293,25 @@ const View: React.FC = () => {
       cascader: true,
       sorter: (a: any, b: any) =>
         a.openMethod.length - b.openMethod.length,
+      sortDirections: ["descend", "ascend"],
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (address: any) => (
+        <Tooltip placement="topLeft" title={address}>
+          {address}
+        </Tooltip>
+      ),
+    },
+    {
+      title: "权限",
+      dataIndex: "auth",
+      key: "auth",
+      width: "5%",
+      editable: true,
+      options: authOptions,
+      cascader: true,
+      sorter: (a: any, b: any) => a.auth.length - b.auth.length,
       sortDirections: ["descend", "ascend"],
       ellipsis: {
         showTitle: false,

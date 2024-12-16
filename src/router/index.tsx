@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-31 14:59:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-15 11:13:53
+ * @LastEditTime: 2024-12-16 16:35:50
  * @FilePath: src/router/index.tsx
  * @Description: 请填写简介
  */
@@ -29,6 +29,7 @@ const Page13 = lazy(() => import("../views/Page13/index"));
 const Page14 = lazy(() => import("../views/Page14/index"));
 
 const Ban = lazy(() => import("../views/ban/index"));
+const Auth = lazy(() => import("../views/Auth/index"));
 
 interface IRoute {
   path: string;
@@ -56,6 +57,7 @@ const withLoadingComponent = (comP: JSX.Element) => (
 const menuRoutes: IRoute[] = [
   setRoute("/", <PrivateRoute element={<Home />} />, [
     setRoute("/ban", withLoadingComponent(<Ban />)),
+    setRoute("/auth", withLoadingComponent(<Auth />)),
     setRoute("/page1", withLoadingComponent(<Page1 />)),
     setRoute("/page2", withLoadingComponent(<Page2 />)),
     setRoute("/department/page3", withLoadingComponent(<Page3 />)),

@@ -1,9 +1,9 @@
 /**
  * @Author: wangbo 3812943352@qq.com
- * @Date: 2024-11-21 15:29:52
+ * @Date: 2024-12-16 12:18:42
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-16 12:14:37
- * @FilePath: src/views/login/commponents/loginForm.tsx
+ * @LastEditTime: 2024-12-16 15:06:37
+ * @FilePath: src/views/login/commponents/forgetForm.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 import React, {
@@ -24,8 +24,8 @@ import {
   SafetyOutlined,
 } from "@ant-design/icons";
 import {
-  loginDataType,
-  sendSmsDataType,
+  resetPwdDataType,
+  resetSmsDataType,
   UserEntity,
 } from "@/types/user.ts";
 import "@/input.css";
@@ -34,21 +34,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userRules } from "@/rules/user.ts";
 import { store } from "@/store/user/selector.tsx";
-import {
-  setCatch,
-  setOuth,
-  setOuthList,
-  setToken,
-  setUser,
-} from "@/store/user/actions.tsx";
+import { setCatch } from "@/store/user/actions.tsx";
 import { useDispatch } from "react-redux";
-import { postLoginAPI, sendSms } from "@/api/user.ts";
+import { resetAPI, ResetSms } from "@/api/user.ts";
 import eventBus from "@/utils/events.ts";
 import { useNavigate } from "react-router-dom";
 
 interface LoginFormProps {}
 
-const LoginForm = forwardRef(
+const ForgetForm = forwardRef(
   (props: LoginFormProps, ref: Ref<any>) => {
     const smsRef = useRef<HTMLButtonElement>(null);
     const [catchUrl, setCatchUrl] = useState<string>("");
@@ -70,18 +64,18 @@ const LoginForm = forwardRef(
         .validateFields(["phone", "pwd", "captcha"])
         .then((values) => {
           const phoneValue = values.phone;
-          const pwdValue = values.pwd;
+          const pwd = values.pwd;
           const captchaValue = values.captcha;
           const captchaKey = store.getState().cacheKey;
-          const data: sendSmsDataType = {
+          const data: resetSmsDataType = {
             data: {
               phone: phoneValue,
-              pwd: pwdValue,
+              pwd: pwd,
               captcha: captchaValue,
             },
             headers: { "captcha-key": captchaKey?.catchKey },
           };
-          sendSms(data).then((r) => {
+          ResetSms(data).then((r) => {
             if (r.code !== 200) {
               getCap();
             } else if (r.code === 200) {
@@ -112,26 +106,17 @@ const LoginForm = forwardRef(
         .validateFields(["phone", "pwd", "captcha", "smsCode"])
         .then((values) => {
           const phoneValue = values.phone;
+          const pwd = values.pwd;
           const smsCodeValue = values.smsCode;
-          const data: loginDataType = {
+          const data: resetPwdDataType = {
             data: {
               phone: phoneValue,
               smsCode: smsCodeValue,
+              pwd: pwd,
             },
           };
-          postLoginAPI(data).then((r) => {
+          resetAPI(data).then((r) => {
             if (r.code === 200) {
-              console.log(r);
-              dispatch(setToken(r.data.token));
-              dispatch(setCatch(null));
-              dispatch(setUser(r.data.id));
-              dispatch(setOuth(r.data.outh));
-              dispatch(setOuthList(r.data.authList));
-              if (r.data.outh === "用户") {
-                navigate("/data/page7");
-              } else {
-                navigate("/page1");
-              }
             }
           });
         })
@@ -169,7 +154,7 @@ const LoginForm = forwardRef(
       }
     };
     useEffect(() => {
-      eventBus.on("Rgetcap", getCap);
+      eventBus.on("Fgetcap", getCap);
     }, []);
     const getCap = () => {
       if (isFetching) {
@@ -219,7 +204,7 @@ const LoginForm = forwardRef(
     ) => {};
 
     return (
-      <div ref={ref}>
+      <div className="absolute" ref={ref} style={{ top: "-1000px" }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -256,13 +241,13 @@ const LoginForm = forwardRef(
           <Form.Item<UserEntity>
             label=""
             name="pwd"
-            rules={userRules.pwd}
+            rules={userRules.newPwd}
           >
             <Input.Password
               showCount
               maxLength={10}
               size="large"
-              placeholder="密码"
+              placeholder="新密码"
               prefix={<LockOutlined />}
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -335,7 +320,7 @@ const LoginForm = forwardRef(
 
           <Form.Item>
             <button onClick={login} className="submit" type="submit">
-              登录
+              重置密码
             </button>
           </Form.Item>
         </Form>
@@ -344,6 +329,6 @@ const LoginForm = forwardRef(
   },
 );
 
-LoginForm.displayName = "LoginForm";
+ForgetForm.displayName = "ForgetForm";
 
-export default LoginForm;
+export default ForgetForm;

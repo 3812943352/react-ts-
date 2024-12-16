@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-20 21:49:38
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-14 10:45:33
+ * @LastEditTime: 2024-12-16 14:43:05
  * @FilePath: src/api/user.ts
  * @Description: 请填写简介
  */
@@ -10,6 +10,8 @@ import * as dataType from "@/types/user";
 import {
   getAllUserDataType,
   getAuthDataType,
+  resetPwdDataType,
+  resetSmsDataType,
   sendSmsDataType,
 } from "@/types/user";
 import ax from "@/utils/request";
@@ -31,7 +33,11 @@ export function postLoginAPI(data: dataType.loginDataType) {
     params: data.data,
   });
 }
-
+export function resetAPI(data: resetPwdDataType) {
+  return ax.post(userPath.reset, null, {
+    params: data.data,
+  });
+}
 /**
  * @description: 用户注册
  * @param {registerDataType} data 注册参数
@@ -49,7 +55,10 @@ export function postRegisterAPI(data: dataType.registerDataType) {
  * @param {getUserByIdDataType} data
  */
 export function getUserById(data: dataType.getUserByIdDataType) {
-  return ax.post(userPath.getUserById, data);
+  return ax.post(userPath.getUserById, null, {
+    params: data.data,
+    headers: data.headers,
+  });
 }
 
 /**
@@ -107,6 +116,12 @@ export function getCaptcha() {
  */
 export function sendSms(data: sendSmsDataType) {
   return ax.post(smsPath.sendSms, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+export function ResetSms(data: resetSmsDataType) {
+  return ax.post(smsPath.resetSms, null, {
     params: data.data,
     headers: data.headers,
   });

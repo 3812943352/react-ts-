@@ -2,13 +2,13 @@
  * @Author: wb
  * @Date: 2024-11-20 20:01:07
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-14 11:06:09
+ * @LastEditTime: 2024-12-16 10:05:05
  * @FilePath: src/store/user/selector.tsx
  * @Description: 请填写简介
  */
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import tokenReducer from "./tokenReducer.tsx";
-import userReducer from "./tokenReducer.tsx";
+import userReducer from "./userReducer.tsx";
 import catchReducer from "./catchReducer";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";

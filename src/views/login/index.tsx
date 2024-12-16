@@ -1,8 +1,8 @@
 /*
  * @Author: wb
  * @Date: 2024-11-20 10:22:50
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 17:23:23
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-16 17:43:43
  * @FilePath: src/views/login/index.tsx
  * @Description: 请填写简介
  */
@@ -16,45 +16,114 @@ import LoginForm from "@/views/login/commponents/loginForm.tsx";
 import AnimatedText from "@/views/login/commponents/AnimatedText.tsx";
 import { gsap } from "gsap";
 import RegisterForm from "@/views/login/commponents/registerForm.tsx";
-import { setToken } from "@/store/user/actions.tsx";
+import {
+  setOuth,
+  setOuthList,
+  setToken,
+  setUser,
+} from "@/store/user/actions.tsx";
 import { useDispatch } from "react-redux";
+import ForgetForm from "@/views/login/commponents/forgetForm.tsx";
 import eventBus from "@/utils/events.ts";
 
 const View: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isForget, setIsForget] = useState(true);
   const loginRef = useRef(null);
+  const forgetRef = useRef(null);
+  const registerRef = useRef(null);
   const has = useRef(null);
   const has1 = useRef(null);
+  const has2 = useRef(null);
   const tl = gsap.timeline();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setToken(null));
+    dispatch(setUser(null));
+    dispatch(setOuth(null));
+    dispatch(setOuthList(null));
   }, []);
+
   const move = () => {
+    tl.to(forgetRef.current, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: "power1.inOut",
+    });
+    tl.to(loginRef.current, {
+      x: 0,
+      y: 1000,
+      duration: 0.5,
+      ease: "power1.inOut",
+    });
     if (isLoggedIn) {
       eventBus.emit("Lgetcap");
-
-      tl.to(loginRef.current, {
+      tl.to(registerRef.current, {
         x: 0,
-        y: 1000,
-        duration: 1,
+        y: -900,
+        duration: 0.5,
         ease: "power1.inOut",
       });
     } else {
       eventBus.emit("Rgetcap");
-
+      tl.to(registerRef.current, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
       tl.to(loginRef.current, {
         x: 0,
         y: 0,
-        duration: 1,
+        duration: 0.5,
         ease: "power1.inOut",
       });
     }
 
     setIsLoggedIn(!isLoggedIn);
+    setIsForget(true);
   };
-
+  const forget = () => {
+    tl.to(registerRef.current, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: "power1.inOut",
+    });
+    tl.to(loginRef.current, {
+      x: 0,
+      y: -1000,
+      duration: 0.5,
+      ease: "power1.inOut",
+    });
+    if (isForget) {
+      eventBus.emit("Fgetcap");
+      tl.to(forgetRef.current, {
+        x: 0,
+        y: 1100,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+    } else {
+      eventBus.emit("Rgetcap");
+      tl.to(forgetRef.current, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+      tl.to(loginRef.current, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+    }
+    setIsForget(!isForget);
+    setIsLoggedIn(true);
+  };
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scene = new THREE.Scene();
@@ -195,12 +264,21 @@ const View: React.FC = () => {
                 >
                   {isLoggedIn ? "点击这里注册" : "返回登录"}
                 </div>
+                <div
+                  ref={has2}
+                  onClick={forget}
+                  className="cursor-pointer text-blue-700"
+                >
+                  {isForget ? "忘记密码？" : "返回登录"}
+                </div>
               </div>
             </div>
             <div className="ml-auto">
-              <RegisterForm />
-
+              <ForgetForm ref={forgetRef} />
               <LoginForm ref={loginRef} />
+
+              <RegisterForm ref={registerRef} />
+
               {/*{isLoggedIn ? <LoginForm /> : }*/}
             </div>
           </div>

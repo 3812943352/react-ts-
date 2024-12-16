@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-20 21:50:45
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-14 10:45:32
+ * @LastEditTime: 2024-12-16 14:46:51
  * @FilePath: src/types/user.ts
  * @Description: 请填写简介
  */
@@ -41,10 +41,12 @@ export interface registerDataType {
 export interface loginDataType {
   data: { phone: number; smsCode: string };
 }
-
+export interface resetPwdDataType {
+  data: { phone: number; smsCode: string; pwd: string };
+}
 export interface getUserByIdDataType {
   data: {
-    ID: number;
+    id: number;
   };
   headers: {
     token: string;
@@ -91,6 +93,16 @@ export interface sendSmsDataType {
     phone: number;
     pwd: string;
     captcha: string;
+  };
+  headers: {
+    "captcha-key": catchKeyState;
+  };
+}
+export interface resetSmsDataType {
+  data: {
+    phone: number;
+    captcha: string;
+    pwd: string;
   };
   headers: {
     "captcha-key": catchKeyState;

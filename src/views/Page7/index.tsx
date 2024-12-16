@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-14 11:00:34
+ * @LastEditTime: 2024-12-16 10:30:07
  * @FilePath: src/views/Page7/index.tsx
  * @Description: 请填写简介
  */
@@ -66,6 +66,7 @@ const View: React.FC = () => {
     total: 0,
     list: [],
   });
+  const [isMangage, setManage] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
   const [word, setWord] = useState("");
   const [title, setTitle] = useState("");
@@ -100,6 +101,14 @@ const View: React.FC = () => {
   });
   const [excelID, setExcelID] = useState(0);
   const [sheetList, setSheetList] = useState([]);
+
+  useEffect(() => {
+    if (store.getState().outh?.outh === "管理") {
+      setManage(true);
+    } else {
+      setManage(false);
+    }
+  }, []);
   const copy = (record: any) => {
     const url = `${import.meta.env.VITE_API_URL}/data/download?filename=${encodeURIComponent(record.filename)}`;
 
@@ -315,6 +324,7 @@ const View: React.FC = () => {
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("uploader", store.getState().user?.user);
     formData.append("area", row.area);
     formData.append("dataDes", row.dataDes);
     formData.append("department", row.department);
@@ -371,6 +381,7 @@ const View: React.FC = () => {
       data: {
         pageNum: newPagination.pageNum,
         pageSize: newPagination.pageSize,
+        user: store.getState().user?.user,
       },
       headers: { token: store.getState().token?.token },
     };
@@ -422,6 +433,7 @@ const View: React.FC = () => {
       formData.append("file", file); // 仅在 file 不为 null 时添加
     }
     formData.append("id", record.id);
+    formData.append("uploader", store.getState().user?.user);
     formData.append("area", row.area);
     formData.append("dataDes", row.dataDes);
     formData.append("department", row.department);
@@ -538,6 +550,7 @@ const View: React.FC = () => {
           data: {
             pageNum: pagination.pageNum,
             pageSize: pagination.pageSize,
+            user: store.getState().user?.user,
           },
           headers: { token: store.getState().token?.token },
         };
@@ -557,6 +570,7 @@ const View: React.FC = () => {
           data: {
             pageNum: pagination.pageNum - 1,
             pageSize: pagination.pageSize,
+            user: store.getState().user?.user,
           },
           headers: { token: store.getState().token?.token },
         };
@@ -571,351 +585,648 @@ const View: React.FC = () => {
       setEditingKey("");
     }
   };
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      width: "3%",
-      fixed: "left",
-      sorter: (a: any, b: any) => a.id.length - b.id.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (_: any, record: any) => (
-        <Tooltip placement="topLeft" title={"点击预览" + record.name}>
-          <div
-            style={{ cursor: "pointer" }}
-            onClick={() => Preview(record)}
-          >
-            {record.id}
-          </div>
-        </Tooltip>
-      ),
-    },
-    {
-      title: "数据集名称",
-      dataIndex: "name",
-      key: "name",
-      width: "5%",
-      sorter: (a: { name: any }, b: { name: any }) =>
-        a.name.length - b.name.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "数据集描述",
-      dataIndex: "dataDes",
-      key: "dataDes",
-      width: "6%",
-
-      editable: true,
-      sorter: (a: any, b: any) => a.dataDes.length - b.dataDes.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "开放方式",
-      dataIndex: "openMethod",
-      key: "openMethod",
-      width: "4%",
-      editable: true,
-      options: openMethodOptions,
-      cascader: true,
-      sorter: (a: any, b: any) =>
-        a.openMethod.length - b.openMethod.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "所属部门",
-      dataIndex: "department",
-      key: "department",
-      width: "4%",
-      editable: true,
-      cascader: true,
-      options: department,
-      sorter: (a: any, b: any) =>
-        a.department.length - b.department.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "所属区域",
-      dataIndex: "area",
-      key: "area",
-      width: "4%",
-      editable: true,
-      cascader: true,
-      options: area,
-      sorter: (a: any, b: any) => a.area.length - b.area.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "下载次数",
-      dataIndex: "downloads",
-      key: "downloads",
-      width: "4%",
-      sorter: (a: any, b: any) =>
-        a.downloads.length - b.downloads.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "数据集大小",
-      dataIndex: "datas",
-      key: "datas",
-      width: "5%",
-      sorter: (a: any, b: any) => a.datas.length - b.datas.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any) => (
-        <Tooltip placement="topLeft" title={address}>
-          {address}
-        </Tooltip>
-      ),
-    },
-    {
-      title: "上传时间",
-      dataIndex: "uploadTime",
-      key: "uploadTime",
-      width: "6%",
-      sorter: (a: any, b: any) =>
-        a.uploadTime.length - b.uploadTime.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any = "") =>
-        address === "" ? (
-          ""
-        ) : (
-          <Tooltip placement="topLeft" title={formatDate(address)}>
-            {formatDate(address)}
-          </Tooltip>
-        ),
-    },
-    {
-      title: "更新时间",
-      dataIndex: "updateTime",
-      key: "updateTime",
-      width: "6%",
-      sorter: (a: any, b: any) =>
-        a.updateTime.length - b.updateTime.length,
-      sortDirections: ["descend", "ascend"],
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (address: any = "") =>
-        address === "" ? (
-          ""
-        ) : (
-          <Tooltip placement="topLeft" title={formatDate(address)}>
-            {formatDate(address)}
-          </Tooltip>
-        ),
-    },
-    {
-      title: "资源文件",
-      dataIndex: "filename",
-      key: "filename",
-      width: "7%",
-      fixed: "right",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (_: any, record: T) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <>
-            <FileUploader
-              onFileSelect={onFileSelect}
-              fileList={fileList}
-              onRemove={onRemove}
-              form={form1}
-            />
-            {uploading ? "正在上传..." : ""}
-
-            {uploading && (
-              <Progress
-                percent={uploadProgress}
-                status={
-                  uploadProgress === 100 ? "success" : undefined
-                }
-                strokeColor={{
-                  "0%": "#e91010",
-                  "100%": "#0037ff",
-                }}
-                strokeWidth={3}
-              />
-            )}
-          </>
-        ) : (
-          <span>
-            <GradientButton
-              type="primary"
-              size="middle"
-              icon={<CheckOutlined />}
-              gradientStartColor="#00b4db "
-              gradientEndColor="#7fffd4 "
-              hoverGradientStartColor="#00c6fb   " // 悬停时的起始颜色
-              hoverGradientEndColor="#005bea   " // 悬停时的结束颜色
-              textColor="#000000" // 默认文字颜色
-              hoverTextColor="#ffefd5" // 悬停时的文字颜色
-              onClick={() => download(record)}
+  const columns = isMangage
+    ? [
+        {
+          title: "ID",
+          dataIndex: "id",
+          key: "id",
+          width: "3%",
+          fixed: "left",
+          sorter: (a: any, b: any) => a.id.length - b.id.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (_: any, record: any) => (
+            <Tooltip
+              placement="topLeft"
+              title={"点击预览" + record.name}
             >
-              下载
-            </GradientButton>
-            <GradientButton
-              type="primary"
-              size="middle"
-              icon={<CheckOutlined />}
-              gradientStartColor="#F5F5F5  "
-              gradientEndColor="#CCCCCC  "
-              hoverGradientStartColor="#BDBDBD  " // 悬停时的起始颜色
-              hoverGradientEndColor="#E0E0E0  " // 悬停时的结束颜色
-              textColor="#000000" // 默认文字颜色
-              hoverTextColor="#696969" // 悬停时的文字颜色
-              onClick={() => {
-                copy(record);
-              }}
-            >
-              复制链接
-            </GradientButton>
-          </span>
-        );
-      },
-    },
-    {
-      title: "操作",
-      key: "action",
-      width: "6.2%",
-      editable: false,
-      dataIndex: "action",
-      fixed: "right",
-      render: (_: any, record: T) => {
-        const editable = isEditing(record);
-        const add = isAdding(record);
-        return editable ? (
-          <span>
-            <GradientButton
-              type="primary"
-              size="middle"
-              icon={<CheckOutlined />}
-              gradientStartColor="#00b4db "
-              gradientEndColor="#7fffd4 "
-              hoverGradientStartColor="#00c6fb   " // 悬停时的起始颜色
-              hoverGradientEndColor="#005bea   " // 悬停时的结束颜色
-              textColor="#000000" // 默认文字颜色
-              hoverTextColor="#ffefd5" // 悬停时的文字颜色
-              onClick={
-                add ? () => handleUpload() : () => save(record)
-              }
-            >
-              {add ? "新增" : "保存"}
-            </GradientButton>
-            <GradientButton
-              type="primary"
-              size="middle"
-              icon={<CloseOutlined />}
-              gradientStartColor="#F5F5F5  "
-              gradientEndColor="#CCCCCC  "
-              hoverGradientStartColor="#BDBDBD  " // 悬停时的起始颜色
-              hoverGradientEndColor="#E0E0E0  " // 悬停时的结束颜色
-              textColor="#000000" // 默认文字颜色
-              hoverTextColor="#696969" // 悬停时的文字颜色
-              onClick={cancel}
-            >
-              取消
-            </GradientButton>
-          </span>
-        ) : (
-          <>
-            <GradientButton
-              type="primary"
-              size="middle"
-              icon={<EditOutlined />}
-              gradientStartColor="#ff6b6b"
-              gradientEndColor="#f9c851"
-              hoverGradientStartColor="#ff9900" // 悬停时的起始颜色
-              hoverGradientEndColor="#ff0066" // 悬停时的结束颜色
-              textColor="#000000" // 默认文字颜色
-              hoverTextColor="#ffefd5" // 悬停时的文字颜色
-              onClick={() => edit(record)}
-            >
-              编辑
-            </GradientButton>
-            <Popconfirm
-              title="确定删除吗？"
-              onConfirm={() => delApi(record)}
-              okText="是"
-              cancelText="否"
-            >
-              <GradientButton
-                type="primary"
-                size="middle"
-                icon={<EditOutlined />}
-                gradientStartColor="#CCCCCC"
-                gradientEndColor="#F5F5F5"
-                hoverGradientStartColor="#00c6fb" // 悬停时的起始颜色
-                hoverGradientEndColor="#005bea" // 悬停时的结束颜色
-                textColor="#000000" // 默认文字颜色
-                hoverTextColor="#ffefd5" // 悬停时的文字颜色
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => Preview(record)}
               >
-                删除
-              </GradientButton>
-            </Popconfirm>
-          </>
-        );
-      },
-    },
-  ];
+                {record.id}
+              </div>
+            </Tooltip>
+          ),
+        },
+        {
+          title: "数据集名称",
+          dataIndex: "name",
+          key: "name",
+          width: "5%",
+          sorter: (a: { name: any }, b: { name: any }) =>
+            a.name.length - b.name.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "上传者",
+          dataIndex: "uploader",
+          key: "uploader",
+          width: "5%",
+          sorter: (a: { uploader: any }, b: { uploader: any }) =>
+            a.uploader.length - b.uploader.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "数据集描述",
+          dataIndex: "dataDes",
+          key: "dataDes",
+          width: "6%",
+
+          editable: true,
+          sorter: (a: any, b: any) =>
+            a.dataDes.length - b.dataDes.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "开放方式",
+          dataIndex: "openMethod",
+          key: "openMethod",
+          width: "4%",
+          editable: true,
+          options: openMethodOptions,
+          cascader: true,
+          sorter: (a: any, b: any) =>
+            a.openMethod.length - b.openMethod.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "所属部门",
+          dataIndex: "department",
+          key: "department",
+          width: "4%",
+          editable: true,
+          cascader: true,
+          options: department,
+          sorter: (a: any, b: any) =>
+            a.department.length - b.department.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "所属区域",
+          dataIndex: "area",
+          key: "area",
+          width: "4%",
+          editable: true,
+          cascader: true,
+          options: area,
+          sorter: (a: any, b: any) => a.area.length - b.area.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "下载次数",
+          dataIndex: "downloads",
+          key: "downloads",
+          width: "4%",
+          sorter: (a: any, b: any) =>
+            a.downloads.length - b.downloads.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "数据集大小",
+          dataIndex: "datas",
+          key: "datas",
+          width: "5%",
+          sorter: (a: any, b: any) => a.datas.length - b.datas.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "上传时间",
+          dataIndex: "uploadTime",
+          key: "uploadTime",
+          width: "6%",
+          sorter: (a: any, b: any) =>
+            a.uploadTime.length - b.uploadTime.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any = "") =>
+            address === "" ? (
+              ""
+            ) : (
+              <Tooltip
+                placement="topLeft"
+                title={formatDate(address)}
+              >
+                {formatDate(address)}
+              </Tooltip>
+            ),
+        },
+        {
+          title: "更新时间",
+          dataIndex: "updateTime",
+          key: "updateTime",
+          width: "6%",
+          sorter: (a: any, b: any) =>
+            a.updateTime.length - b.updateTime.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any = "") =>
+            address === "" ? (
+              ""
+            ) : (
+              <Tooltip
+                placement="topLeft"
+                title={formatDate(address)}
+              >
+                {formatDate(address)}
+              </Tooltip>
+            ),
+        },
+        {
+          title: "资源文件",
+          dataIndex: "filename",
+          key: "filename",
+          width: "7%",
+          fixed: "right",
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (_: any, record: T) => {
+            const editable = isEditing(record);
+            return editable ? (
+              <>
+                <FileUploader
+                  onFileSelect={onFileSelect}
+                  fileList={fileList}
+                  onRemove={onRemove}
+                  form={form1}
+                />
+                {uploading ? "正在上传..." : ""}
+
+                {uploading && (
+                  <Progress
+                    percent={uploadProgress}
+                    status={
+                      uploadProgress === 100 ? "success" : undefined
+                    }
+                    strokeColor={{
+                      "0%": "#e91010",
+                      "100%": "#0037ff",
+                    }}
+                    strokeWidth={3}
+                  />
+                )}
+              </>
+            ) : (
+              <span>
+                {/*<GradientButton*/}
+                {/*  type="primary"*/}
+                {/*  size="middle"*/}
+                {/*  icon={<CheckOutlined />}*/}
+                {/*  gradientStartColor="#00b4db "*/}
+                {/*  gradientEndColor="#7fffd4 "*/}
+                {/*  hoverGradientStartColor="#00c6fb   " // 悬停时的起始颜色*/}
+                {/*  hoverGradientEndColor="#005bea   " // 悬停时的结束颜色*/}
+                {/*  textColor="#000000" // 默认文字颜色*/}
+                {/*  hoverTextColor="#ffefd5" // 悬停时的文字颜色*/}
+                {/*  onClick={() => download(record)}*/}
+                {/*>*/}
+                {/*  下载*/}
+                {/*</GradientButton>*/}
+                <GradientButton
+                  type="primary"
+                  size="middle"
+                  icon={<CheckOutlined />}
+                  gradientStartColor="#F5F5F5  "
+                  gradientEndColor="#CCCCCC  "
+                  hoverGradientStartColor="#BDBDBD  " // 悬停时的起始颜色
+                  hoverGradientEndColor="#E0E0E0  " // 悬停时的结束颜色
+                  textColor="#000000" // 默认文字颜色
+                  hoverTextColor="#696969" // 悬停时的文字颜色
+                  onClick={() => {
+                    copy(record);
+                  }}
+                >
+                  复制链接
+                </GradientButton>
+              </span>
+            );
+          },
+        },
+        {
+          title: "操作",
+          key: "action",
+          width: "6.2%",
+          editable: false,
+          dataIndex: "action",
+          fixed: "right",
+          render: (_: any, record: T) => {
+            const editable = isEditing(record);
+            const add = isAdding(record);
+            return editable ? (
+              <span>
+                <GradientButton
+                  type="primary"
+                  size="middle"
+                  icon={<CheckOutlined />}
+                  gradientStartColor="#00b4db "
+                  gradientEndColor="#7fffd4 "
+                  hoverGradientStartColor="#00c6fb   " // 悬停时的起始颜色
+                  hoverGradientEndColor="#005bea   " // 悬停时的结束颜色
+                  textColor="#000000" // 默认文字颜色
+                  hoverTextColor="#ffefd5" // 悬停时的文字颜色
+                  onClick={
+                    add ? () => handleUpload() : () => save(record)
+                  }
+                >
+                  {add ? "新增" : "保存"}
+                </GradientButton>
+                <GradientButton
+                  type="primary"
+                  size="middle"
+                  icon={<CloseOutlined />}
+                  gradientStartColor="#F5F5F5  "
+                  gradientEndColor="#CCCCCC  "
+                  hoverGradientStartColor="#BDBDBD  " // 悬停时的起始颜色
+                  hoverGradientEndColor="#E0E0E0  " // 悬停时的结束颜色
+                  textColor="#000000" // 默认文字颜色
+                  hoverTextColor="#696969" // 悬停时的文字颜色
+                  onClick={cancel}
+                >
+                  取消
+                </GradientButton>
+              </span>
+            ) : (
+              <>
+                <GradientButton
+                  type="primary"
+                  size="middle"
+                  icon={<EditOutlined />}
+                  gradientStartColor="#ff6b6b"
+                  gradientEndColor="#f9c851"
+                  hoverGradientStartColor="#ff9900" // 悬停时的起始颜色
+                  hoverGradientEndColor="#ff0066" // 悬停时的结束颜色
+                  textColor="#000000" // 默认文字颜色
+                  hoverTextColor="#ffefd5" // 悬停时的文字颜色
+                  onClick={() => edit(record)}
+                >
+                  编辑
+                </GradientButton>
+                <Popconfirm
+                  title="确定删除吗？"
+                  onConfirm={() => delApi(record)}
+                  okText="是"
+                  cancelText="否"
+                >
+                  <GradientButton
+                    type="primary"
+                    size="middle"
+                    icon={<EditOutlined />}
+                    gradientStartColor="#CCCCCC"
+                    gradientEndColor="#F5F5F5"
+                    hoverGradientStartColor="#00c6fb" // 悬停时的起始颜色
+                    hoverGradientEndColor="#005bea" // 悬停时的结束颜色
+                    textColor="#000000" // 默认文字颜色
+                    hoverTextColor="#ffefd5" // 悬停时的文字颜色
+                  >
+                    删除
+                  </GradientButton>
+                </Popconfirm>
+              </>
+            );
+          },
+        },
+      ]
+    : [
+        {
+          title: "ID",
+          dataIndex: "id",
+          key: "id",
+          width: "3%",
+          fixed: "left",
+          sorter: (a: any, b: any) => a.id.length - b.id.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (_: any, record: any) => (
+            <Tooltip
+              placement="topLeft"
+              title={"点击预览" + record.name}
+            >
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => Preview(record)}
+              >
+                {record.id}
+              </div>
+            </Tooltip>
+          ),
+        },
+        {
+          title: "数据集名称",
+          dataIndex: "name",
+          key: "name",
+          width: "5%",
+          sorter: (a: { name: any }, b: { name: any }) =>
+            a.name.length - b.name.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "上传者",
+          dataIndex: "uploader",
+          key: "uploader",
+          width: "5%",
+          sorter: (a: { uploader: any }, b: { uploader: any }) =>
+            a.uploader.length - b.uploader.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "数据集描述",
+          dataIndex: "dataDes",
+          key: "dataDes",
+          width: "6%",
+
+          editable: true,
+          sorter: (a: any, b: any) =>
+            a.dataDes.length - b.dataDes.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "所属部门",
+          dataIndex: "department",
+          key: "department",
+          width: "4%",
+          editable: true,
+          cascader: true,
+          options: department,
+          sorter: (a: any, b: any) =>
+            a.department.length - b.department.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "所属区域",
+          dataIndex: "area",
+          key: "area",
+          width: "4%",
+          editable: true,
+          cascader: true,
+          options: area,
+          sorter: (a: any, b: any) => a.area.length - b.area.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "下载次数",
+          dataIndex: "downloads",
+          key: "downloads",
+          width: "4%",
+          sorter: (a: any, b: any) =>
+            a.downloads.length - b.downloads.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "数据集大小",
+          dataIndex: "datas",
+          key: "datas",
+          width: "5%",
+          sorter: (a: any, b: any) => a.datas.length - b.datas.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any) => (
+            <Tooltip placement="topLeft" title={address}>
+              {address}
+            </Tooltip>
+          ),
+        },
+        {
+          title: "上传时间",
+          dataIndex: "uploadTime",
+          key: "uploadTime",
+          width: "6%",
+          sorter: (a: any, b: any) =>
+            a.uploadTime.length - b.uploadTime.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any = "") =>
+            address === "" ? (
+              ""
+            ) : (
+              <Tooltip
+                placement="topLeft"
+                title={formatDate(address)}
+              >
+                {formatDate(address)}
+              </Tooltip>
+            ),
+        },
+        {
+          title: "更新时间",
+          dataIndex: "updateTime",
+          key: "updateTime",
+          width: "6%",
+          sorter: (a: any, b: any) =>
+            a.updateTime.length - b.updateTime.length,
+          sortDirections: ["descend", "ascend"],
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (address: any = "") =>
+            address === "" ? (
+              ""
+            ) : (
+              <Tooltip
+                placement="topLeft"
+                title={formatDate(address)}
+              >
+                {formatDate(address)}
+              </Tooltip>
+            ),
+        },
+        {
+          title: "资源文件",
+          dataIndex: "filename",
+          key: "filename",
+          width: "7%",
+          fixed: "right",
+          ellipsis: {
+            showTitle: false,
+          },
+          render: (_: any, record: T) => {
+            const editable = isEditing(record);
+            return editable ? (
+              <>
+                <FileUploader
+                  onFileSelect={onFileSelect}
+                  fileList={fileList}
+                  onRemove={onRemove}
+                  form={form1}
+                />
+                {uploading ? "正在上传..." : ""}
+
+                {uploading && (
+                  <Progress
+                    percent={uploadProgress}
+                    status={
+                      uploadProgress === 100 ? "success" : undefined
+                    }
+                    strokeColor={{
+                      "0%": "#e91010",
+                      "100%": "#0037ff",
+                    }}
+                    strokeWidth={3}
+                  />
+                )}
+              </>
+            ) : (
+              <span>
+                {/*<GradientButton*/}
+                {/*  type="primary"*/}
+                {/*  size="middle"*/}
+                {/*  icon={<CheckOutlined />}*/}
+                {/*  gradientStartColor="#00b4db "*/}
+                {/*  gradientEndColor="#7fffd4 "*/}
+                {/*  hoverGradientStartColor="#00c6fb   " // 悬停时的起始颜色*/}
+                {/*  hoverGradientEndColor="#005bea   " // 悬停时的结束颜色*/}
+                {/*  textColor="#000000" // 默认文字颜色*/}
+                {/*  hoverTextColor="#ffefd5" // 悬停时的文字颜色*/}
+                {/*  onClick={() => download(record)}*/}
+                {/*>*/}
+                {/*  下载*/}
+                {/*</GradientButton>*/}
+                <GradientButton
+                  type="primary"
+                  size="middle"
+                  icon={<CheckOutlined />}
+                  gradientStartColor="#F5F5F5  "
+                  gradientEndColor="#CCCCCC  "
+                  hoverGradientStartColor="#BDBDBD  " // 悬停时的起始颜色
+                  hoverGradientEndColor="#E0E0E0  " // 悬停时的结束颜色
+                  textColor="#000000" // 默认文字颜色
+                  hoverTextColor="#696969" // 悬停时的文字颜色
+                  onClick={() => {
+                    copy(record);
+                  }}
+                >
+                  复制链接
+                </GradientButton>
+              </span>
+            );
+          },
+        },
+      ];
 
   useEffect(() => {
     getArea();
@@ -927,6 +1238,7 @@ const View: React.FC = () => {
       data: {
         pageNum: pagination.pageNum,
         pageSize: pagination.pageSize,
+        user: store.getState().user?.user,
       },
       headers: { token: store.getState().token?.token },
     };
@@ -973,6 +1285,7 @@ const View: React.FC = () => {
         data: {
           pageNum: pagination.current,
           pageSize: pagination.pageSize,
+          user: store.getState().user?.user,
         },
         headers: { token: store.getState().token?.token },
       };
@@ -1014,7 +1327,7 @@ const View: React.FC = () => {
     setModalOpen(false);
   };
 
-  return (
+  return isMangage ? (
     <Card hoverable={true} style={{ cursor: "default" }}>
       <Space style={{ marginBottom: 16 }}>
         <Tooltip
@@ -1045,6 +1358,52 @@ const View: React.FC = () => {
         >
           新增
         </GradientButton>
+        单击ID栏预览对应文件，每次下载后链接重置，请刷新页面获取新链接
+      </Space>
+      <CustomTable
+        scroll={{ x: 2200, y: 600 }}
+        onChange={onChange}
+        virtual={true}
+        columns={columns}
+        dataSource={data.records}
+        pagination={pagination}
+        rowHoverable={true}
+        onEdit={edit}
+        onCancel={cancel}
+        isEditing={isEditing}
+        editingKey={editingKey}
+        form={form}
+        setData={setData}
+        data={data}
+        isUploading={isUploading}
+      />
+
+      <CustomModal
+        width={1200}
+        title={title}
+        content={content}
+        modalOpen={modalOpen}
+        onCancel={onCancel}
+        onOk={onOk}
+      ></CustomModal>
+    </Card>
+  ) : (
+    <Card hoverable={true} style={{ cursor: "default" }}>
+      <Space style={{ marginBottom: 16 }}>
+        <Tooltip
+          placement="topLeft"
+          title="模糊查询数据集名称，数据集描述"
+        >
+          <Search
+            value={serchBlurValue}
+            placeholder="查询"
+            allowClear
+            onChange={(r) => setSerchBlurValue(r.currentTarget.value)}
+            onPressEnter={(r) => serchBlur(r.currentTarget.value)}
+            onSearch={(value) => serchBlur(value)}
+          />
+        </Tooltip>
+        <TimePicke value={serchDateValue} onChange={timeOnChange} />
         单击ID栏预览对应文件，每次下载后链接重置，请刷新页面获取新链接
       </Space>
       <CustomTable
