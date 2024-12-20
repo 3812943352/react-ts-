@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-20 10:22:50
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-16 17:43:43
+ * @LastEditTime: 2024-12-19 09:26:26
  * @FilePath: src/views/login/index.tsx
  * @Description: 请填写简介
  */
@@ -10,12 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import fs from "./shaders/fs.glsl?raw";
 import vs from "./shaders/vs.glsl?raw";
-import useOnceClick from "@/commponents/clickonce";
-import AudioTexture from "./commponents/audioTexture";
-import LoginForm from "@/views/login/commponents/loginForm.tsx";
-import AnimatedText from "@/views/login/commponents/AnimatedText.tsx";
 import { gsap } from "gsap";
-import RegisterForm from "@/views/login/commponents/registerForm.tsx";
 import {
   setOuth,
   setOuthList,
@@ -23,8 +18,12 @@ import {
   setUser,
 } from "@/store/user/actions.tsx";
 import { useDispatch } from "react-redux";
-import ForgetForm from "@/views/login/commponents/forgetForm.tsx";
 import eventBus from "@/utils/events.ts";
+import Application from "@/views/login/Application.ts";
+import ForgetForm from "@/views/login/commponents/forgetForm.tsx";
+import LoginForm from "@/views/login/commponents/loginForm.tsx";
+import RegisterForm from "@/views/login/commponents/registerForm.tsx";
+import AnimatedText from "@/views/login/commponents/AnimatedText.tsx";
 
 const View: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -114,6 +113,7 @@ const View: React.FC = () => {
         duration: 0.5,
         ease: "power1.inOut",
       });
+
       tl.to(loginRef.current, {
         x: 0,
         y: 0,
@@ -175,17 +175,6 @@ const View: React.FC = () => {
   };
   scene.add(floor);
 
-  const play = useOnceClick(() => {
-    const audioTexture = new AudioTexture(
-      "../../../public/music/zztdd.mp3",
-    );
-    shaderMaterial.uniforms.iChannel0.value = audioTexture.tAudioData;
-    floor.onBeforeRender = () => {
-      shaderMaterial.uniforms.iTime.value += 0.01;
-      audioTexture.update();
-    };
-  });
-
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -216,39 +205,45 @@ const View: React.FC = () => {
       }
     } as T;
   }
-
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.appendChild(renderer.domElement);
-
-      animate();
-      const handleMove = throttle((e: any) => {
-        iMouse.x = e.pageX;
-        iMouse.y = innerHeight - e.pageY;
-      }, 17); // 16ms 大约等于每秒 60 次调用，适合大多数情况
-      document.addEventListener("mousemove", handleMove);
-
-      return () => {
-        window.removeEventListener("resize", () => {});
-        containerRef.current?.removeChild(renderer.domElement);
-        document.removeEventListener("mousemove", handleMove);
-      };
+      new Application();
     }
+
+    // 清理函数，用于在组件卸载或重新渲染时清理副作用
+    return () => {
+      // 如果有需要清理的内容（比如事件监听器），在这里执行
+    };
   }, []);
+  // useEffect(() => {
+  //   if (containerRef.current) {
+  //     containerRef.current.appendChild(renderer.domElement);
+  //
+  //     animate();
+  //     const handleMove = throttle((e: any) => {
+  //       iMouse.x = e.pageX;
+  //       iMouse.y = innerHeight - e.pageY;
+  //     }, 17); // 16ms 大约等于每秒 60 次调用，适合大多数情况
+  //     document.addEventListener("mousemove", handleMove);
+  //
+  //     return () => {
+  //       window.removeEventListener("resize", () => {});
+  //       containerRef.current?.removeChild(renderer.domElement);
+  //       document.removeEventListener("mousemove", handleMove);
+  //     };
+  //   }
+  // }, []);
 
   return (
     <div className="relative h-[100vh] w-[100vw]">
       <div
         ref={containerRef}
-        className="absolute left-0 top-0 z-0 h-full w-full"
+        className="experience absolute left-0 top-0 z-0 h-full w-full"
       />
-      <div
-        onClick={play}
-        className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-white/90 backdrop-blur-sm"
-      >
+      <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-white/0 backdrop-blur-sm">
         <div className="flex w-full flex-row flex-wrap">
           <div className="hero relative mx-auto my-0 flex max-w-4xl flex-1 flex-shrink-0 px-0">
-            <div>
+            <div className="text-blue-100">
               <AnimatedText />
               <div
                 ref={has}
@@ -260,14 +255,14 @@ const View: React.FC = () => {
                 <div
                   ref={has1}
                   onClick={move}
-                  className="cursor-pointer text-blue-700"
+                  className="cursor-pointer text-blue-300"
                 >
                   {isLoggedIn ? "点击这里注册" : "返回登录"}
                 </div>
                 <div
                   ref={has2}
                   onClick={forget}
-                  className="cursor-pointer text-blue-700"
+                  className="cursor-pointer text-blue-300"
                 >
                   {isForget ? "忘记密码？" : "返回登录"}
                 </div>

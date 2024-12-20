@@ -1,6 +1,7 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
+        "experimentalDecorators": true,
         "target": "ES2022",
         "lib": [
             "ES2023"

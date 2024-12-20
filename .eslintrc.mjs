@@ -1,8 +1,8 @@
 /*
  * @Author: wb
  * @Date: 2024-10-28 16:51:35
- * @LastEditors: wb
- * @LastEditTime: 2024-11-21 11:24:45
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-18 10:58:34
  * @FilePath: .eslintrc.mjs
  * @Description: 请填写简介
  */

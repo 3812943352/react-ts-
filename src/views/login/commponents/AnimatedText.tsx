@@ -1,3 +1,11 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-11-21 17:22:34
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-18 17:03:54
+ * @FilePath: src/views/login/commponents/AnimatedText.tsx
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
 import React, { useEffect, useRef, useState } from "react";
 
 const AnimatedText: React.FC = () => {

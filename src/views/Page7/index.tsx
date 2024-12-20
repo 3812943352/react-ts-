@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-04 09:16:08
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-16 10:30:07
+ * @LastEditTime: 2024-12-17 15:43:38
  * @FilePath: src/views/Page7/index.tsx
  * @Description: 请填写简介
  */
@@ -291,6 +291,7 @@ const View: React.FC = () => {
           end: eTime,
           pageNum: 1,
           pageSize: 10,
+          ID: store.getState().user?.user,
         },
         headers: { token: store.getState().token?.token },
       };
@@ -1304,6 +1305,7 @@ const View: React.FC = () => {
           pageNum: 1,
           pageSize: 10,
           word: value,
+          ID: store.getState().user?.user,
         },
         headers: { token: store.getState().token?.token },
       };

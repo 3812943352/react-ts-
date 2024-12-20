@@ -25,7 +25,7 @@ import {
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-03 10:33:33
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-09 16:56:28
+ * @LastEditTime: 2024-12-17 15:53:10
  * @FilePath: src/api/data.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -92,6 +92,12 @@ export function getFileAPI(data: getFileDataType) {
     headers: data.headers,
   });
 }
+export function getFileByIdAPI(data: getFileDataType) {
+  return ax.post(dataPath.getFileById, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
 export function uploadAPI(data: uploadDataType) {
   return ax.post(dataPath.upload, data.data, {
     headers: data.headers,
@@ -122,6 +128,12 @@ export function updateAPI(data: uploadDataType) {
     headers: data.headers,
   });
 }
+export function updateById(data: uploadDataType) {
+  return ax.post(dataPath.updateById, data.data, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
 export function getAreaAPI() {
   return ax.post(dataPath.getArea);
 }
@@ -134,8 +146,20 @@ export function deleteAPI(data: delDataType) {
     headers: data.headers,
   });
 }
+export function delFileById(data: delDataType) {
+  return ax.post(dataPath.delFileById, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
 export function dataBlurAPI(data: blurDataType) {
   return ax.post(dataPath.dataBlur, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+export function dataBlurById(data: blurDataType) {
+  return ax.post(dataPath.dataBlurById, null, {
     params: data.data,
     headers: data.headers,
   });
@@ -146,6 +170,13 @@ export function dataDateAPI(data: getDateDataType) {
     headers: data.headers,
   });
 }
+export function dataDateById(data: getDateDataType) {
+  return ax.post(dataPath.dataDateById, null, {
+    params: data.data,
+    headers: data.headers,
+  });
+}
+
 export function DatasAPI(data: onlyHeaderType) {
   return ax.post(dataPath.Datas, null, {
     headers: data.headers,

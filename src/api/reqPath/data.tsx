@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-03 10:33:49
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-09 16:51:58
+ * @LastEditTime: 2024-12-17 15:49:52
  * @FilePath: src/api/reqPath/data.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -27,6 +27,7 @@ export const dataPath = {
   download: "/api/data/download",
   reset: "/api/data/reset",
   getFile: "/api/data/getFile",
+  getFileById: "/api/data/getFileById",
   update: "/api/data/update",
   delete: "/api/data/delete",
   readexcel: "/api/data/readexcel",
@@ -35,4 +36,8 @@ export const dataPath = {
   dataBlur: "/api/data/dataBlur",
   dataDate: "/api/data/dataDate",
   Datas: "/api/data/Datas",
+  delFileById: "/api/data/delFileById",
+  dataBlurById: "/api/data/dataBlurById",
+  dataDateById: "/api/data/dataDateById",
+  updateById: "/api/data/updateById",
 };

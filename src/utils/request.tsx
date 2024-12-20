@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-20 19:58:34
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-16 17:48:32
+ * @LastEditTime: 2024-12-17 11:28:52
  * @FilePath: src/utils/request.tsx
  * @Description: 请填写简介
  */
@@ -60,8 +60,7 @@ service.interceptors.response.use(
       window.location.href = "/ban";
     }
     if (status === 200 && data.code === 443) {
-      console.log(data);
-      // window.location.href = "/auth";
+      window.location.href = "/auth";
     }
     if (status === 401) {
       toast.warn("当前状态已过期，请重新登录", {

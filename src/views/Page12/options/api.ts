@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-30 16:34:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-16 15:31:13
+ * @LastEditTime: 2024-12-17 15:27:25
  * @FilePath: src/views/Page12/options/api.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -158,6 +158,22 @@ const userOptions: Option[] = [
 ];
 const dataOptions: Option[] = [
   {
+    label: "/data/dataDate",
+    value: "/data/dataDate",
+  },
+  {
+    label: "/data/dataDateById",
+    value: "/data/dataDateById",
+  },
+  {
+    label: "/data/dataBlur",
+    value: "/data/dataBlur",
+  },
+  {
+    label: "/data/dataBlurById",
+    value: "/data/dataBlurById",
+  },
+  {
     label: "/data/addArea",
     value: "/data/addArea",
   },
@@ -170,8 +186,8 @@ const dataOptions: Option[] = [
     value: "/data/getAreaById",
   },
   {
-    label: "/data/getAllArea",
-    value: "/data/getAllArea",
+    label: "/data/getArea",
+    value: "/data/getArea",
   },
   {
     label: "/data/updateArea",
@@ -182,6 +198,10 @@ const dataOptions: Option[] = [
     value: "/data/upload",
   },
   {
+    label: "/data/uploadById",
+    value: "/data/uploadById",
+  },
+  {
     label: "/data/download",
     value: "/data/download",
   },
@@ -190,12 +210,24 @@ const dataOptions: Option[] = [
     value: "/data/getFile",
   },
   {
+    label: "/data/getFileById",
+    value: "/data/getFileById",
+  },
+  {
     label: "/data/update",
     value: "/data/update",
   },
   {
+    label: "/data/updateById ",
+    value: "/data/updateById ",
+  },
+  {
     label: "/data/delete",
     value: "/data/delete",
+  },
+  {
+    label: "/data/delFileById ",
+    value: "/data/delFileById ",
   },
   {
     label: "/data/addDepartment",
@@ -206,8 +238,8 @@ const dataOptions: Option[] = [
     value: "/data/deleteDepartment",
   },
   {
-    label: "/data/getAllDepartment",
-    value: "/data/getAllDepartment",
+    label: "/data/getDepartment",
+    value: "/data/getDepartment",
   },
   {
     label: "/data/getDepartmentById",

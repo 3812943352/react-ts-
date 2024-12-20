@@ -1,9 +1,9 @@
 /*
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
- * @LastEditors: wb
- * @LastEditTime: 2024-11-05 09:38:55
- * @FilePath: \demo\tsconfig.json
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-20 16:04:10
+ * @FilePath: tsconfig.json
  * @Description: 请填写简介
  */
 {
@@ -17,6 +17,7 @@
         }
     ],
     "compilerOptions": {
+        "experimentalDecorators": true,
         "module": "es6",
         "target": "ES2021",
         "allowSyntheticDefaultImports": true,
@@ -27,11 +28,13 @@
             "three",
             "vite/client"
         ],
+        "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@/*": [
                 "src/*"
             ]
-        }
+        },
+
         // 其他选项...
     }
 }
