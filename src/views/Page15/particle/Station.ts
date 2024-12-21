@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:07:50
+ * @LastEditTime: 2024-12-21 11:41:46
  * @FilePath: src/views/Page15/particle/Station.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -26,11 +26,15 @@ export class Station {
 
   loadModel() {
     ThreeHelper.instance
-      .loadDrc("/models/aaa/station.drc")
+      .loadDrc("/models/station.drc")
       .then((geo) => {
-        console.log(geo);
+        if (!geo) {
+          console.error("加载的几何体无效");
+          return;
+        }
+        // geo.deleteAttribute("color");
         geo.setAttribute("aColor", geo.attributes.color);
-        geo.deleteAttribute("color");
+
         geo.center();
         geo.rotateY(Math.PI / 2);
         this.particle = new Points(

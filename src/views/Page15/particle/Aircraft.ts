@@ -2,18 +2,16 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:19:42
+ * @LastEditTime: 2024-12-21 16:02:19
  * @FilePath: src/views/Page15/particle/Aircraft.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 // 从本地路径导入ThreeHelper辅助工具类
 import { ThreeHelper } from "../../ThreeHelper"; // 导入自定义装饰器CameraInject和LoadGLTF，用于注入相机和加载GLTF模型
-import { LoadGLTF } from "../decorators"; // 从本地路径导入自定义材质DotMaterial
 import { DotMaterial } from "../../shader/DotMaterial"; // 从three库中导入BufferAttribute和Points类
 import * as THREE from "three";
 import { BufferAttribute, Points } from "three"; // 导入GSAP动画库
 import { gsap } from "gsap"; // 从three的GLTFLoader模块中导入GLTF接口
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader"; // 从本地路径导入GUIControl类，用于创建图形用户界面控件
 import { RingPoint } from "./RingPoint";
 
 export class Aircraft {
@@ -30,49 +28,40 @@ export class Aircraft {
   }
 
   // 使用LoadGLTF装饰器加载指定路径下的GLB模型文件，并自动注入到此方法的参数gltf中
-  @LoadGLTF("/models/particle3.glb")
-  loadModel(gltf?: GLTF) {
-    // 如果没有成功加载GLTF模型，则直接返回
-    if (!gltf) return;
+  // @LoadGLTF("/models/particle3.glb")
+  loadModel() {
+    ThreeHelper.instance.loadDrc("/models/pearce.drc").then((geo) => {
+      if (!geo) {
+        console.error("加载的几何体无效");
+        return;
+      }
+      geo.setAttribute("aColor", geo.attributes.color);
+      geo.rotateZ(Math.PI);
+      geo.scale(2, 2, 2);
 
-    // 获取GLTF场景中类型为Mesh的第一个对象
-    const mesh = gltf.scene.getObjectByProperty(
-      "type",
-      "Mesh",
-    ) as THREE.Mesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>;
-    // 缩放mesh几何体，使粒子效果更大
-    mesh.geometry.scale(2, 3, 3);
-    // 旋转mesh几何体，使粒子效果面向正确的方向（这里选择不启用）
-    // mesh.geometry.rotateX(Math.PI / -2);
-    // 旋转mesh几何体，在Z轴上旋转180度
-    mesh.geometry.rotateZ(Math.PI);
+      this.particle = new Points(
+        geo,
+        new DotMaterial(
+          {
+            near: 10, // 材质参数：近裁剪面距离
+            far: -80, // 材质参数：远裁剪面距离
+            fadeDistance: 10, // 材质参数：淡出距离
+            blur: 10, // 材质参数：模糊程度
+            // map: geo.material.map, // 使用原始mesh材质的地图纹理
+            baseParticleSize: 2, // 材质参数：基本粒子大小
+          },
+          {
+            USE_ACOLOR: true,
+          },
+        ),
+      );
 
-    // 调用setSizeAttr方法设置每个点的大小属性
-    this.setSizeAttr(mesh.geometry);
-
-    // 创建一个新的Points对象，使用上面准备好的geometry和自定义材质DotMaterial
-    this.particle = new Points(
-      mesh.geometry,
-      new DotMaterial(
-        {
-          near: 10, // 材质参数：近裁剪面距离
-          far: -60, // 材质参数：远裁剪面距离
-          fadeDistance: 0, // 材质参数：淡出距离
-          blur: 5, // 材质参数：模糊程度
-          map: mesh.material.map, // 使用原始mesh材质的地图纹理
-          baseParticleSize: 2, // 材质参数：基本粒子大小
-        },
-        {
-          depthTest: false, // 自定义材质选项：禁用深度测试
-        },
-      ),
-    );
-
-    console.log(this.camera.fov, this.camera.position);
-    // 将粒子系统添加到ThreeHelper管理的场景中
-    ThreeHelper.instance.add(this.particle);
-    // 设置粒子系统的动画
-    this.setAnimation();
+      console.log(this.camera.fov, this.camera.position);
+      // 将粒子系统添加到ThreeHelper管理的场景中
+      ThreeHelper.instance.add(this.particle);
+      // 设置粒子系统的动画
+      this.setAnimation();
+    });
   }
 
   // setSizeAttr方法：为几何体设置点大小属性
@@ -122,7 +111,7 @@ export class Aircraft {
     tl.to(particle.rotation, { x: Math.PI, duration: 0.2 }, 0.6); // 旋转粒子系统
     tl.to(
       particle.position,
-      { z: 20, y: 5, x: -10, duration: 0.4 },
+      { z: 45, y: 5, x: -10, duration: 0.4 },
       0.8,
     ); // 更改粒子位置
     tl.to(particle.rotation, { x: Math.PI, duration: 0.1 }, 1.2); // 再次旋转粒子系统
@@ -135,7 +124,7 @@ export class Aircraft {
       },
       0,
     );
-    tl.to(this.cameraWrapper.position, { z: -20, duration: 0.5 }, 0); // 移动相机包装对象
+    tl.to(this.cameraWrapper!.position, { z: -20, duration: 0.5 }, 0); // 移动相机包装对象
     // 动态修改粒子材质的uniforms属性，实现动态效果
     tl.to(particle.material.uniforms.near, { value: 10 }, 0.3);
     tl.to(
@@ -149,7 +138,7 @@ export class Aircraft {
       0.5,
     );
     // 再次调整相机包装对象和相机视场角的位置
-    // tl.to(this.cameraWrapper.position, { z: -20 }, 0.17);
+    tl.to(this.cameraWrapper!.position, { z: 0 }, 0.17);
     // tl.to(
     //     this.camera,
     //     { fov: 90, onUpdate: () => this.camera.updateProjectionMatrix() },

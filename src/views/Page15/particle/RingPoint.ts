@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 14:57:21
+ * @LastEditTime: 2024-12-20 17:22:30
  * @FilePath: src/views/Page15/particle/RingPoint.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -26,7 +26,7 @@ export class RingPoint {
   constructor(
     radius = 11, // 环的半径，默认值为11
     count = 90, // 环上的点数量，默认值为90
-    private color = new THREE.Color("#A69D98"), // 点的颜色，默认值为#A69D98
+    private color = new THREE.Color("#ffffff"), // 点的颜色，默认值为#A69D98
   ) {
     // 创建一个CircleGeometry几何体，作为环的基础形状
     const circleGeometry = new THREE.CircleGeometry(radius, count);

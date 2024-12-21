@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:19:44
+ * @LastEditTime: 2024-12-20 16:39:03
  * @FilePath: src/views/Page15/decorators/index.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */

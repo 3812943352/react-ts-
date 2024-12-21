@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-30 10:04:50
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-09 13:54:13
+ * @LastEditTime: 2024-12-20 16:53:22
  * @FilePath: src/input.css
  * @Description: 请填写简介
  */
@@ -12,7 +12,7 @@
 
 :root {
     --color-bg: rgb(255 255 255 / 100%);
-    overflow: hidden;
+    overflow: auto;
 }
 
 img {

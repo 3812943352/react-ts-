@@ -1,8 +1,16 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-12-20 14:35:43
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-20 17:05:23
+ * @FilePath: src/views/ThreeHelper/utils/BaseEnvironment.ts
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
 /*
  * @Author: hongbin
  * @Date: 2022-12-10 11:12:36
- * @LastEditors: hongbin
- * @LastEditTime: 2023-08-04 15:45:45
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-20 17:05:23
  * @Description:初始化环境
  */
 import * as THREE from "three";

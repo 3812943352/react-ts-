@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-28 14:23:24
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-28 09:44:25
+ * @LastEditTime: 2024-12-21 09:26:58
  * @FilePath: src/App.tsx
  * @Description: 请填写简介
  */
@@ -35,7 +35,7 @@ const App: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="App select-none bg-white">
+    <div className="App select-none truncate bg-white">
       {outlet}
       <CustomLoading spinning={false} />
       <ToastContainer />

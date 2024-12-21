@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:19:44
+ * @LastEditTime: 2024-12-21 15:56:34
  * @FilePath: src/views/Page15/index.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -27,13 +27,16 @@ import { RandomPoint } from "./particle/RandomPoint";
 import { RingPoint } from "./particle/RingPoint";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { MethodBaseSceneSet } from "@/views/Page15/decorators";
+import FadingText from "@/views/commponents/FadingText.tsx";
+import ToLogin from "@/views/Page15/commponents/toLogin.tsx";
+import SideNav from "@/views/Page15/commponents/SideNav.tsx";
 
 interface IProps {}
 
 const destroyEvent = [] as VoidFunction[];
 
 const Index: FC<IProps> = () => {
+  const lines = ["阳光数安", "数据开放平台"];
   return (
     <>
       <Layout
@@ -44,10 +47,38 @@ const Index: FC<IProps> = () => {
       <div
         id="container"
         style={{
-          height: "370vh",
+          height: "380vh",
           width: "100%",
         }}
       ></div>
+      <div
+        style={{
+          height: "370vh",
+          width: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          background: "rgba(0,0,0,0)",
+          // background: "linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%)",
+        }}
+      >
+        <div>
+          <FadingText lines={lines}></FadingText>
+          <div
+            style={{
+              position: "fixed",
+              top: "5%",
+              height: "100vh",
+            }}
+          >
+            <SideNav></SideNav>
+          </div>
+          <div style={{ position: "fixed", top: "5%", left: "91%" }}>
+            <ToLogin></ToLogin>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
@@ -55,8 +86,13 @@ const Index: FC<IProps> = () => {
 export default Index;
 
 class Main {
-  @MethodBaseSceneSet
   static init(helper: ThreeHelper) {
+    helper.camera.fov = 50;
+    helper.camera.position.set(0, 0, 40);
+    helper.frameByFrame();
+    // helper.initLights();
+    helper.setBackground("#000023");
+    helper.perspectiveCameraControl();
     helper.controls.enableZoom = false;
     const cameraWrap = new THREE.Object3D();
     helper.add(cameraWrap);

@@ -1,0 +1,125 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-12-21 11:17:47
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-21 11:33:21
+ * @FilePath: src/views/Page15/commponents/toLogin.css
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+.HeaderModule .TopBarInner .TopBarCtas {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.HeaderModule .TopBarInner .TopBarCtas .ButtonCta {
+    height: 50px;
+}
+.HeaderModule .TopBarInner .TopBarCtas .ButtonCta {
+    height: 50px;
+}
+.HeaderModule .TopBarInner .TopBarCtas a {
+    pointer-events: auto;
+}
+.ButtonCta.arrowed {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.ButtonCta.gradient {
+    width: 7vw;
+    border: none;
+    background: #fff;
+    background: -webkit-gradient(linear,left top,right top,from(rgba(245,241,235,0)),color-stop(36%,#fff));
+    background: linear-gradient(90deg,rgba(245,241,235,0),#fff 36%);
+}
+a, a:active, a:hover, a:visited {
+    text-decoration: none;
+}
+.ButtonCta {
+    height: 54px;
+    font-size: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    min-width: 140px;
+}
+.ButtonCta {
+    height: 50px;
+    padding-left: 24px;
+    padding-right: 12px;
+    background: transparent;
+    font-size: 14px;
+    font-family: Rogan;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    position: relative;
+    cursor: pointer;
+    min-width: 120px;
+}
+.HeaderModule .TopBarInner .TopBarCtas span {
+    -webkit-transition: color .5s;
+    transition: color .5s;
+    pointer-events: none;
+}
+.ButtonCta span {
+    color: #231f20;
+}
+.ButtonCta.arrowed .arrow {
+    position: relative;
+    height: 7px;
+    width: 12px;
+    display: inline-block;
+    margin-left: 8px;
+}
+.ButtonCta span {
+    color: #231f20;
+}
+.ButtonCta.arrowed .arrow:before {
+    width: 100%;
+    opacity: .5;
+}
+.ButtonCta.arrowed .arrow:after, .ButtonCta.arrowed .arrow:before {
+    content: "";
+    height: 100%;
+    background-image: url(../../../assets/images/chevron_right.svg);
+    background-position: 0 top;
+    background-size: 6px 7px;
+    background-repeat: repeat-x;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.ButtonCta.arrowed .arrow:before {
+    width: 100%;
+    opacity: .5;
+}
+.ButtonCta.arrowed:hover .arrow:after {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+}
+.ButtonCta.arrowed .arrow:after {
+    width: 6px;
+    -webkit-transition: -webkit-transform .2s;
+    transition: -webkit-transform .2s;
+    transition: transform .2s;
+    transition: transform .2s,-webkit-transform .2s;
+}
+.ButtonCta.arrowed .arrow:after, .ButtonCta.arrowed .arrow:before {
+    content: "";
+    height: 100%;
+    background-image: url(../../../assets/images/chevron_right.svg);
+    background-position: 0 top;
+    background-size: 6px 7px;
+    background-repeat: repeat-x;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

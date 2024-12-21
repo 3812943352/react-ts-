@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-11-20 10:22:50
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-19 09:26:26
+ * @LastEditTime: 2024-12-21 09:24:59
  * @FilePath: src/views/login/index.tsx
  * @Description: 请填写简介
  */
@@ -215,24 +215,6 @@ const View: React.FC = () => {
       // 如果有需要清理的内容（比如事件监听器），在这里执行
     };
   }, []);
-  // useEffect(() => {
-  //   if (containerRef.current) {
-  //     containerRef.current.appendChild(renderer.domElement);
-  //
-  //     animate();
-  //     const handleMove = throttle((e: any) => {
-  //       iMouse.x = e.pageX;
-  //       iMouse.y = innerHeight - e.pageY;
-  //     }, 17); // 16ms 大约等于每秒 60 次调用，适合大多数情况
-  //     document.addEventListener("mousemove", handleMove);
-  //
-  //     return () => {
-  //       window.removeEventListener("resize", () => {});
-  //       containerRef.current?.removeChild(renderer.domElement);
-  //       document.removeEventListener("mousemove", handleMove);
-  //     };
-  //   }
-  // }, []);
 
   return (
     <div className="relative h-[100vh] w-[100vw]">

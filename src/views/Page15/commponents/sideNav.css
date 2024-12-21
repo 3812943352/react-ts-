@@ -1,0 +1,387 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-12-21 14:47:04
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-21 16:38:29
+ * @FilePath: src/views/Page15/commponents/sideNav.css
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+a,a:active,a:hover,a:visited {
+    text-decoration: none
+}
+.ExploreNav {
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    top: 20px;
+    bottom: 0;
+    left: calc(env(safe-area-inset-left));
+    z-index: 2;
+    width: 50px;
+    overflow: hidden;
+    -webkit-transition: width 0s .3s;
+    transition: width 0s .3s
+}
+
+@media (min-height: 768px) {
+    .ExploreNav {
+        top:120px;
+        bottom: 40px
+    }
+}
+
+@media (min-width: 768px) and (min-height:500px) {
+    .ExploreNav {
+        top:0;
+        bottom: 40px;
+        left: calc(17px + env(safe-area-inset-left))
+    }
+}
+
+@media (min-width: 768px) and (min-height:1000px) {
+    .ExploreNav {
+        top:200px;
+        bottom: 200px;
+        left: calc(17px + env(safe-area-inset-left))
+    }
+}
+
+@media (min-width: 1200px) and (min-height:768px) {
+    .ExploreNav {
+        top:0;
+        bottom: 40px;
+        left: 51px
+    }
+}
+
+@media (min-width: 1200px) and (min-height:1000px) {
+    .ExploreNav {
+        top:200px;
+        bottom: 200px;
+        left: 51px
+    }
+}
+
+@media (hover: hover) {
+    .ExploreNav:hover {
+        -webkit-transition:width 0s 0s;
+        transition: width 0s 0s;
+        width: 230px
+    }
+}
+
+.ExploreNav .ExploreNav-inner {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 230px;
+    padding-top: 60px;
+    padding-bottom: 60px
+}
+
+@media (hover: hover) {
+    .ExploreNav .ExploreNav-inner:hover span {
+        opacity:.7
+    }
+
+    .ExploreNav .ExploreNav-inner:hover .ExploreNav-diamond:not(.end) .innerDiamond {
+        -webkit-transition: .15s;
+        transition: .15s;
+        -webkit-transform: scale(.2)!important;
+        transform: scale(.2)!important;
+        opacity: 0!important
+    }
+
+    .ExploreNav .ExploreNav-inner:hover .ExploreNav-diamond:not(.end) span {
+        -webkit-transition: .2s;
+        transition: .2s;
+        opacity: 1!important
+    }
+}
+
+.ExploreNav a {
+    margin-bottom: 31px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row;
+    flex-flow: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 26px;
+    padding-left: 20px;
+    position: relative;
+    white-space: nowrap;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0)
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav a {
+        margin-bottom:64px
+    }
+}
+
+.ExploreNav a>span {
+    opacity: 0;
+    padding-left: 24px;
+    display: inline-block;
+    font-size: 11px;
+    margin-top: 0;
+    font-family: Rogan;
+    color: rgba(250,250,250,.8);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.273;
+    -webkit-transition: .3s;
+    transition: .3s
+}
+
+@media (hover: hover) {
+    .ExploreNav a:hover span {
+        opacity:1!important;
+        color: #00ffff
+    }
+}
+
+.ExploreNav a .ExploreNav-line {
+    position: absolute;
+    height: 60px;
+    top: 29px;
+    left: 21px;
+    width: 2px;
+    overflow: hidden
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav a .ExploreNav-line {
+        height:60px;
+        top: 30px;
+        left: 22px;
+        width: 2px
+    }
+}
+
+.ExploreNav a .ExploreNav-lineInner {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 2px;
+    opacity: .7;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='2' height='2' viewBox='0 0 2 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%2378746D'/%3E%3C/svg%3E");
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-size: 2px 6px;
+    background-repeat: repeat-y
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav a .ExploreNav-lineInner {
+        opacity:1;
+        width: 2px;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='2' height='2' viewBox='0 0 2 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23D2CCC5'/%3E%3C/svg%3E")
+    }
+}
+
+.ExploreNav a .ExploreNav-lineProgress {
+    position: absolute;
+    height: 66px;
+    top: 22px;
+    left: 21px;
+    width: 2px;
+    overflow: hidden;
+    background: #00ffff;
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0)
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav a .ExploreNav-lineProgress {
+        height:60px;
+        top: 23px;
+        left: 22px;
+        width: 2px
+    }
+}
+
+.ExploreNav a:last-child {
+    position: relative;
+    top: -27px;
+    margin-top: 22px;
+    margin-bottom: -27px
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav a:last-child {
+        top:-30px;
+        margin-top: 22px;
+        margin-bottom: -30px
+    }
+}
+
+.ExploreNav .ExploreNav-diamond {
+    width: 4px;
+    height: 4px;
+    display: block;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+    position: relative
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav .ExploreNav-diamond {
+        width:6px;
+        height: 6px
+    }
+}
+
+.ExploreNav .ExploreNav-diamond span {
+    opacity: 0;
+    display: block;
+    width: 22px;
+    text-align: center;
+    position: absolute;
+    font-size: 9px;
+    top: 30%;
+    left: -4px;
+    -webkit-font-feature-settings: "tnum";
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-transform: rotateZ(-45deg) translate3d(0,-8.5px,0);
+    transform: rotateZ(-45deg) translate3d(0,-8.5px,0);
+    font-family: Rogan;
+    color: #bebebe;
+    font-weight: 700;
+    -webkit-transition: .3s;
+    transition: .3s
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav .ExploreNav-diamond span {
+        width:28px;
+        font-size: 12px;
+        top: 20%;
+        left: -4px;
+        -webkit-transform: rotateZ(-45deg) translate3d(0,-11px,0);
+        transform: rotateZ(-45deg) translate3d(0,-11px,0)
+    }
+}
+
+.ExploreNav .ExploreNav-diamond .outerDiamond {
+    width: 11px;
+    height: 11px;
+    display: block;
+    position: absolute;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    top: -4px;
+    left: -4px;
+    z-index: -1;
+    border: 1px solid rgba(
+            250,235,215,.8)
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav .ExploreNav-diamond .outerDiamond {
+        width:15px;
+        height: 15px;
+        top: -6px;
+        left: -6px
+    }
+}
+
+.ExploreNav .ExploreNav-diamond .innerDiamond {
+    width: 5px;
+    height: 5px;
+    background: #f0ffff;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    -webkit-transition: .3s;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1)
+}
+
+.ExploreNav .ExploreNav-diamond .highlightDiamond,.ExploreNav .ExploreNav-diamond .innerDiamond {
+    display: block;
+    position: absolute;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    z-index: -1
+}
+
+.ExploreNav .ExploreNav-diamond .highlightDiamond {
+    width: 10px;
+    height: 10px;
+    top: -5px;
+    left: -5px;
+    opacity: 0;
+    border: 2px solid #00ffff
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav .ExploreNav-diamond .highlightDiamond {
+        width:15px;
+        height: 15px;
+        top: -7px;
+        left: -7px
+    }
+}
+
+.ExploreNav .ExploreNav-diamond .highlightDiamondOuter {
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    top: -7px;
+    left: -7px;
+    opacity: 0;
+    z-index: -1;
+    border: 1px solid #00ffff
+}
+
+@media (min-width: 768px) and (min-height:768px) {
+    .ExploreNav .ExploreNav-diamond .highlightDiamondOuter {
+        width:25px;
+        height: 25px;
+        top: -11px;
+        left: -11px
+    }
+}
+html.non-sticky .BurgerMenu-icon,html.non-sticky .ExploreButton,html.non-sticky .ExploreNav,html.non-sticky .LandingEnter,html.non-sticky .LandingEnter-largeDiamond,html.non-sticky .LandingMenuIntroWrapper,html.non-sticky .Logo,html.non-sticky .MakeChoice,html.non-sticky .PlayNow {
+    position: fixed
+}
+
+html.non-sticky .BurgerMenu-icon,html.non-sticky .ExploreNav,html.non-sticky .LandingEnter,html.non-sticky .LandingEnter-largeDiamond,html.non-sticky .LandingMenuIntroWrapper,html.non-sticky .Logo,html.non-sticky .PlayNow {
+    contain: content
+}
+

@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:19:43
+ * @LastEditTime: 2024-12-21 09:21:28
  * @FilePath: src/views/Page15/particle/Planet.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -26,9 +26,13 @@ export class Planet {
 
   loadModel() {
     ThreeHelper.instance.loadDrc("/models/planet.drc").then((geo) => {
+      if (!geo) {
+        console.error("加载的几何体无效");
+        return;
+      }
       console.log(geo);
+      // geo.deleteAttribute("color");
       geo.setAttribute("aColor", geo.attributes.color);
-      geo.deleteAttribute("color");
       geo.center();
       geo.rotateY(1.2);
       this.particle = new Points(
@@ -76,8 +80,8 @@ export class Planet {
       },
     );
     tl.to(
-      this.cameraWrapper.position,
-      { z: -20, duration: 1 - 0.17 - 0.1 },
+      this.cameraWrapper!.position,
+      { z: 0, duration: 1 - 0.17 - 0.1 },
       0.17,
     );
     tl.to(

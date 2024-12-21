@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="74dc5233-75c8-4340-8241-2a39941af1f2" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../public/models/eye.drc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../public/models/pearce.drc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../assets/images/chevron_right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../commponents/toLogin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../commponents/toLogin.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../commponents/FadingText.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../commponents/FadingText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../input.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../input.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../decorators/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../decorators/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../noiseBg.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../noiseBg.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../particle/Aircraft.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../particle/Aircraft.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../particle/Planet.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../particle/Planet.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../particle/RandomPoint.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../particle/RandomPoint.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../particle/RingPoint.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../particle/RingPoint.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../particle/Station.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../particle/Station.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ThreeHelper/utils/BaseEnvironment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../ThreeHelper/utils/BaseEnvironment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../login/index.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2qVwizfuRd5C7UOCInM4pOC6d05" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/develop/project/react_demo/demo/src/views/Page15/Three",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="74dc5233-75c8-4340-8241-2a39941af1f2" name="更改" comment="" />
+      <created>1734761181768</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1734761181768</updated>
+      <workItem from="1734761183446" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:19:44
+ * @LastEditTime: 2024-12-20 17:22:30
  * @FilePath: src/views/Page15/particle/RandomPoint.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -26,14 +26,14 @@ export class RandomPoint {
   constructor(
     count = 300,
     name = "漂浮点",
-    color = new THREE.Color("#A69D98"),
-  ) {
+    private color = new THREE.Color("#ffffff"), 
+    ) {
     this.count = count;
 
     const geometry = new THREE.BufferGeometry();
 
     const vertices = new Float32Array(this.count * 3); // 每个顶点有x、y、z三个坐标
-    const colors = new Float32Array(this.count * 3);
+    const aColor = new Float32Array(this.count * 3);
     const sizes = new Float32Array(this.count);
     const randomDirections = new Float32Array(this.count * 3);
     const randomSpeeds = new Float32Array(this.count);
@@ -47,9 +47,9 @@ export class RandomPoint {
       vertices[i * 3 + 2] =
         0.5 * radius * (Math.random() - 0.5) * 60 - 10; // z
 
-      colors[i * 3] = Math.random() * 0.5;
-      colors[i * 3 + 1] = Math.random() * 0.5;
-      colors[i * 3 + 2] = Math.random() * 0.5 + 0.5;
+      aColor[i * 3] = this.color.r;
+      aColor[i * 3 + 1] = this.color.g;
+      aColor[i * 3 + 2] = this.color.b;
 
       sizes[i] = (Math.random() * 0.5 + 0.5) * 2; // 随机生成点的大小
       randomSpeeds[i] = (Math.random() * 0.5 + 0.1) * 1.5;
@@ -70,8 +70,8 @@ export class RandomPoint {
       new THREE.BufferAttribute(vertices, 3),
     );
     geometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(colors, 3),
+      "aColor",
+      new THREE.BufferAttribute(aColor, 3),
     );
     geometry.setAttribute(
       "size",

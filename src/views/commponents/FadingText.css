@@ -1,0 +1,34 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-12-21 10:04:29
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-21 11:01:41
+ * @FilePath: src/views/commponents/FadingText.css
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+.fade-out-text {
+  font-family: "Courier New", Courier, monospace;
+  color: #d5d5d5;
+  margin-top: 50vh;
+  font-size: 2em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.fade-out-text .char {
+  display: inline-block;
+}
+
+@keyframes fadeOutText {
+  0% {
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  100% {
+    filter: blur(5px);
+    opacity: 0;
+  }
+}

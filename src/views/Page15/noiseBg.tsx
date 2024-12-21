@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 15:01:46
+ * @LastEditTime: 2024-12-20 17:27:40
  * @FilePath: src/views/Page15/noiseBg.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -34,7 +34,7 @@ async function init(helper: ThreeHelper) {
   helper.addGUI();
   helper.addAxis();
   helper.useRoomEnvironment();
-  helper.setBackground("#7d7866");
+  helper.setBackground("#ffffff");
 
   helper.camera.position.set(0, 0, 10);
 
