@@ -2,12 +2,12 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-21 15:56:34
+ * @LastEditTime: 2024-12-22 13:23:58
  * @FilePath: src/views/Page15/index.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 
-import { FC } from "react";
+import React, { FC } from "react";
 import * as THREE from "three";
 import { ThreeHelper } from "../ThreeHelper";
 import Layout from "./Three/Layout";
@@ -27,9 +27,11 @@ import { RandomPoint } from "./particle/RandomPoint";
 import { RingPoint } from "./particle/RingPoint";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import FadingText from "@/views/commponents/FadingText.tsx";
 import ToLogin from "@/views/Page15/commponents/toLogin.tsx";
 import SideNav from "@/views/Page15/commponents/SideNav.tsx";
+import ClearingText from "@/views/commponents/ClearingText.tsx";
+import FadingText from "@/views/commponents/FadingText.tsx";
+import Scroll from "@/views/Page15/commponents/scroll.tsx";
 
 interface IProps {}
 
@@ -37,6 +39,11 @@ const destroyEvent = [] as VoidFunction[];
 
 const Index: FC<IProps> = () => {
   const lines = ["阳光数安", "数据开放平台"];
+  const lines1 = [
+    `阳光数安数据开放平台 2006-${new Date().getFullYear()}`,
+    `Created by 阳光数安<`,
+  ];
+
   return (
     <>
       <Layout
@@ -47,13 +54,13 @@ const Index: FC<IProps> = () => {
       <div
         id="container"
         style={{
-          height: "380vh",
+          height: "520vh",
           width: "100%",
         }}
       ></div>
       <div
         style={{
-          height: "370vh",
+          height: "520vh",
           width: "100%",
           position: "absolute",
           top: 0,
@@ -65,6 +72,7 @@ const Index: FC<IProps> = () => {
       >
         <div>
           <FadingText lines={lines}></FadingText>
+          <ClearingText lines={lines1}></ClearingText>
           <div
             style={{
               position: "fixed",
@@ -74,8 +82,11 @@ const Index: FC<IProps> = () => {
           >
             <SideNav></SideNav>
           </div>
-          <div style={{ position: "fixed", top: "5%", left: "91%" }}>
+          <div style={{ position: "fixed", top: "2%", left: "91%" }}>
             <ToLogin></ToLogin>
+          </div>
+          <div style={{ position: "fixed", top: "93%", left: "50%" }}>
+            <Scroll></Scroll>
           </div>
         </div>
       </div>

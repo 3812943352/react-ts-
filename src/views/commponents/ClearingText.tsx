@@ -1,9 +1,9 @@
 /**
  * @Author: wangbo 3812943352@qq.com
- * @Date: 2024-12-21 09:59:11
+ * @Date: 2024-12-22 10:01:31
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 10:39:52
- * @FilePath: src/views/commponents/FadingText.tsx
+ * @LastEditTime: 2024-12-22 13:15:39
+ * @FilePath: src/views/commponents/ClearingText.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
 import React, { useEffect, useRef } from "react";
@@ -27,14 +27,14 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
     lines.forEach((_, index) => {
       if (containerRefs.current[index]) {
         const chars = Array.from(
-          containerRefs.current[index].querySelectorAll(".char"),
+          containerRefs.current[index].querySelectorAll(".clear"),
         );
-        console.log(containerRefs.current[index]);
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRefs.current[index],
-            start: 0, // 当行的顶部到达视窗中心时开始动画
-            end: innerHeight / 5, // 动画结束位置，可以根据需要调整
+            start: innerHeight * 4.04, // 当行的顶部到达视窗中心时开始动画
+            end: innerHeight * 4.19, // 动画结束位置，可以根据需要调整
             scrub: 1,
           },
         });
@@ -43,11 +43,12 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
         chars.forEach((char, charIndex) => {
           const delay =
             Math.abs(charIndex - lines[index].length / 2) * 0.05;
+
           tl.to(
             char,
             {
-              filter: `blur(${3 * Math.floor(Math.random() * (15 - 3 + 1)) + 3}px)`,
-              opacity: 0,
+              filter: `blur(0px)`,
+              opacity: 1,
               duration: 3,
               ease: "none",
               delay: delay,
@@ -80,11 +81,38 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
       ref={(el) => (containerRefs.current[index] = el)}
       className="line-container"
     >
-      {line.split("").map((char, charIndex) => (
-        <span key={charIndex} className="char">
-          {char}
-        </span>
-      ))}
+      {line.split("").map((char, charIndex) => {
+        let style = {
+          filter: `blur(${Math.floor(Math.random() * (15 - 3 + 1)) + 3}px)`,
+          opacity: 0,
+        };
+
+        if (char === " ") {
+          // Handle spaces
+          style = { ...style, display: "inline-block", width: "1em" };
+        }
+
+        if (char === "<") {
+          // Handle superscript
+          return (
+            <>
+              <span
+                key={`${charIndex}-sup`}
+                className="clear"
+                style={{ ...style, verticalAlign: "super" }}
+              >
+                {"®"}
+              </span>
+            </>
+          );
+        }
+
+        return (
+          <span key={charIndex} className="clear" style={style}>
+            {char}
+          </span>
+        );
+      })}
     </div>
   ));
 
@@ -127,7 +155,7 @@ const styles = `
     margin-bottom: 5px;
   }
 
-  .line-container .char {
+  .line-container .clear {
     display: inline-block;
   }
 
@@ -137,7 +165,7 @@ const styles = `
       opacity: 1;
     }
     100% {
-      filter: blur(5px);
+      filter: blur(0px);
       opacity: 0;
     }
   }

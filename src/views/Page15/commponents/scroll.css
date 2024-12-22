@@ -1,0 +1,58 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-12-22 13:20:53
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-22 13:22:36
+ * @FilePath: src/views/Page15/commponents/scroll.css
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+@media (min-width: 1200px) and (min-height:768px) {
+    .ScrollHelpIndicator {
+        bottom:calc(var(68px) - 10px)
+    }
+}
+@media (min-width: 768px) and (min-height:500px) {
+    .ScrollHelpIndicator {
+        bottom:35px
+    }
+}
+.ScrollHelpIndicator {
+    position: fixed;
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    bottom: 23px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0
+}
+.ArticlesModule .ArticlePreviewHeader h2,.CareerModule .CareersModule-Intro h2,.PdfDocumentTemplate .DocumentHeader h2,a,abbr,acronym,address,applet,article,aside,audio,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video {
+    margin: 0;
+    padding: 0
+}
+@media (min-width: 768px) and (min-height:768px) {
+    .ScrollHelpIndicator:before {
+        opacity:.7;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='2' height='2' viewBox='0 0 2 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%2388837a'/%3E%3C/svg%3E")
+    }
+}
+.ScrollHelpIndicator:before {
+    content: "";
+    position: absolute;
+    height: 60px;
+    bottom: -70px;
+    width: 2px;
+    opacity: .7;
+    left: 19px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='2' height='2' viewBox='0 0 2 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%2378746D'/%3E%3C/svg%3E");
+    background-size: 2px 6px;
+    background-repeat: repeat-y
+}
+
+.ScrollHelpIndicator svg {
+    width: 100%;
+    height: 100%
+}

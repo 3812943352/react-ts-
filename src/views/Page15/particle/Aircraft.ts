@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-21 16:02:19
+ * @LastEditTime: 2024-12-22 12:09:34
  * @FilePath: src/views/Page15/particle/Aircraft.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -95,8 +95,8 @@ export class Aircraft {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#container", // 滚动触发元素
-        start: innerHeight * 1.9, // 开始滚动触发的位置
-        end: innerHeight * 3.5, // 结束滚动触发的位置
+        start: innerHeight * 3.4, // 开始滚动触发的位置
+        end: innerHeight * 4.9, // 结束滚动触发的位置
         scrub: 1, // 滚动与动画同步
       },
     });

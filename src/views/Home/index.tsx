@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-31 15:01:55
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-11-29 09:06:22
+ * @LastEditTime: 2024-12-22 10:34:51
  * @FilePath: src/views/Home/index.tsx
  * @Description: 请填写简介
  */
@@ -54,8 +54,8 @@ const View: React.FC = () => {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          阳光数据开放平台 2006 - {new Date().getFullYear()} Created
-          by 阳光数安<sup>®</sup>
+          阳光数安数据开放平台 2006 - {new Date().getFullYear()}{" "}
+          Created by 阳光数安<sup>®</sup>
         </Footer>
       </Layout>
     </Layout>

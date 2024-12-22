@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-21 11:41:46
+ * @LastEditTime: 2024-12-22 12:00:58
  * @FilePath: src/views/Page15/particle/Station.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -72,7 +72,7 @@ export class Station {
       scrollTrigger: {
         trigger: "#container",
         start: 0,
-        end: innerHeight,
+        end: innerHeight * 1.5,
         scrub: 1,
       },
     });

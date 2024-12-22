@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-21 14:47:04
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-21 16:38:29
+ * @LastEditTime: 2024-12-21 20:15:28
  * @FilePath: src/views/Page15/commponents/sideNav.css
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -215,16 +215,17 @@ a,a:active,a:hover,a:visited {
     background: #00ffff;
     -webkit-transform-origin: top center;
     transform-origin: top center;
-    -webkit-transform: scaleY(0);
-    transform: scaleY(0)
+
 }
 
 @media (min-width: 768px) and (min-height:768px) {
     .ExploreNav a .ExploreNav-lineProgress {
-        height:60px;
+        height:68px;
         top: 23px;
         left: 22px;
-        width: 2px
+        width: 2px;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0)
     }
 }
 
@@ -371,10 +372,10 @@ a,a:active,a:hover,a:visited {
 
 @media (min-width: 768px) and (min-height:768px) {
     .ExploreNav .ExploreNav-diamond .highlightDiamondOuter {
-        width:25px;
-        height: 25px;
-        top: -11px;
-        left: -11px
+        width:30px;
+        height: 30px;
+        top: -14px;
+        left: -14px
     }
 }
 html.non-sticky .BurgerMenu-icon,html.non-sticky .ExploreButton,html.non-sticky .ExploreNav,html.non-sticky .LandingEnter,html.non-sticky .LandingEnter-largeDiamond,html.non-sticky .LandingMenuIntroWrapper,html.non-sticky .Logo,html.non-sticky .MakeChoice,html.non-sticky .PlayNow {

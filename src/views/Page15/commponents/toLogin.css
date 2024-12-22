@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-21 11:17:47
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-21 11:33:21
+ * @LastEditTime: 2024-12-22 12:27:01
  * @FilePath: src/views/Page15/commponents/toLogin.css
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -32,7 +32,7 @@
     align-items: center;
 }
 .ButtonCta.gradient {
-    width: 7vw;
+    width: 8vw;
     border: none;
     background: #fff;
     background: -webkit-gradient(linear,left top,right top,from(rgba(245,241,235,0)),color-stop(36%,#fff));
@@ -50,8 +50,8 @@ a, a:active, a:hover, a:visited {
 }
 .ButtonCta {
     height: 50px;
-    padding-left: 24px;
-    padding-right: 12px;
+    padding-left: 50px;
+    padding-right: 6px;
     background: transparent;
     font-size: 14px;
     font-family: Rogan;
