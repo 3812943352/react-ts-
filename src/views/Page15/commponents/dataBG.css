@@ -1,0 +1,36 @@
+/**
+ * @Author: wangbo 3812943352@qq.com
+ * @Date: 2024-12-23 09:02:08
+ * @LastEditors: wangbo 3812943352@qq.com
+ * @LastEditTime: 2024-12-23 16:24:14
+ * @FilePath: src/views/Page15/commponents/dataBG.css
+ * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
+ */
+h1.cyberpunk {
+    position: relative;
+    text-align: center;
+    width: 20%;
+    color: white;
+    left: 25%;
+    margin-bottom: 1rem;
+    font-weight: 100;
+    text-shadow:
+            0 0 1px #dbeafe,   
+            0 0 1px #dbeafe, 
+            0 0 1px #dbeafe, 
+            0 0 2px #dbeafe, 
+            0 0 2px #dbeafe, 
+            0 0 2px #dbeafe;  
+}
+
+h1.cyberpunk:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    background-color: #fff;
+    clip-path: polygon(0px 0px,5.3125rem 0px,5.625rem .3125rem,100% .3125rem,100% .375rem,5.3125rem .375rem,5rem .625rem,0px .625rem);
+}

@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-21 09:59:11
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 10:39:52
+ * @LastEditTime: 2024-12-23 11:09:29
  * @FilePath: src/views/commponents/FadingText.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -80,11 +80,32 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
       ref={(el) => (containerRefs.current[index] = el)}
       className="line-container"
     >
-      {line.split("").map((char, charIndex) => (
-        <span key={charIndex} className="char">
-          {char}
-        </span>
-      ))}
+      {line.split("").map((char, charIndex) => {
+        if (char === "<") {
+          // Handle superscript
+          return (
+            <>
+              <span
+                key={charIndex}
+                className="char"
+                style={{
+                  filter: `blur(0px)`,
+                  opacity: 1,
+                  verticalAlign: "super",
+                  fontSize: "0.7em",
+                }}
+              >
+                {"®"}
+              </span>
+            </>
+          );
+        }
+        return (
+          <span key={charIndex} className="char">
+            {char}
+          </span>
+        );
+      })}
     </div>
   ));
 

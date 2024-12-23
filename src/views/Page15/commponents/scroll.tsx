@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-22 13:19:47
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 13:40:11
+ * @LastEditTime: 2024-12-23 16:24:15
  * @FilePath: src/views/Page15/commponents/scroll.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -19,7 +19,7 @@ const Scroll: React.FC = () => {
       scrollTrigger: {
         trigger: "#root",
         start: 0, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight / 5, // 动画结束位置，可以根据需要调整
+        end: innerHeight * 0.2, // 动画结束位置，可以根据需要调整
         scrub: 1,
       },
     });
@@ -47,7 +47,7 @@ const Scroll: React.FC = () => {
         transform: "translate(0px, 0px)",
       }}
     >
-      滚动
+      下划
       <svg
         width="40"
         height="40"

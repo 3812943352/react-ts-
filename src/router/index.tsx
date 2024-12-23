@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-31 14:59:59
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 15:12:00
+ * @LastEditTime: 2024-12-23 08:37:12
  * @FilePath: src/router/index.tsx
  * @Description: 请填写简介
  */
@@ -76,7 +76,7 @@ const menuRoutes: IRoute[] = [
   ]),
 ];
 const routes: IRoute[] = [
-  setRoute("/", <Navigate to={"/login"} />),
+  setRoute("/", <Navigate to={"/page15"} />),
   setRoute("/login", withLoadingComponent(<Login />)),
   setRoute("/page15", withLoadingComponent(<Page15 />)),
 

@@ -2,7 +2,7 @@
  * @Author: wb
  * @Date: 2024-10-30 10:04:50
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-20 16:53:22
+ * @LastEditTime: 2024-12-23 11:14:49
  * @FilePath: src/input.css
  * @Description: 请填写简介
  */
@@ -13,6 +13,11 @@
 :root {
     --color-bg: rgb(255 255 255 / 100%);
     overflow: auto;
+    ::-webkit-scrollbar {
+        width: 0; /* 滚动条宽度 */
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 img {

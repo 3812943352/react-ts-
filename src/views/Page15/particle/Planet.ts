@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 12:09:34
+ * @LastEditTime: 2024-12-23 15:42:28
  * @FilePath: src/views/Page15/particle/Planet.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -67,8 +67,8 @@ export class Planet {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#container",
-        start: innerHeight * 1.7,
-        end: innerHeight * 3.2,
+        start: innerHeight * 3.45,
+        end: innerHeight * 4.95,
         scrub: 1,
       },
     });

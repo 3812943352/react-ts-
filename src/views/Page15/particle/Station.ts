@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-11-20 16:36:35
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 12:00:58
+ * @LastEditTime: 2024-12-23 15:42:29
  * @FilePath: src/views/Page15/particle/Station.ts
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -71,8 +71,8 @@ export class Station {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#container",
-        start: 0,
-        end: innerHeight * 1.5,
+        start: innerHeight * 0.15,
+        end: innerHeight * 1.65,
         scrub: 1,
       },
     });

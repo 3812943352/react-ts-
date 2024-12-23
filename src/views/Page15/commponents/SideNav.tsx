@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-21 15:39:19
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 13:07:26
+ * @LastEditTime: 2024-12-23 16:56:18
  * @FilePath: src/views/Page15/commponents/SideNav.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -10,8 +10,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FC, useEffect, useRef } from "react";
 import "./sideNav.css";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 interface SideNavProps {
   title?: string[];
@@ -51,7 +52,7 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
       scrollTrigger: {
         trigger: "#root",
         start: 0, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 0.15, // 动画结束位置，可以根据需要调整
+        end: innerHeight * 0.05, // 动画结束位置，可以根据需要调整
         scrub: 1,
       },
     });
@@ -59,75 +60,76 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
       scrollTrigger: {
         trigger: "#root",
         start: innerHeight * 0.15, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 1.5, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        end: innerHeight * 3.15, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl3 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 1.6, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 1.65, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 3.15,
+        end: innerHeight * 3.2,
+        scrub: 1,
       },
     });
     const tl4 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 1.65, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 1.67, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 3.3, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 3.35, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl5 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 1.67, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 3.02, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 3.45, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 6.45, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl6 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 3.12, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 3.14, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 6.45, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 6.5, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl7 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 3.14, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 3.16, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 6.6, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 6.65, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl8 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 3.26, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 4.02, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 6.75, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 9.75, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl9 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 4.02, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 4.04, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 9.75, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 9.8, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
     const tl10 = gsap.timeline({
       scrollTrigger: {
         trigger: "#root",
-        start: innerHeight * 4.04, // 当行的顶部到达视窗中心时开始动画
-        end: innerHeight * 4.15, // 动画结束位置，可以根据需要调整
-        scrub: 0.5,
+        start: innerHeight * 9.9, // 当行的顶部到达视窗中心时开始动画
+        end: innerHeight * 10, // 动画结束位置，可以根据需要调整
+        scrub: 1,
       },
     });
-    const delay = 0.01;
+
+    const delay = 0.03;
 
     //第一幕
     tl1.to(outDiamond1.current, { opacity: 1, duration: 1 }, delay);
@@ -145,7 +147,7 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
       {
         height: 126,
         scaleY: 1,
-        duration: 1,
+        duration: 0.1,
       },
       delay,
     );
@@ -182,7 +184,7 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
       {
         height: 126,
         scaleY: 1,
-        duration: 1,
+        duration: 0.1,
       },
       delay,
     );
@@ -218,7 +220,7 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
       {
         height: 126,
         scaleY: 1,
-        duration: 1,
+        duration: 0.1,
       },
       delay,
     );
@@ -242,14 +244,41 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
     tl10.to(outDiamond4.current, { opacity: 1, duration: 1 }, delay);
     tl10.to(Diamond4.current, { opacity: 1, duration: 1 }, delay);
   }, []);
-
+  const toData1 = () => {
+    gsap.to(window, {
+      duration: 2,
+      scrollTo: { y: innerHeight * 2.4 },
+      ease: "none",
+    });
+  };
+  const toData2 = () => {
+    gsap.to(window, {
+      duration: 2,
+      scrollTo: { y: innerHeight * 5.6 },
+      ease: "none",
+    });
+  };
+  const toData3 = () => {
+    gsap.to(window, {
+      duration: 2,
+      scrollTo: { y: innerHeight * 9 },
+      ease: "none",
+    });
+  };
+  const toData4 = () => {
+    gsap.to(window, {
+      duration: 2,
+      scrollTo: { y: innerHeight * 10 },
+      ease: "none",
+    });
+  };
   return (
     <div
       className="ExploreNav"
       style={{ opacity: 1, visibility: "inherit" }}
     >
       <div className="ExploreNav-inner">
-        <a href="" ref={a1}>
+        <a ref={a1}>
           <div
             ref={line1}
             className="ExploreNav-line"
@@ -299,9 +328,11 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
             <span ref={index1}>1</span>
             <div ref={innerDiamond1} className="innerDiamond"></div>
           </div>
-          <span>home</span>
+          <span style={{ cursor: "pointer" }} onClick={toData1}>
+            home
+          </span>
         </a>
-        <a href="" ref={a2}>
+        <a ref={a2}>
           <div
             ref={line2}
             className="ExploreNav-line"
@@ -344,9 +375,11 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
             <span ref={index2}>2</span>
             <div ref={innerDiamond2} className="innerDiamond"></div>
           </div>
-          <span>数据集</span>
+          <span style={{ cursor: "pointer" }} onClick={toData2}>
+            数据集
+          </span>
         </a>
-        <a href="" ref={a3}>
+        <a ref={a3}>
           <div
             ref={line3}
             className="ExploreNav-line"
@@ -396,9 +429,11 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
             <span ref={index3}>3</span>
             <div ref={innerDiamond3} className="innerDiamond"></div>
           </div>
-          <span>开放统计</span>
+          <span style={{ cursor: "pointer" }} onClick={toData3}>
+            开放统计
+          </span>
         </a>
-        <a href="">
+        <a>
           <div className="ExploreNav-diamond end">
             <div className="highlightDiamond" ref={Diamond4}></div>
             <div
@@ -414,7 +449,9 @@ const SideNav: FC<SideNavProps> = ({ title }) => {
             ></div>
             <div className="innerDiamond"></div>
           </div>
-          <span>end</span>
+          <span style={{ cursor: "pointer" }} onClick={toData4}>
+            end
+          </span>
         </a>
       </div>
     </div>

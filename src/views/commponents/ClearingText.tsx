@@ -2,7 +2,7 @@
  * @Author: wangbo 3812943352@qq.com
  * @Date: 2024-12-22 10:01:31
  * @LastEditors: wangbo 3812943352@qq.com
- * @LastEditTime: 2024-12-22 13:15:39
+ * @LastEditTime: 2024-12-23 15:47:43
  * @FilePath: src/views/commponents/ClearingText.tsx
  * @Description: 这是默认设置,可以在设置》工具》File Description中进行配置
  */
@@ -33,8 +33,8 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRefs.current[index],
-            start: innerHeight * 4.04, // 当行的顶部到达视窗中心时开始动画
-            end: innerHeight * 4.19, // 动画结束位置，可以根据需要调整
+            start: innerHeight * 9.9, // 当行的顶部到达视窗中心时开始动画
+            end: innerHeight * 10, // 动画结束位置，可以根据需要调整
             scrub: 1,
           },
         });
@@ -85,6 +85,8 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
         let style = {
           filter: `blur(${Math.floor(Math.random() * (15 - 3 + 1)) + 3}px)`,
           opacity: 0,
+          fontSize: ".6em",
+          textAlign: "center",
         };
 
         if (char === " ") {
@@ -99,7 +101,11 @@ const MultiLineFadingText: React.FC<MultiLineFadingTextProps> = ({
               <span
                 key={`${charIndex}-sup`}
                 className="clear"
-                style={{ ...style, verticalAlign: "super" }}
+                style={{
+                  ...style,
+                  verticalAlign: "super",
+                  fontSize: "0.7em",
+                }}
               >
                 {"®"}
               </span>
@@ -143,8 +149,8 @@ const styles = `
 
   .line-container {
     color: white;
-      font-family: "Courier New", Courier, monospace;
-
+    font-family: "Courier New", Courier, monospace;
+    text-align:center;
     text-shadow:
     0 0 1px #dbeafe,   /* 较近的内发光 */
     0 0 1px #dbeafe,  /* 中等距离的发光 */
